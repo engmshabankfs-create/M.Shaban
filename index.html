@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENG Mohamed Shaban | Mechanical Engineer</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{
+      --bg: #0a0636;
+      --card: #141046;
+      --accent: #00FFFF; 
+      --gold: #FFD700;   
+      --text: #fff;
+    }
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      text-align:center;
+    }
+
+    /* menu button */
+    .menu-btn{
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      font-size: 28px;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index:1100;
+    }
+
+    /* sidebar */
+    .sidebar{
+      position: fixed;
+      top:0;
+      left:-260px;
+      width: 260px;
+      height:100%;
+      background: var(--card);
+      padding-top: 70px;
+      box-shadow: 2px 0 18px rgba(0,0,0,0.6);
+      transition: left 0.33s ease;
+      z-index:1050;
+    }
+    .sidebar.active{ left: 0; }
+    .sidebar a{
+      display:block;
+      padding:14px 18px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 17px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background .2s, color .2s;
+    }
+    .sidebar a i{ margin-inline-end:10px; }
+    .sidebar a:hover{
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* main card */
+    .card{
+      margin: 48px auto;
+      padding: 22px;
+      width: 90%;
+      max-width:420px;
+      background: #141046;
+      border-radius: 15px;
+      box-shadow: 0px 0px 20px rgba(0,255,255,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* يوسّط المحتوى داخل الكارت */
+      text-align: center;
+    }
+
+    /* profile image */
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border: 3px solid cyan;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .profile-pic:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    h1{
+      margin:10px 0 6px;
+      font-size:22px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0,255,255,0.12);
+    }
+
+    /* typing */
+    .typing{
+      color: var(--gold);
+      font-size:18px;
+      font-weight:700;
+      display:inline-block;
+      white-space:nowrap;
+      overflow:hidden;
+      border-right:3px solid rgba(255,255,255,0.9);
+      padding-right:6px;
+      animation: blink-cursor .8s steps(1) infinite;
+    }
+    @keyframes blink-cursor{ 50%{ border-color: transparent; } }
+
+    .social-links{
+      margin-top:14px;
+    }
+    .social-links a{
+      margin:0 8px;
+      color:var(--text);
+      font-size:26px;
+      text-decoration:none;
+      transition: transform .15s, color .18s;
+    }
+    .social-links a:hover{ transform: translateY(-3px); color: var(--accent); }
+
+    .btn{
+      display:inline-block;
+      margin-top:16px;
+      padding:10px 18px;
+      background: #00bcd4;
+      color:white;
+      border-radius:24px;
+      text-decoration:none;
+      font-weight:700;
+      font-size:15px;
+    }
+    .btn:hover{ background: var(--accent); color:#000; }
+
+    @media (max-width:480px){
+      .card{ margin-top:70px; padding:16px; }
+      .profile-pic{ width:140px; height:140px; }
+      h1{ font-size:18px; }
+      .typing{ font-size:15px; }
+      .social-links a{ font-size:22px; margin:0 6px; }
+      .btn{ font-size:13px; padding:8px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- menu button -->
+  <button class="menu-btn" id="menuBtn" aria-label="open menu"><i class="fas fa-bars"></i></button>
+
+  <!-- sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <a href="https://t.me/pablo_0boy" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+    <a href="https://youtube.com/@mohamedshaban-y4c?si=P7vz5qJi5aQJMn5B" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+    <a href="https://www.facebook.com/share/1DLp9ydAKB/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+    <a href="https://t.me/pablo_wa_modes" target="_blank"><i class="fa-solid fa-users"></i> Telegram Group</a>
+  </nav>
+
+  <!-- main card -->
+  <div class="card">
+    <a href="me.jpg" target="_blank" title="Open full image">
+      <div class="profile-pic">
+        <img src="me.jpg" alt="ENG Mohamed Shaban">
+      </div>
+    </a>
+
+    <h1>ENG Mohamed Shaban</h1>
+    <div class="typing" id="typing"></div>
+
+    <div class="social-links" style="margin-top:18px;">
+      <a href="https://wa.me/201094517814" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="mailto:mohamed.shaban.engineer@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/mohamed-shaban-67a05035a" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+
+    <a class="btn" href="cv.pdf" download><i class="fas fa-file-download" style="margin-inline-end:8px;"></i> Download CV</a>
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
+    sidebar.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => sidebar.classList.remove('active'));
+    });
+
+    // Typing effect
+    const texts = [
+      "Mechanical Power Engineer",
+      "Energy & Machines Specialist",
+      "Industrial Maintenance Expert",
+      "Always Learning & Innovating"
+    ];
+    const typingEl = document.getElementById('typing');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function tick() {
+      const current = texts[textIndex];
+      if (!isDeleting) {
+        charIndex++;
+        typingEl.textContent = current.slice(0, charIndex);
+      } else {
+        charIndex--;
+        typingEl.textContent = current.slice(0, charIndex);
+      }
+
+      let delay = isDeleting ? 60 : 120;
+
+      if (!isDeleting && charIndex === current.length) {
+        delay = 1500;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        delay = 300;
+      }
+      setTimeout(tick, delay);
+    }
+    tick();
+  </script>
+</body>
+</html>
