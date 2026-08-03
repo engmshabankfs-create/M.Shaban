@@ -1,14 +1,10 @@
 [
   {
-    "title": "اسم الشهادة الأولى",
-    "image": "certificates/cert1.jpg"
+    "title": "CSWA",
+    "image": "certificates/CSWA.jpg"
   },
   {
-    "title": "اسم الشهادة الثانية",
-    "image": "certificates/cert2.jpg"
-  },
-  {
-    "title": "اسم الشهادة الثالثة",
-    "image": "certificates/cert3.jpg"
+    "title": "SOLIDWORKS xShape Associate",
+    "image": "certificates/SOLIDWORKS xShape Associate.jpg"
   }
 ]
