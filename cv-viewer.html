@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV - Mohamed Shaban</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg: #f2f2f7;
+    --card: #ffffff;
+    --text: #1c1c1e;
+    --secondary: #8a8a8e;
+    --blue: #007aff;
+    --separator: #e5e5ea;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #000000;
+      --card: #1c1c1e;
+      --text: #f2f2f7;
+      --secondary: #98989d;
+      --blue: #0a84ff;
+      --separator: #38383a;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    }
+  }
+  [data-theme="dark"]{
+    --bg: #000000;
+    --card: #1c1c1e;
+    --text: #f2f2f7;
+    --secondary: #98989d;
+    --blue: #0a84ff;
+    --separator: #38383a;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .topbar{
+    position: sticky;
+    top:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--separator);
+    z-index: 10;
+  }
+  .back-btn, .download-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius: 20px;
+    padding: 9px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor:pointer;
+    box-shadow: var(--shadow);
+    text-decoration:none;
+  }
+  .back-btn{ background: var(--card); color: var(--blue); }
+  .download-btn{ background: var(--blue); color:#fff; }
+  .back-btn:active, .download-btn:active{ transform: scale(0.96); }
+  .pdf-container{
+    max-width: 900px;
+    margin: 16px auto;
+    padding: 0 12px 40px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 14px;
+  }
+  .pdf-container canvas{
+    width:100%;
+    height:auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    background:#fff;
+    display:block;
+  }
+  .loading-text{
+    text-align:center;
+    color: var(--secondary);
+    font-size: 14px;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="back-btn" href="index.html">
+      <i class="fas fa-arrow-right"></i> رجوع للصفحة الرئيسية
+    </a>
+    <a class="download-btn" href="cv.pdf" download>
+      <i class="fas fa-file-download"></i> تحميل
+    </a>
+  </div>
+
+  <div class="pdf-container" id="pdfContainer">
+    <div class="loading-text" id="loadingText">جاري تحميل الـ CV...</div>
+  </div>
+
+  <!-- pdf.js: بيعرض الـ PDF كصور جوه الصفحة، بيشتغل على كل متصفحات الموبايل
+       من غير ما يعتمد على أي PDF viewer مدمج في المتصفح -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    // لو المستخدم مفعّل الوضع الداكن/الفاتح يدويًا في الصفحة الرئيسية، نفس الاختيار يتطبق هنا
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+
+    const pdfjsLib = window.pdfjsLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const container = document.getElementById('pdfContainer');
+    const loadingText = document.getElementById('loadingText');
+
+    pdfjsLib.getDocument('cv.pdf?v=' + Date.now()).promise.then(async (pdf) => {
+      loadingText.remove();
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 2 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        container.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+      }
+    }).catch(() => {
+      loadingText.textContent = 'تعذر عرض المعاينة هنا. اضغط زرار "تحميل" فوق لفتح الملف.';
+    });
+  </script>
+</body>
+</html>
