@@ -25,13 +25,6 @@
     "pdf": "certificates/SOLIDWORKS Sustainability Associate.pdf"
   },
   {
-    },
-  {
-    "title": "SOLIDWORKS xMold - Associate",
-    "image": "certificates/SOLIDWORKS xMold - Associate.png",
-    "pdf": "certificates/SOLIDWORKS xMold - Associate.pdf"
-  },
-  {
     "title": "DraftSight Associate - 2D Design and Drafting",
     "image": "certificates/DraftSight Associate - 2D Design and Drafting.png",
     "pdf": "certificates/DraftSight Associate - 2D Design and Drafting.pdf"
@@ -40,5 +33,10 @@
     "title": "SOLIDWORKS Electrical Design Associate",
     "image": "certificates/SOLIDWORKS Electrical Design Associate.png",
     "pdf": "certificates/SOLIDWORKS Electrical Design Associate.pdf"
+  },
+  {
+    "title": "SOLIDWORKS xMold - Associate",
+    "image": "certificates/SOLIDWORKS xMold - Associate.png",
+    "pdf": "certificates/SOLIDWORKS xMold - Associate.pdf"
   }
 ]
