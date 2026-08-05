@@ -72,70 +72,102 @@
   .download-btn{ background: var(--blue); color:#fff; }
   .back-btn:active, .download-btn:active{ transform: scale(0.96); }
 
-  .cv-container{
+  .pdf-container{
     max-width: 900px;
     margin: 16px auto;
     padding: 0 12px 40px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:20px;
+    gap: 20px;
   }
-
-  /* ===== عرض PDF باستخدام iframe (حل بسيط) ===== */
-  .pdf-iframe-wrapper{
+  .page-wrapper{
     width:100%;
+    display:flex;
+    justify-content:center;
     background: var(--card);
     border-radius: 12px;
     box-shadow: var(--shadow);
-    overflow:hidden;
     padding: 8px;
   }
-  .pdf-iframe-wrapper iframe{
-    width:100%;
-    height: 600px;
-    border:0;
-    border-radius: 8px;
-    background:#fff;
-    display:block;
-  }
-
-  /* ===== عرض الصورة (لو الـ PDF مش واضح) ===== */
-  .cv-image-wrapper{
-    width:100%;
-    background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    overflow:hidden;
-    padding: 8px;
-  }
-  .cv-image-wrapper img{
-    width:100%;
+  .page-wrapper canvas{
+    max-width:100%;
     height:auto;
     display:block;
-    border-radius: 8px;
+    border-radius: 4px;
   }
-
-  .fallback-message{
+  .loading-text, .error-text{
     text-align:center;
     color: var(--secondary);
-    font-size: 14px;
-    padding: 20px;
+    font-size: 15px;
+    padding: 40px 20px;
     background: var(--card);
     border-radius: 12px;
     box-shadow: var(--shadow);
     width:100%;
   }
-  .fallback-message a{
+  .error-text{ color: #ff3b30; }
+  .error-text a{
     color: var(--blue);
     text-decoration:none;
     font-weight:600;
   }
 
-  @media (max-width:600px){
-    .pdf-iframe-wrapper iframe{ height: 450px; }
-    .topbar{ flex-wrap:wrap; justify-content:center; }
+  /* ===== صورة بديلة في حالة فشل الـ PDF ===== */
+  .fallback-image{
+    width:100%;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    padding: 8px;
+    display:none;
   }
+  .fallback-image img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius: 4px;
+  }
+  .fallback-label{
+    text-align:center;
+    color: var(--secondary);
+    font-size:13px;
+    padding: 12px 0 4px;
+  }
+
+  .download-row{
+    display:flex;
+    gap:12px;
+    width:100%;
+    flex-wrap:wrap;
+  }
+  .download-row .btn{
+    flex:1;
+    min-width:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    box-shadow: var(--shadow);
+  }
+  .download-row .btn-primary{
+    background: var(--blue);
+    color:#fff;
+  }
+  .download-row .btn-secondary{
+    background: var(--card);
+    color: var(--blue);
+  }
+  .download-row .btn:active{ transform:scale(0.97); }
 </style>
 </head>
 <body>
@@ -148,39 +180,123 @@
     </a>
   </div>
 
-  <div class="cv-container" id="cvContainer">
-
-    <!-- المعاينة باستخدام iframe (حل سريع ونظيف) -->
-    <div class="pdf-iframe-wrapper">
-      <iframe src="cv.pdf#toolbar=0" title="السيرة الذاتية - محمد شعبان"></iframe>
+  <div class="pdf-container" id="pdfContainer">
+    <div class="loading-text" id="loadingText">
+      <i class="fas fa-spinner fa-spin" style="color:var(--blue);font-size:20px;display:block;margin-bottom:12px;"></i>
+      جاري تحميل السيرة الذاتية ...
     </div>
-
-    <!-- رسالة توضيحية في حالة عدم ظهور الـ PDF -->
-    <div class="fallback-message">
-      <i class="fas fa-info-circle" style="color:var(--blue);"></i>
-      إذا لم تظهر المعاينة، 
-      <a href="cv.pdf" target="_blank">اضغط هنا لفتح الملف</a>
-      أو استخدم زر التحميل بالأعلى.
-    </div>
-
-    <!-- صورة بديلة لو حابب تعرضها (علقها أو اشطبها لو مش عايزها) -->
-    <!-- 
-    <div class="cv-image-wrapper">
-      <img src="cv.png" alt="السيرة الذاتية">
-    </div>
-    -->
-
   </div>
 
+  <!-- pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
-    // تطبيق الثيم المختار من localStorage
     (function(){
       const saved = localStorage.getItem('theme');
       if (saved === 'dark' || saved === 'light') {
         document.documentElement.setAttribute('data-theme', saved);
       }
     })();
-  </script>
 
+    const pdfjsLib = window.pdfjsLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const container = document.getElementById('pdfContainer');
+    const loadingText = document.getElementById('loadingText');
+
+    // جودة عالية جداً عشان النص يظهر واضح
+    const QUALITY = 3.2;
+    const PIXEL_RATIO = window.devicePixelRatio || 1;
+
+    // اسم ملف الصورة البديلة (لو عندك صورة للسيرة الذاتية)
+    const FALLBACK_IMAGE = 'cv.png'; // غير الاسم لو الصورة بأسم تاني
+
+    pdfjsLib.getDocument('cv.pdf?v=' + Date.now()).promise
+      .then(async (pdf) => {
+        loadingText.remove();
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: QUALITY });
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'page-wrapper';
+
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(viewport.width * PIXEL_RATIO);
+          canvas.height = Math.floor(viewport.height * PIXEL_RATIO);
+          canvas.style.width = '100%';
+          canvas.style.height = 'auto';
+          canvas.style.maxWidth = Math.floor(viewport.width) + 'px';
+
+          wrapper.appendChild(canvas);
+          container.appendChild(wrapper);
+
+          const ctx = canvas.getContext('2d');
+          await page.render({
+            canvasContext: ctx,
+            viewport: viewport,
+            transform: [PIXEL_RATIO, 0, 0, PIXEL_RATIO, 0, 0]
+          }).promise;
+        }
+
+        // إضافة أزرار تحميل بعد عرض الصفحات
+        addDownloadButtons();
+      })
+      .catch((err) => {
+        console.warn('PDF load error:', err);
+        loadingText.className = 'error-text';
+        loadingText.innerHTML = `
+          <i class="fas fa-exclamation-circle" style="font-size:24px;display:block;margin-bottom:12px;color:#ff3b30;"></i>
+          تعذر عرض المعاينة المباشرة.
+          <br><br>
+          <a href="cv.pdf" target="_blank">📄 اضغط هنا لفتح الملف</a>
+          <br><br>
+          أو استخدم زر التحميل بالأعلى.
+        `;
+
+        // محاولة عرض الصورة البديلة
+        tryFallbackImage();
+      });
+
+    function addDownloadButtons() {
+      const row = document.createElement('div');
+      row.className = 'download-row';
+      row.innerHTML = `
+        <a class="btn btn-primary" href="cv.pdf" download>
+          <i class="fas fa-file-download"></i> تحميل PDF
+        </a>
+        <a class="btn btn-secondary" href="cv.pdf" target="_blank">
+          <i class="fas fa-external-link-alt"></i> فتح في متصفح
+        </a>
+      `;
+      container.appendChild(row);
+    }
+
+    function tryFallbackImage() {
+      // لو الصورة البديلة موجودة، اعرضها
+      const img = new Image();
+      img.onload = function() {
+        // الصورة موجودة، اعرضها مكان الـ PDF
+        const wrapper = document.createElement('div');
+        wrapper.className = 'fallback-image';
+        wrapper.style.display = 'block';
+        wrapper.innerHTML = `
+          <div class="fallback-label"><i class="fas fa-image"></i> معاينة بديلة</div>
+          <img src="${FALLBACK_IMAGE}" alt="السيرة الذاتية - معاينة بديلة">
+        `;
+        // نحذف رسالة الخطأ ونضيف الصورة
+        const loading = document.getElementById('loadingText');
+        if (loading) loading.remove();
+        container.appendChild(wrapper);
+
+        // ونضيف أزرار التحميل
+        addDownloadButtons();
+      };
+      img.onerror = function() {
+        // الصورة مش موجودة، خلاص نكتفي برسالة الخطأ
+      };
+      img.src = FALLBACK_IMAGE + '?v=' + Date.now();
+    }
+  </script>
 </body>
 </html>
