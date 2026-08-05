@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>CV - Mohamed Shaban</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -53,6 +53,7 @@
     background: var(--bg);
     border-bottom: 1px solid var(--separator);
     z-index: 10;
+    flex-wrap:wrap;
   }
   .back-btn, .download-btn{
     display:flex;
@@ -72,102 +73,142 @@
   .download-btn{ background: var(--blue); color:#fff; }
   .back-btn:active, .download-btn:active{ transform: scale(0.96); }
 
-  .pdf-container{
-    max-width: 900px;
+  .cv-container{
+    max-width: 1000px;
     margin: 16px auto;
     padding: 0 12px 40px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap: 20px;
+    gap: 16px;
   }
+
   .page-wrapper{
     width:100%;
-    display:flex;
-    justify-content:center;
     background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    padding: 8px;
-  }
-  .page-wrapper canvas{
-    max-width:100%;
-    height:auto;
-    display:block;
-    border-radius: 4px;
-  }
-  .loading-text, .error-text{
-    text-align:center;
-    color: var(--secondary);
-    font-size: 15px;
-    padding: 40px 20px;
-    background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    width:100%;
-  }
-  .error-text{ color: #ff3b30; }
-  .error-text a{
-    color: var(--blue);
-    text-decoration:none;
-    font-weight:600;
-  }
-
-  /* ===== صورة بديلة في حالة فشل الـ PDF ===== */
-  .fallback-image{
-    width:100%;
-    background: var(--card);
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
     overflow:hidden;
-    padding: 8px;
-    display:none;
+    padding: 10px;
   }
-  .fallback-image img{
+  .page-wrapper img{
     width:100%;
     height:auto;
     display:block;
-    border-radius: 4px;
-  }
-  .fallback-label{
-    text-align:center;
-    color: var(--secondary);
-    font-size:13px;
-    padding: 12px 0 4px;
+    border-radius: 8px;
+    background:#fff;
+    transition: transform 0.15s ease;
+    transform-origin: top left;
   }
 
-  .download-row{
-    display:flex;
-    gap:12px;
+  .controls-bar{
     width:100%;
+    display:flex;
     flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    padding: 10px 16px;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
   }
-  .download-row .btn{
-    flex:1;
-    min-width:120px;
+  .controls-bar .zoom-group{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background: var(--bg);
+    border-radius: 30px;
+    padding: 4px 6px;
+  }
+  .controls-bar .zoom-group button{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:none;
+    background: transparent;
+    color: var(--text);
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
     display:flex;
     align-items:center;
     justify-content:center;
+  }
+  .controls-bar .zoom-group button:active{
+    background: var(--separator);
+    transform:scale(0.92);
+  }
+  .controls-bar .zoom-level{
+    font-size:13px;
+    font-weight:600;
+    color: var(--secondary);
+    min-width:44px;
+    text-align:center;
+  }
+  .controls-bar .btn-group{
+    display:flex;
     gap:8px;
-    padding: 12px 16px;
-    border-radius: 14px;
-    font-size:15px;
+    flex-wrap:wrap;
+  }
+  .controls-bar .btn-group a{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size:13px;
     font-weight:600;
     text-decoration:none;
     border:none;
     cursor:pointer;
     font-family:inherit;
-    box-shadow: var(--shadow);
+    background: var(--bg);
+    color: var(--blue);
+    transition: transform 0.1s ease;
   }
-  .download-row .btn-primary{
+  .controls-bar .btn-group a:active{
+    transform:scale(0.95);
+  }
+  .controls-bar .btn-group .primary{
     background: var(--blue);
     color:#fff;
   }
-  .download-row .btn-secondary{
-    background: var(--card);
-    color: var(--blue);
+
+  .page-number{
+    font-size:13px;
+    color: var(--secondary);
+    font-weight:500;
   }
-  .download-row .btn:active{ transform:scale(0.97); }
+
+  .loading-text{
+    text-align:center;
+    color: var(--secondary);
+    font-size: 15px;
+    padding: 40px 20px;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    width:100%;
+  }
+  .loading-text .spinner{
+    display:inline-block;
+    width:32px;
+    height:32px;
+    border:3px solid var(--separator);
+    border-top-color: var(--blue);
+    border-radius:50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom:12px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  @media (max-width:600px){
+    .topbar{ justify-content:center; }
+    .page-wrapper{ padding:6px; }
+    .controls-bar{ flex-direction:column; }
+    .controls-bar .btn-group{ justify-content:center; }
+  }
 </style>
 </head>
 <body>
@@ -180,15 +221,13 @@
     </a>
   </div>
 
-  <div class="pdf-container" id="pdfContainer">
+  <div class="cv-container" id="cvContainer">
     <div class="loading-text" id="loadingText">
-      <i class="fas fa-spinner fa-spin" style="color:var(--blue);font-size:20px;display:block;margin-bottom:12px;"></i>
+      <div class="spinner"></div>
       جاري تحميل السيرة الذاتية ...
     </div>
   </div>
 
-  <!-- pdf.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
     (function(){
       const saved = localStorage.getItem('theme');
@@ -197,106 +236,139 @@
       }
     })();
 
-    const pdfjsLib = window.pdfjsLib;
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    const container = document.getElementById('pdfContainer');
+    const container = document.getElementById('cvContainer');
     const loadingText = document.getElementById('loadingText');
 
-    // جودة عالية جداً عشان النص يظهر واضح
-    const QUALITY = 3.2;
-    const PIXEL_RATIO = window.devicePixelRatio || 1;
+    // ============================================
+    // 🔥 هنا اسماء الصور بالترتيب
+    // ============================================
+    const PAGES = [
+      '11.jpg',
+      '22.jpg'
+    ];
+    // ============================================
 
-    // اسم ملف الصورة البديلة (لو عندك صورة للسيرة الذاتية)
-    const FALLBACK_IMAGE = 'cv.png'; // غير الاسم لو الصورة بأسم تاني
+    let allImages = [];
+    let currentZoom = 1;
+    const MIN_ZOOM = 0.5;
+    const MAX_ZOOM = 4;
+    const STEP = 0.1;
 
-    pdfjsLib.getDocument('cv.pdf?v=' + Date.now()).promise
-      .then(async (pdf) => {
-        loadingText.remove();
+    function loadImages() {
+      loadingText.remove();
 
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: QUALITY });
+      PAGES.forEach((src, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'page-wrapper';
 
-          const wrapper = document.createElement('div');
-          wrapper.className = 'page-wrapper';
+        const img = document.createElement('img');
+        img.src = src + '?v=' + Date.now();
+        img.alt = `السيرة الذاتية - صفحة ${index + 1}`;
+        img.loading = 'lazy';
+        img.dataset.page = index + 1;
 
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.floor(viewport.width * PIXEL_RATIO);
-          canvas.height = Math.floor(viewport.height * PIXEL_RATIO);
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
-          canvas.style.maxWidth = Math.floor(viewport.width) + 'px';
-
-          wrapper.appendChild(canvas);
-          container.appendChild(wrapper);
-
-          const ctx = canvas.getContext('2d');
-          await page.render({
-            canvasContext: ctx,
-            viewport: viewport,
-            transform: [PIXEL_RATIO, 0, 0, PIXEL_RATIO, 0, 0]
-          }).promise;
-        }
-
-        // إضافة أزرار تحميل بعد عرض الصفحات
-        addDownloadButtons();
-      })
-      .catch((err) => {
-        console.warn('PDF load error:', err);
-        loadingText.className = 'error-text';
-        loadingText.innerHTML = `
-          <i class="fas fa-exclamation-circle" style="font-size:24px;display:block;margin-bottom:12px;color:#ff3b30;"></i>
-          تعذر عرض المعاينة المباشرة.
-          <br><br>
-          <a href="cv.pdf" target="_blank">📄 اضغط هنا لفتح الملف</a>
-          <br><br>
-          أو استخدم زر التحميل بالأعلى.
-        `;
-
-        // محاولة عرض الصورة البديلة
-        tryFallbackImage();
+        wrapper.appendChild(img);
+        container.appendChild(wrapper);
+        allImages.push(img);
       });
 
-    function addDownloadButtons() {
-      const row = document.createElement('div');
-      row.className = 'download-row';
-      row.innerHTML = `
-        <a class="btn btn-primary" href="cv.pdf" download>
-          <i class="fas fa-file-download"></i> تحميل PDF
-        </a>
-        <a class="btn btn-secondary" href="cv.pdf" target="_blank">
-          <i class="fas fa-external-link-alt"></i> فتح في متصفح
-        </a>
+      setTimeout(addControls, 300);
+    }
+
+    function addControls() {
+      const controls = document.createElement('div');
+      controls.className = 'controls-bar';
+      controls.innerHTML = `
+        <div class="zoom-group">
+          <button id="zoomOut" type="button">−</button>
+          <span class="zoom-level" id="zoomLevel">100%</span>
+          <button id="zoomIn" type="button">+</button>
+          <button id="zoomReset" type="button" style="width:auto;padding:0 12px;border-radius:16px;font-size:13px;">↺</button>
+        </div>
+        <span class="page-number" id="pageInfo">صفحة 1 من ${allImages.length}</span>
+        <div class="btn-group">
+          <a href="cv.pdf" download class="primary">
+            <i class="fas fa-file-download"></i> تحميل PDF
+          </a>
+          <a href="cv.pdf" target="_blank">
+            <i class="fas fa-external-link-alt"></i> فتح PDF
+          </a>
+        </div>
       `;
-      container.appendChild(row);
+      container.appendChild(controls);
+
+      document.getElementById('zoomIn').addEventListener('click', () => {
+        if (currentZoom < MAX_ZOOM) {
+          currentZoom = Math.min(currentZoom + STEP, MAX_ZOOM);
+          updateZoom();
+        }
+      });
+      document.getElementById('zoomOut').addEventListener('click', () => {
+        if (currentZoom > MIN_ZOOM) {
+          currentZoom = Math.max(currentZoom - STEP, MIN_ZOOM);
+          updateZoom();
+        }
+      });
+      document.getElementById('zoomReset').addEventListener('click', () => {
+        currentZoom = 1;
+        updateZoom();
+      });
+
+      let lastDist = 0;
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          const t = e.touches;
+          lastDist = Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+        }
+      }, { passive: true });
+
+      container.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2 && lastDist > 0) {
+          const t = e.touches;
+          const dist = Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+          const delta = (dist - lastDist) / 300;
+          currentZoom = Math.min(Math.max(currentZoom + delta, MIN_ZOOM), MAX_ZOOM);
+          updateZoom();
+          lastDist = dist;
+        }
+      }, { passive: true });
+
+      container.addEventListener('touchend', () => { lastDist = 0; }, { passive: true });
+
+      updatePageNumber();
+      container.addEventListener('scroll', updatePageNumber, { passive: true });
     }
 
-    function tryFallbackImage() {
-      // لو الصورة البديلة موجودة، اعرضها
-      const img = new Image();
-      img.onload = function() {
-        // الصورة موجودة، اعرضها مكان الـ PDF
-        const wrapper = document.createElement('div');
-        wrapper.className = 'fallback-image';
-        wrapper.style.display = 'block';
-        wrapper.innerHTML = `
-          <div class="fallback-label"><i class="fas fa-image"></i> معاينة بديلة</div>
-          <img src="${FALLBACK_IMAGE}" alt="السيرة الذاتية - معاينة بديلة">
-        `;
-        // نحذف رسالة الخطأ ونضيف الصورة
-        const loading = document.getElementById('loadingText');
-        if (loading) loading.remove();
-        container.appendChild(wrapper);
-
-        // ونضيف أزرار التحميل
-        addDownloadButtons();
-      };
-      img.onerror = function() {
-        // الصورة مش موجودة، خلاص نكتفي برسالة الخطأ
-      };
-      img.src = FALLBACK_IMAGE + '?v=' + Date.now();
+    function updateZoom() {
+      allImages.forEach(img => {
+        img.style.transform = `scale(${currentZoom})`;
+        img.style.transformOrigin = 'top left';
+      });
+      document.getElementById('zoomLevel').textContent = Math.round(currentZoom * 100) + '%';
     }
+
+    function updatePageNumber() {
+      const wrappers = container.querySelectorAll('.page-wrapper');
+      let visiblePage = 1;
+      let minDist = Infinity;
+      const center = window.innerHeight / 2;
+
+      wrappers.forEach((wrapper, index) => {
+        const rect = wrapper.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height/2 - center);
+        if (dist < minDist) {
+          minDist = dist;
+          visiblePage = index + 1;
+        }
+      });
+
+      const info = document.getElementById('pageInfo');
+      if (info) {
+        info.textContent = `صفحة ${visiblePage} من ${allImages.length}`;
+      }
+    }
+
+    loadImages();
   </script>
 </body>
 </html>
