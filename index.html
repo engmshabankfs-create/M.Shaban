@@ -1000,7 +1000,7 @@
 
     viewCvBtn.addEventListener('click', () => {
       if (isMobileBrowser) {
-        window.open('cv-view.html', '_blank');
+        window.open('cv-viewer.html?v=' + Date.now(), '_blank');
         return;
       }
       const isOpen = cvViewer.classList.toggle('open');
