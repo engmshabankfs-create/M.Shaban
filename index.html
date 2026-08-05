@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENG Mohamed Shaban | Mechanical Engineer</title>
+  <meta name="description" content="Mohamed Shaban — Mechanical Power & Energy Engineer. Contact, CV, and social links.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#007aff">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Mohamed Shaban | Mechanical Engineer">
+  <meta property="og:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
+  <meta property="og:image" content="me.jpg">
+  <meta property="og:url" content="https://engshab.blogspot.com/">
+  <meta property="og:locale" content="ar_AR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Mohamed Shaban | Mechanical Engineer">
+  <meta name="twitter:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
+  <meta name="twitter:image" content="me.jpg">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Structured data (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mohamed Shaban",
+    "jobTitle": "Mechanical Power & Energy Engineer",
+    "email": "mailto:eng.m.shaban.kfs@gmail.com",
+    "url": "https://engshab.blogspot.com/",
+    "image": "me.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/m-shaban-kfs",
+      "https://www.facebook.com/share/14on6ZyFRE2/",
+      "https://youtube.com/@eng.m.shaban",
+      "https://t.me/ENG_M_Shaban",
+      "https://engshab.blogspot.com/"
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg: #f2f2f7;
+      --card: #ffffff;
+      --text: #1c1c1e;
+      --secondary: #8a8a8e;
+      --blue: #007aff;
+      --separator: #e5e5ea;
+      --green: #34c759;
+      --red: #ff3b30;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
+      --sheet-bg: rgba(255,255,255,0.97);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg: #000000;
+        --card: #1c1c1e;
+        --text: #f2f2f7;
+        --secondary: #98989d;
+        --blue: #0a84ff;
+        --separator: #38383a;
+        --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+        --sheet-bg: rgba(28,28,30,0.97);
+        color-scheme: dark;
+      }
+    }
+
+    [data-theme="dark"]{
+      --bg: #000000;
+      --card: #1c1c1e;
+      --text: #f2f2f7;
+      --secondary: #98989d;
+      --blue: #0a84ff;
+      --separator: #38383a;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+      --sheet-bg: rgba(28,28,30,0.97);
+      color-scheme: dark;
+    }
+
+    *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      padding: 56px 16px;
+      transition: background .3s ease, color .3s ease;
+    }
+
+    /* theme toggle */
+    .theme-toggle{
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border: none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      color: var(--text);
+      font-size: 16px;
+      z-index: 50;
+      transition: background .3s ease, color .3s ease, transform .15s ease;
+    }
+    .theme-toggle:active{ transform: scale(0.92); }
+    .theme-toggle .fa-sun{ display:none; }
+    .theme-toggle .fa-moon{ display:inline; }
+    [data-theme="dark"] .theme-toggle .fa-sun{ display:inline; color:#ffd60a; }
+    [data-theme="dark"] .theme-toggle .fa-moon{ display:none; }
+    @media (prefers-color-scheme: dark){
+      html:not([data-theme="light"]) .theme-toggle .fa-sun{ display:inline; color:#ffd60a; }
+      html:not([data-theme="light"]) .theme-toggle .fa-moon{ display:none; }
+    }
+
+    .container{
+      width:100%;
+      max-width: 400px;
+    }
+
+    /* profile header */
+    .profile-header{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      margin-bottom: 28px;
+    }
+
+    .profile-pic{
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--card);
+      margin-bottom: 16px;
+      transition: transform .2s ease;
+      padding:0;
+      background:none;
+      cursor:pointer;
+      appearance:none;
+      -webkit-appearance:none;
+    }
+    .profile-pic:active{ transform: scale(0.97); }
+    .profile-pic img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+    }
+
+    h1{
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      letter-spacing: -0.3px;
+    }
+
+    .status-line{
+      font-size: 15px;
+      color: var(--secondary);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 20px;
+    }
+    .typing{
+      white-space:nowrap;
+      overflow:hidden;
+      border-right: 2px solid var(--blue);
+      animation: blink-cursor .8s steps(1) infinite;
+      padding-right:2px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+    @keyframes blink-cursor{ 50%{ border-color: transparent; } }
+
+    /* grouped list card */
+    .group-title{
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin: 0 0 8px 14px;
+    }
+
+    .card{
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .row{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 12px 16px;
+      text-decoration:none;
+      color: var(--text);
+      position: relative;
+      transition: background .15s ease;
+    }
+    .row:active{ background: rgba(120,120,128,0.12); }
+    .row + .row{ border-top: 1px solid var(--separator); }
+    button.row{
+      width:100%;
+      background: none;
+      font-family: inherit;
+      cursor:pointer;
+      appearance:none;
+      -webkit-appearance:none;
+      border:none;
+      outline:none;
+      margin:0;
+    }
+
+    .row-icon{
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size: 15px;
+      flex-shrink:0;
+    }
+    .icon-whatsapp{ background:#25D366; }
+    .icon-email{ background:#8E8E93; }
+    .icon-linkedin{ background:#0A66C2; }
+    .icon-facebook{ background:#1877F2; }
+    .icon-youtube{ background:#FF0000; }
+    .icon-telegram{ background:#229ED9; }
+    .icon-group{ background:#5856D6; }
+    .icon-blog{ background:#FF9500; }
+
+    .row-label{
+      flex:1;
+      font-size: 15.5px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .row-chevron{
+      color: #c7c7cc;
+      font-size: 13px;
+    }
+
+    /* CV actions */
+    .cv-actions{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      width:100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration:none;
+      cursor:pointer;
+      border: none;
+      font-family: inherit;
+      transition: opacity .15s ease, transform .1s ease;
+    }
+    .btn:active{ transform: scale(0.985); opacity:0.9; }
+
+    .btn.solid{
+      background: var(--blue);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .btn.outline{
+      background: var(--card);
+      color: var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    /* inline CV viewer */
+    .cv-viewer{
+      max-height:0;
+      overflow:hidden;
+      margin-top:0;
+      border-radius: 14px;
+      transition: max-height .4s ease, margin-top .4s ease;
+      background: var(--card);
+    }
+    .cv-viewer.open{
+      max-height:600px;
+      margin-top:14px;
+      box-shadow: var(--shadow);
+    }
+    .cv-viewer iframe{
+      width:100%;
+      height:560px;
+      border:0;
+      border-radius: 14px;
+      background:#fff;
+      display:block;
+    }
+
+    /* ===== Certificates overlay ===== */
+    .cert-overlay-backdrop{
+      position:fixed;
+      inset:0;
+      background: var(--bg);
+      z-index: 160;
+      opacity:0;
+      pointer-events:none;
+      transform: translateY(12px);
+      transition: opacity .25s ease, transform .25s ease;
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cert-overlay-backdrop.open{
+      opacity:1;
+      pointer-events:auto;
+      transform: translateY(0);
+    }
+    .cert-overlay-header{
+      position:sticky;
+      top:0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 16px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--separator);
+      z-index: 1;
+    }
+    .cert-overlay-back{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background: var(--card);
+      color: var(--blue);
+      border:none;
+      border-radius: 20px;
+      padding: 9px 14px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    .cert-overlay-back:active{ transform: scale(0.95); }
+    .cert-overlay-title{
+      flex:1;
+      text-align:center;
+      font-size: 16px;
+      font-weight: 700;
+      margin-right: 40px;
+    }
+    .cert-overlay-body{
+      padding: 16px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ===== Certificates section ===== */
+    .cert-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    /* Skeleton loading placeholders */
+    .cert-skeleton-item{
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cert-skeleton-item .cert-skeleton-img{
+      height: 108px;
+      background: linear-gradient(90deg, var(--separator) 25%, rgba(120,120,128,0.18) 37%, var(--separator) 63%);
+      background-size: 400% 100%;
+      animation: skeleton-shimmer 1.4s ease infinite;
+    }
+    .cert-skeleton-item .cert-skeleton-label{
+      height: 12px;
+      margin: 10px 14px 12px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--separator) 25%, rgba(120,120,128,0.18) 37%, var(--separator) 63%);
+      background-size: 400% 100%;
+      animation: skeleton-shimmer 1.4s ease infinite;
+    }
+    @keyframes skeleton-shimmer{
+      0%{ background-position: 100% 50%; }
+      100%{ background-position: 0 50%; }
+    }
+    .cert-loading-text{
+      text-align:center;
+      color: var(--secondary);
+      font-size: 13px;
+      margin: -8px 0 16px;
+      display:none;
+    }
+
+    .row-label small{
+      color: var(--secondary);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    /* certificate image fade-in once loaded */
+    .cert-item img{
+      opacity:0;
+      transition: opacity .25s ease;
+    }
+    .cert-item img.loaded{ opacity:1; }
+
+    /* share button inside certificate lightbox */
+    .lightbox-share{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-top:14px;
+      background: rgba(255,255,255,0.15);
+      color:#fff;
+      border:none;
+      border-radius: 20px;
+      padding: 9px 16px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor:pointer;
+    }
+    .lightbox-share:active{ transform: scale(0.95); }
+
+    /* view/download buttons under each certificate card */
+    .cert-item-actions{
+      display:flex;
+      gap:6px;
+      padding: 0 8px 10px;
+    }
+    .cert-item-actions .btn-mini{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      padding:8px 6px;
+      border-radius:10px;
+      font-size:11.5px;
+      font-weight:600;
+      text-decoration:none;
+      cursor:pointer;
+      border:none;
+      font-family:inherit;
+      transition: opacity .15s ease, transform .1s ease;
+    }
+    .cert-item-actions .btn-mini:active{ transform:scale(0.96); opacity:0.9; }
+    .cert-item-actions .btn-mini.outline{
+      background: var(--bg);
+      color: var(--blue);
+    }
+    .cert-item-actions .btn-mini.solid{
+      background: var(--blue);
+      color:#fff;
+    }
+
+    /* PDF viewer lightbox for certificates */
+    .lightbox-pdf-inner{ width:100%; max-width:900px; }
+    .lightbox-pdf-frame{
+      width:100%;
+      height:80vh;
+      border:0;
+      border-radius:12px;
+      background:#fff;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      display:block;
+    }
+    @media (max-width:480px){
+      .lightbox-pdf-frame{ height:70vh; }
+    }
+
+    .cert-item{
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      cursor:pointer;
+      border:none;
+      padding:0;
+      font-family:inherit;
+      text-align:left;
+      transition: transform .1s ease, opacity .15s ease;
+    }
+    .cert-item:active{ transform: scale(0.97); opacity:0.9; }
+    .cert-item img{
+      width:100%;
+      height: 108px;
+      object-fit: cover;
+      display:block;
+      background: #e5e5ea;
+    }
+    .cert-item .cert-label{
+      padding: 8px 10px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+      text-align:center;
+      line-height:1.3;
+    }
+
+    /* lightbox for full certificate / profile picture view */
+    .lightbox-backdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:200;
+      opacity:0;
+      pointer-events:none;
+      padding: 24px;
+      transition: background .25s ease, opacity .25s ease;
+    }
+    .lightbox-backdrop.open{
+      background: rgba(0,0,0,0.85);
+      opacity:1;
+      pointer-events:auto;
+    }
+    .lightbox-content{
+      max-width:100%;
+      max-height:80vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      display:block;
+    }
+    .lightbox-caption{
+      color:#fff;
+      text-align:center;
+      font-size:14px;
+      font-weight:600;
+      margin-top:12px;
+      opacity:0.9;
+    }
+    .lightbox-close{
+      position:fixed;
+      top:18px;
+      right:18px;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background: rgba(255,255,255,0.15);
+      color:#fff;
+      border:none;
+      font-size:18px;
+      cursor:pointer;
+      z-index:201;
+    }
+    .lightbox-close:active{ transform: scale(0.92); }
+
+    /* زر الرجوع للصفحة الرئيسية - يظهر فوق صورة البروفايل لما تتفتح */
+    .lightbox-back{
+      position:fixed;
+      top:18px;
+      left:18px;
+      display:none;
+      align-items:center;
+      gap:8px;
+      background: rgba(255,255,255,0.15);
+      color:#fff;
+      border:none;
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor:pointer;
+      z-index:201;
+      transition: background .15s ease, transform .1s ease;
+    }
+    .lightbox-back:active{ transform: scale(0.95); background: rgba(255,255,255,0.28); }
+
+    .lightbox-inner{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      max-width:100%;
+    }
+
+    footer{
+      text-align:center;
+      font-size: 12px;
+      color: var(--secondary);
+      margin-top: 22px;
+    }
+
+    @media (max-width:480px){
+      .profile-pic{ width:128px; height:128px; }
+      h1{ font-size: 20px; }
+      .row-label{ font-size: 15px; }
+      .cv-viewer.open{ max-height:420px; }
+      .cv-viewer iframe{ height:400px; }
+      .cert-item img{ height: 96px; }
+    }
+
+    /* action sheet */
+    .sheet-backdrop{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0);
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      z-index:100;
+      opacity:0;
+      pointer-events:none;
+      transition: background .25s ease, opacity .25s ease;
+    }
+    .sheet-backdrop.open{
+      background: rgba(0,0,0,0.35);
+      opacity:1;
+      pointer-events:auto;
+    }
+    .sheet{
+      width:100%;
+      max-width: 400px;
+      margin: 0 16px 16px;
+      transform: translateY(110%);
+      transition: transform .3s cubic-bezier(.32,.72,0,1);
+    }
+    .sheet-backdrop.open .sheet{
+      transform: translateY(0);
+    }
+    .sheet-group{
+      background: var(--sheet-bg);
+      border-radius: 14px;
+      overflow:hidden;
+      margin-bottom: 8px;
+      text-align:center;
+    }
+    .sheet-title{
+      padding: 14px 16px 12px;
+      font-size: 13px;
+      color: var(--secondary);
+      border-bottom: 1px solid var(--separator);
+    }
+    .sheet-option{
+      display:block;
+      width:100%;
+      padding: 15px 16px;
+      background:none;
+      border:none;
+      font-family:inherit;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--blue);
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .sheet-option:active{ background: rgba(120,120,128,0.16); }
+    .sheet-option + .sheet-option{ border-top: 1px solid var(--separator); }
+    .sheet-cancel{
+      display:block;
+      width:100%;
+      padding: 15px 16px;
+      background: var(--sheet-bg);
+      border-radius: 14px;
+      border:none;
+      font-family:inherit;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--blue);
+      cursor:pointer;
+    }
+    .sheet-cancel:active{ background: rgba(120,120,128,0.16); }
+
+    /* quick actions row (icon-only buttons) */
+    .quick-actions{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .quick-action{
+      background: var(--card);
+      border: none;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 14px 6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px;
+      cursor:pointer;
+      font-family: inherit;
+      color: var(--text);
+      transition: transform .1s ease, opacity .15s ease;
+    }
+    .quick-action:active{ transform: scale(0.95); opacity:0.85; }
+    .quick-action i{ font-size: 17px; color: var(--blue); }
+    .quick-action span{ font-size: 11.5px; font-weight: 600; text-align:center; line-height:1.2; }
+
+    /* QR sheet */
+    .qr-box{
+      background: #fff;
+      border-radius: 12px;
+      padding: 14px;
+      display:flex;
+      justify-content:center;
+      margin: 4px 0 14px;
+    }
+    .qr-box img{
+      width: 190px;
+      height: 190px;
+      display:block;
+    }
+    .qr-tabs{
+      display:flex;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .qr-tab{
+      flex:1;
+      padding: 8px 4px;
+      border-radius: 10px;
+      border: none;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(120,120,128,0.12);
+      color: var(--text);
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .qr-tab.active{
+      background: var(--blue);
+      color:#fff;
+    }
+
+    /* toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(28,28,30,0.92);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 250;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .25s ease, transform .25s ease;
+      white-space:nowrap;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button>
+
+  <div class="container">
+
+    <div class="profile-header">
+      <button type="button" class="profile-pic" id="profilePicBtn" aria-label="عرض الصورة بالكامل">
+        <img src="me.jpg" alt="ENG Mohamed Shaban">
+      </button>
+      <h1>Mohamed Shaban</h1>
+      <div class="status-line">
+        <span class="typing" id="typing"></span>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <button class="quick-action" id="copyNumberBtn" type="button">
+        <i class="fas fa-copy"></i>
+        <span>نسخ الرقم</span>
+      </button>
+      <button class="quick-action" id="saveContactBtn" type="button">
+        <i class="fas fa-address-card"></i>
+        <span>حفظ جهة الاتصال</span>
+      </button>
+      <button class="quick-action" id="shareBtn" type="button">
+        <i class="fas fa-share-nodes"></i>
+        <span>مشاركة</span>
+      </button>
+      <button class="quick-action" id="qrBtn" type="button">
+        <i class="fas fa-qrcode"></i>
+        <span>QR Code</span>
+      </button>
+    </div>
+
+    <div class="card">
+      <a class="row" href="https://wa.me/201094517814" target="_blank">
+        <span class="row-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></span>
+        <span class="row-label">WhatsApp</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <a class="row" href="mailto:eng.m.shaban.kfs@gmail.com">
+        <span class="row-icon icon-email"><i class="fas fa-envelope"></i></span>
+        <span class="row-label">Email</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <a class="row" href="https://www.linkedin.com/in/m-shaban-kfs?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">
+        <span class="row-icon icon-linkedin"><i class="fab fa-linkedin-in"></i></span>
+        <span class="row-label">LinkedIn</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <a class="row" href="https://www.facebook.com/share/14on6ZyFRE2/" target="_blank">
+        <span class="row-icon icon-facebook"><i class="fab fa-facebook-f"></i></span>
+        <span class="row-label">Facebook</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <a class="row" href="https://youtube.com/@eng.m.shaban?si=_45glZ1-534MI1eC" target="_blank">
+        <span class="row-icon icon-youtube"><i class="fab fa-youtube"></i></span>
+        <span class="row-label">YouTube</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <button class="row" id="telegramBtn" type="button">
+        <span class="row-icon icon-telegram"><i class="fab fa-telegram-plane"></i></span>
+        <span class="row-label">Telegram</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </button>
+      <a class="row" href="https://engshab.blogspot.com/" target="_blank">
+        <span class="row-icon icon-blog"><i class="fas fa-globe"></i></span>
+        <span class="row-label">M.Shaban</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <button class="row" id="certificatesBtn" type="button">
+        <span class="row-icon icon-group"><i class="fas fa-certificate"></i></span>
+        <span class="row-label">Certifications <small id="certCount"></small></span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </button>
+    </div>
+
+    <div class="group-title">Curriculum Vitae</div>
+    <div class="cv-actions">
+      <button class="btn outline" id="viewCvBtn" type="button">
+        <i class="fas fa-eye"></i> View CV
+      </button>
+      <a class="btn solid" href="cv.pdf" download>
+        <i class="fas fa-file-download"></i> Download CV
+      </a>
+    </div>
+
+    <div class="cv-viewer" id="cvViewer">
+      <iframe id="cvFrame" src="" title="CV Preview"></iframe>
+    </div>
+
+    <footer>Mechanical Power &amp; Energy Engineering</footer>
+  </div>
+
+  <!-- ===== Certificates overlay =====
+       بتتفتح بالضغط على زرار "الشهادات". البيانات بتتحمّل تلقائي من ملف
+       certificates.json (نفس مجلد الصفحة). عايز تضيف/تشيل شهادة؟
+       مش هتلمس الكود خالص هنا — عدّل ملف certificates.json بس. -->
+  <div class="cert-overlay-backdrop" id="certificatesOverlay">
+    <div class="cert-overlay-header">
+      <button class="cert-overlay-back" id="certificatesOverlayBack" type="button">
+        <i class="fas fa-arrow-right"></i> رجوع
+      </button>
+      <div class="cert-overlay-title">Certifications</div>
+    </div>
+    <div class="cert-overlay-body">
+      <div class="cert-loading-text" id="certLoadingText">جاري تحميل الشهادات...</div>
+      <div class="cert-grid" id="certSkeletonGrid" style="display:none;"></div>
+      <div class="cert-grid" id="certGrid"></div>
+      <div id="certEmpty" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">
+        لا توجد شهادات بعد
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile picture lightbox (مع زر رجوع للصفحة الرئيسية) -->
+  <button class="lightbox-back" id="profileLightboxBack" type="button">
+    <i class="fas fa-arrow-right"></i> رجوع للصفحة الرئيسية
+  </button>
+  <div class="lightbox-backdrop" id="profileLightbox">
+    <div class="lightbox-inner">
+      <img class="lightbox-content" src="me.jpg" alt="ENG Mohamed Shaban">
+    </div>
+  </div>
+
+  <!-- Certificate lightbox -->
+  <button class="lightbox-close" id="certLightboxClose" type="button" style="display:none;" aria-label="Close">
+    <i class="fas fa-xmark"></i>
+  </button>
+  <div class="lightbox-backdrop" id="certLightbox">
+    <div class="lightbox-inner">
+      <img class="lightbox-content" id="certLightboxImg" src="" alt="Certificate">
+      <div class="lightbox-caption" id="certLightboxCaption"></div>
+      <button class="lightbox-share" id="certLightboxShare" type="button">
+        <i class="fas fa-share-nodes"></i> مشاركة الشهادة
+      </button>
+    </div>
+  </div>
+
+  <!-- Certificate PDF viewer lightbox -->
+  <button class="lightbox-close" id="certPdfLightboxClose" type="button" style="display:none;" aria-label="Close">
+    <i class="fas fa-xmark"></i>
+  </button>
+  <div class="lightbox-backdrop" id="certPdfLightbox">
+    <div class="lightbox-inner lightbox-pdf-inner">
+      <iframe class="lightbox-pdf-frame" id="certPdfFrame" src="" title="Certificate PDF"></iframe>
+      <div class="lightbox-caption" id="certPdfCaption"></div>
+      <a class="lightbox-share" id="certPdfDownload" href="#" download>
+        <i class="fas fa-file-download"></i> تحميل PDF
+      </a>
+    </div>
+  </div>
+
+  <div class="sheet-backdrop" id="telegramSheet">
+    <div class="sheet">
+      <div class="sheet-group">
+        <div class="sheet-title">اختر</div>
+        <a class="sheet-option" href="https://t.me/ENG_M_Shaban" target="_blank">الملف الشخصي</a>
+        <a class="sheet-option" href="https://t.me/EngMShaban" target="_blank">قناة التلجرام</a>
+      </div>
+      <button class="sheet-cancel" id="telegramSheetCancel" type="button">إلغاء</button>
+    </div>
+  </div>
+
+  <div class="sheet-backdrop" id="qrSheet">
+    <div class="sheet">
+      <div class="sheet-group" style="padding:16px;">
+        <div class="qr-tabs">
+          <button class="qr-tab active" id="qrTabSite" type="button">الموقع</button>
+          <button class="qr-tab" id="qrTabWhatsapp" type="button">واتساب</button>
+          <button class="qr-tab" id="qrTabContact" type="button">جهة الاتصال</button>
+        </div>
+        <div class="qr-box">
+          <img id="qrImage" src="" alt="QR Code">
+        </div>
+      </div>
+      <button class="sheet-cancel" id="qrSheetCancel" type="button">إغلاق</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Typing effect
+    const texts = [
+      "Mechanical Power Engineer",
+      "Energy & Machines Specialist",
+      "Industrial Maintenance Expert",
+      "Always Learning & Innovating"
+    ];
+    const typingEl = document.getElementById('typing');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function tick() {
+      const current = texts[textIndex];
+      if (!isDeleting) {
+        charIndex++;
+        typingEl.textContent = current.slice(0, charIndex);
+      } else {
+        charIndex--;
+        typingEl.textContent = current.slice(0, charIndex);
+      }
+
+      let delay = isDeleting ? 55 : 110;
+
+      if (!isDeleting && charIndex === current.length) {
+        delay = 1500;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        delay = 300;
+      }
+      setTimeout(tick, delay);
+    }
+    tick();
+
+    // View CV toggle (inline viewer)
+    const viewCvBtn = document.getElementById('viewCvBtn');
+    const cvViewer = document.getElementById('cvViewer');
+    const cvFrame = document.getElementById('cvFrame');
+    let cvLoaded = false;
+
+    viewCvBtn.addEventListener('click', () => {
+      const isOpen = cvViewer.classList.toggle('open');
+      if (isOpen) {
+        if (!cvLoaded) {
+          cvFrame.src = 'cv.pdf';
+          cvLoaded = true;
+        }
+        viewCvBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide CV';
+        cvViewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        viewCvBtn.innerHTML = '<i class="fas fa-eye"></i> View CV';
+      }
+    });
+
+    // Telegram action sheet
+    const telegramBtn = document.getElementById('telegramBtn');
+    const telegramSheet = document.getElementById('telegramSheet');
+    const telegramSheetCancel = document.getElementById('telegramSheetCancel');
+
+    function openTelegramSheet(){
+      telegramSheet.classList.add('open');
+    }
+    function closeTelegramSheet(){
+      telegramSheet.classList.remove('open');
+    }
+
+    telegramBtn.addEventListener('click', openTelegramSheet);
+    telegramSheetCancel.addEventListener('click', closeTelegramSheet);
+    telegramSheet.addEventListener('click', (e) => {
+      if (e.target === telegramSheet) closeTelegramSheet();
+    });
+
+    // Profile picture lightbox (مع زر رجوع للصفحة الرئيسية)
+    const profilePicBtn = document.getElementById('profilePicBtn');
+    const profileLightbox = document.getElementById('profileLightbox');
+    const profileLightboxBack = document.getElementById('profileLightboxBack');
+
+    function openProfileLightbox(){
+      profileLightbox.classList.add('open');
+      profileLightboxBack.style.display = 'flex';
+    }
+    function closeProfileLightbox(){
+      profileLightbox.classList.remove('open');
+      profileLightboxBack.style.display = 'none';
+    }
+
+    profilePicBtn.addEventListener('click', openProfileLightbox);
+    profileLightboxBack.addEventListener('click', closeProfileLightbox);
+    profileLightbox.addEventListener('click', (e) => {
+      if (e.target === profileLightbox) closeProfileLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && profileLightbox.classList.contains('open')) closeProfileLightbox();
+    });
+
+    // Certificates overlay open/close
+    const certificatesBtn = document.getElementById('certificatesBtn');
+    const certificatesOverlay = document.getElementById('certificatesOverlay');
+    const certificatesOverlayBack = document.getElementById('certificatesOverlayBack');
+    const certCountEl = document.getElementById('certCount');
+    const certSkeletonGrid = document.getElementById('certSkeletonGrid');
+    const certLoadingText = document.getElementById('certLoadingText');
+
+    function openCertificatesOverlay(){
+      certificatesOverlay.classList.add('open');
+      certificatesOverlay.scrollTop = 0;
+      // لو البيانات لسه ما وصلتش، اعرض حالة التحميل بدل شاشة فاضية
+      if (certificatesState === 'loading') {
+        showCertSkeleton();
+      }
+    }
+    function closeCertificatesOverlay(){
+      certificatesOverlay.classList.remove('open');
+    }
+
+    certificatesBtn.addEventListener('click', openCertificatesOverlay);
+    certificatesOverlayBack.addEventListener('click', closeCertificatesOverlay);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certificatesOverlay.classList.contains('open')) closeCertificatesOverlay();
+    });
+
+    // Certificates: loaded dynamically from certificates.json
+    const certGrid = document.getElementById('certGrid');
+    const certEmpty = document.getElementById('certEmpty');
+    const certLightbox = document.getElementById('certLightbox');
+    const certLightboxImg = document.getElementById('certLightboxImg');
+    const certLightboxCaption = document.getElementById('certLightboxCaption');
+    const certLightboxClose = document.getElementById('certLightboxClose');
+    const certLightboxShare = document.getElementById('certLightboxShare');
+    const certPdfLightbox = document.getElementById('certPdfLightbox');
+    const certPdfFrame = document.getElementById('certPdfFrame');
+    const certPdfCaption = document.getElementById('certPdfCaption');
+    const certPdfDownload = document.getElementById('certPdfDownload');
+    const certPdfLightboxClose = document.getElementById('certPdfLightboxClose');
+    let certificatesState = 'loading'; // loading | ready | error
+
+    function openCertPdf(pdfSrc, caption){
+      certPdfFrame.src = pdfSrc;
+      certPdfCaption.textContent = caption || '';
+      certPdfDownload.href = pdfSrc;
+      certPdfLightbox.classList.add('open');
+      certPdfLightboxClose.style.display = 'flex';
+    }
+    function closeCertPdf(){
+      certPdfLightbox.classList.remove('open');
+      certPdfLightboxClose.style.display = 'none';
+      certPdfFrame.src = '';
+    }
+    certPdfLightboxClose.addEventListener('click', closeCertPdf);
+    certPdfLightbox.addEventListener('click', (e) => {
+      if (e.target === certPdfLightbox) closeCertPdf();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certPdfLightbox.classList.contains('open')) closeCertPdf();
+    });
+
+    function showCertSkeleton(){
+      certLoadingText.style.display = 'block';
+      certSkeletonGrid.style.display = 'grid';
+      certGrid.style.display = 'none';
+      certEmpty.style.display = 'none';
+      if (!certSkeletonGrid.childElementCount) {
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < 6; i++) {
+          const item = document.createElement('div');
+          item.className = 'cert-skeleton-item';
+          item.innerHTML = '<div class="cert-skeleton-img"></div><div class="cert-skeleton-label"></div>';
+          frag.appendChild(item);
+        }
+        certSkeletonGrid.appendChild(frag);
+      }
+    }
+    function hideCertSkeleton(){
+      certLoadingText.style.display = 'none';
+      certSkeletonGrid.style.display = 'none';
+      certGrid.style.display = 'grid';
+    }
+
+    function openCertLightbox(fullSrc, caption){
+      certLightboxImg.src = fullSrc;
+      certLightboxCaption.textContent = caption || '';
+      certLightbox.classList.add('open');
+      certLightboxClose.style.display = 'flex';
+    }
+    function closeCertLightbox(){
+      certLightbox.classList.remove('open');
+      certLightboxClose.style.display = 'none';
+      certLightboxImg.src = '';
+    }
+
+    certGrid.addEventListener('click', (e) => {
+      // زر معاينة PDF
+      const viewBtn = e.target.closest('.cert-view-btn');
+      if (viewBtn) {
+        const pdf = viewBtn.getAttribute('data-pdf');
+        const label = viewBtn.getAttribute('data-title') || '';
+        if (pdf) openCertPdf(pdf, label);
+        return;
+      }
+      // زر تحميل PDF: <a download> بيتصرف لوحده، مفيش داعي لجافاسكريبت
+      if (e.target.closest('.cert-download-btn')) return;
+
+      // الضغط على الصورة المصغّرة: يفتح لايت بوكس بالصورة
+      const thumb = e.target.closest('.cert-thumb');
+      if (thumb) {
+        const full = thumb.getAttribute('data-full');
+        const label = thumb.getAttribute('data-title') || '';
+        openCertLightbox(full, label);
+      }
+    });
+    certLightboxClose.addEventListener('click', closeCertLightbox);
+    certLightbox.addEventListener('click', (e) => {
+      if (e.target === certLightbox) closeCertLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && certLightbox.classList.contains('open')) closeCertLightbox();
+    });
+
+    // مشاركة الشهادة المفتوحة حاليًا (صورة أو رابط حسب دعم المتصفح)
+    certLightboxShare.addEventListener('click', async () => {
+      const src = certLightboxImg.src;
+      const caption = certLightboxCaption.textContent || 'شهادة';
+      try {
+        if (navigator.share) {
+          if (navigator.canShare) {
+            const res = await fetch(src);
+            const blob = await res.blob();
+            const file = new File([blob], (caption || 'certificate') + '.jpg', { type: blob.type || 'image/jpeg' });
+            if (navigator.canShare({ files: [file] })) {
+              await navigator.share({ files: [file], title: caption, text: caption });
+              return;
+            }
+          }
+          await navigator.share({ title: caption, url: src });
+        } else {
+          await navigator.clipboard.writeText(src);
+          showToast('تم نسخ رابط الشهادة');
+        }
+      } catch (e) {
+        // المستخدم لغى المشاركة أو حصل خطأ — تجاهل بهدوء
+      }
+    });
+
+    function renderCertificates(list){
+      certGrid.innerHTML = '';
+      if (!Array.isArray(list) || list.length === 0){
+        hideCertSkeleton();
+        certEmpty.style.display = 'block';
+        certCountEl.textContent = '';
+        return;
+      }
+
+      // ترتيب الشهادات بالأحدث أولاً لو فيه تاريخ متاح (date أو year)
+      const sorted = [...list].sort((a, b) => {
+        const da = new Date(a.date || a.year || 0).getTime() || 0;
+        const db = new Date(b.date || b.year || 0).getTime() || 0;
+        return db - da;
+      });
+
+      certEmpty.style.display = 'none';
+      certCountEl.textContent = `(${sorted.length})`;
+      const frag = document.createDocumentFragment();
+      sorted.forEach((cert) => {
+        const img = cert.image || cert.img || '';
+        const full = cert.full || img;
+        const title = cert.title || cert.name || '';
+        const pdf = cert.pdf || '';
+        if (!img) return;
+
+        const item = document.createElement('div');
+        item.className = 'cert-item';
+
+        const thumb = document.createElement('button');
+        thumb.className = 'cert-thumb';
+        thumb.type = 'button';
+        thumb.style.cssText = 'display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;font:inherit;';
+        thumb.setAttribute('data-full', full);
+        thumb.setAttribute('data-title', title);
+
+        const imgEl = document.createElement('img');
+        imgEl.src = img;
+        imgEl.alt = title || 'Certificate';
+        imgEl.loading = 'lazy';
+        imgEl.addEventListener('load', () => imgEl.classList.add('loaded'));
+
+        const label = document.createElement('div');
+        label.className = 'cert-label';
+        label.textContent = title;
+
+        thumb.appendChild(imgEl);
+        thumb.appendChild(label);
+        item.appendChild(thumb);
+
+        // زر معاينة وتحميل الـ PDF (زي اللي عند الـ CV) — بيظهروا بس لو فيه ملف pdf متحدد
+        if (pdf) {
+          const actions = document.createElement('div');
+          actions.className = 'cert-item-actions';
+
+          const viewBtn = document.createElement('button');
+          viewBtn.className = 'btn-mini outline cert-view-btn';
+          viewBtn.type = 'button';
+          viewBtn.setAttribute('data-pdf', pdf);
+          viewBtn.setAttribute('data-title', title);
+          viewBtn.innerHTML = '<i class="fas fa-eye"></i> معاينة';
+
+          const downloadBtn = document.createElement('a');
+          downloadBtn.className = 'btn-mini solid cert-download-btn';
+          downloadBtn.href = pdf;
+          downloadBtn.setAttribute('download', '');
+          downloadBtn.innerHTML = '<i class="fas fa-file-download"></i> تحميل';
+
+          actions.appendChild(viewBtn);
+          actions.appendChild(downloadBtn);
+          item.appendChild(actions);
+        }
+
+        frag.appendChild(item);
+      });
+      certGrid.appendChild(frag);
+      hideCertSkeleton();
+    }
+
+    fetch('certificates.json', { cache: 'no-store' })
+      .then((res) => {
+        if (!res.ok) throw new Error('certificates.json not found');
+        return res.json();
+      })
+      .then((data) => {
+        certificatesState = 'ready';
+        renderCertificates(data);
+      })
+      .catch(() => {
+        certificatesState = 'error';
+        certGrid.innerHTML = '';
+        hideCertSkeleton();
+        certEmpty.style.display = 'block';
+        certCountEl.textContent = '';
+      });
+
+    // Dark mode: follow system by default, allow manual override
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function applyStoredTheme(){
+      const saved = localStorage.getItem('theme'); // 'light' | 'dark' | null
+      if (saved === 'light' || saved === 'dark') {
+        root.setAttribute('data-theme', saved);
+      } else {
+        root.removeAttribute('data-theme'); // follow system
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentlyDark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.hasAttribute('data-theme') && systemDark.matches);
+      const next = currentlyDark ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      root.setAttribute('data-theme', next);
+    });
+
+    // If user hasn't manually overridden, react live to system changes
+    systemDark.addEventListener('change', () => {
+      if (!localStorage.getItem('theme')) applyStoredTheme();
+    });
+
+    applyStoredTheme();
+
+    // Toast helper
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function showToast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2000);
+    }
+
+    // Shared contact info
+    const CONTACT = {
+      name: 'Mohamed Shaban',
+      phone: '+201094517814',
+      email: 'eng.m.shaban.kfs@gmail.com',
+      site: 'https://engshab.blogspot.com/'
+    };
+
+    // Copy WhatsApp number
+    document.getElementById('copyNumberBtn').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(CONTACT.phone);
+        showToast('تم نسخ الرقم');
+      } catch (e) {
+        showToast('تعذر نسخ الرقم');
+      }
+    });
+
+    // Save contact as vCard
+    document.getElementById('saveContactBtn').addEventListener('click', () => {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${CONTACT.name}`,
+        `TEL;TYPE=CELL:${CONTACT.phone}`,
+        `EMAIL:${CONTACT.email}`,
+        `URL:${CONTACT.site}`,
+        'END:VCARD'
+      ].join('\n');
+      const blob = new Blob([vcard], { type: 'text/vcard' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Mohamed_Shaban.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('تم حفظ جهة الاتصال');
+    });
+
+    // Share profile
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+      const shareData = {
+        title: 'Mohamed Shaban | Mechanical Engineer',
+        text: 'تواصل مع المهندس محمد شعبان',
+        url: window.location.href
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) {}
+      } else {
+        try {
+          await navigator.clipboard.writeText(shareData.url);
+          showToast('تم نسخ رابط الصفحة');
+        } catch (e) {
+          showToast('تعذر مشاركة الرابط');
+        }
+      }
+    });
+
+    // QR code sheet
+    const qrSheet = document.getElementById('qrSheet');
+    const qrSheetCancel = document.getElementById('qrSheetCancel');
+    const qrImage = document.getElementById('qrImage');
+    const qrTabSite = document.getElementById('qrTabSite');
+    const qrTabWhatsapp = document.getElementById('qrTabWhatsapp');
+    const qrTabContact = document.getElementById('qrTabContact');
+    const qrTabs = [qrTabSite, qrTabWhatsapp, qrTabContact];
+
+    function qrUrl(data){
+      return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=${encodeURIComponent(data)}`;
+    }
+    function contactVcardText(){
+      return [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${CONTACT.name}`,
+        `TEL;TYPE=CELL:${CONTACT.phone}`,
+        `EMAIL:${CONTACT.email}`,
+        `URL:${CONTACT.site}`,
+        'END:VCARD'
+      ].join('\n');
+    }
+    function setQrTab(tab){
+      qrTabs.forEach((btn) => btn.classList.remove('active'));
+      if (tab === 'site') {
+        qrImage.src = qrUrl(window.location.href);
+        qrTabSite.classList.add('active');
+      } else if (tab === 'whatsapp') {
+        qrImage.src = qrUrl(`https://wa.me/${CONTACT.phone.replace('+','')}`);
+        qrTabWhatsapp.classList.add('active');
+      } else {
+        // مسح مباشر بالكاميرا بيحفظ جهة الاتصال كاملة على الموبايل
+        qrImage.src = qrUrl(contactVcardText());
+        qrTabContact.classList.add('active');
+      }
+    }
+    document.getElementById('qrBtn').addEventListener('click', () => {
+      setQrTab('site');
+      qrSheet.classList.add('open');
+    });
+    qrTabSite.addEventListener('click', () => setQrTab('site'));
+    qrTabWhatsapp.addEventListener('click', () => setQrTab('whatsapp'));
+    qrTabContact.addEventListener('click', () => setQrTab('contact'));
+    qrSheetCancel.addEventListener('click', () => qrSheet.classList.remove('open'));
+    qrSheet.addEventListener('click', (e) => {
+      if (e.target === qrSheet) qrSheet.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
