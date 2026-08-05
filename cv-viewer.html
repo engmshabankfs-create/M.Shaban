@@ -53,6 +53,7 @@
     background: var(--bg);
     border-bottom: 1px solid var(--separator);
     z-index: 10;
+    flex-wrap:wrap;
   }
   .back-btn, .download-btn{
     display:flex;
@@ -72,102 +73,117 @@
   .download-btn{ background: var(--blue); color:#fff; }
   .back-btn:active, .download-btn:active{ transform: scale(0.96); }
 
-  .pdf-container{
+  .cv-container{
     max-width: 900px;
     margin: 16px auto;
     padding: 0 12px 40px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap: 20px;
-  }
-  .page-wrapper{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    padding: 8px;
-  }
-  .page-wrapper canvas{
-    max-width:100%;
-    height:auto;
-    display:block;
-    border-radius: 4px;
-  }
-  .loading-text, .error-text{
-    text-align:center;
-    color: var(--secondary);
-    font-size: 15px;
-    padding: 40px 20px;
-    background: var(--card);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    width:100%;
-  }
-  .error-text{ color: #ff3b30; }
-  .error-text a{
-    color: var(--blue);
-    text-decoration:none;
-    font-weight:600;
+    gap: 16px;
   }
 
-  /* ===== صورة بديلة في حالة فشل الـ PDF ===== */
-  .fallback-image{
+  .cv-image-wrapper{
     width:100%;
     background: var(--card);
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
     overflow:hidden;
-    padding: 8px;
-    display:none;
+    padding: 10px;
   }
-  .fallback-image img{
+  .cv-image-wrapper img{
     width:100%;
     height:auto;
     display:block;
-    border-radius: 4px;
-  }
-  .fallback-label{
-    text-align:center;
-    color: var(--secondary);
-    font-size:13px;
-    padding: 12px 0 4px;
+    border-radius: 8px;
   }
 
-  .download-row{
-    display:flex;
-    gap:12px;
+  .info-bar{
     width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding: 12px 16px;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .info-bar .label{
+    color: var(--secondary);
+    font-size:13px;
+  }
+  .info-bar .label i{
+    color: var(--blue);
+    margin-left:6px;
+  }
+  .info-bar .actions{
+    display:flex;
+    gap:8px;
     flex-wrap:wrap;
   }
-  .download-row .btn{
-    flex:1;
-    min-width:120px;
+  .info-bar .actions a{
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding: 12px 16px;
-    border-radius: 14px;
-    font-size:15px;
+    gap:6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size:13px;
     font-weight:600;
     text-decoration:none;
     border:none;
     cursor:pointer;
     font-family:inherit;
-    box-shadow: var(--shadow);
+    transition: transform 0.1s ease;
   }
-  .download-row .btn-primary{
+  .info-bar .actions a:active{ transform:scale(0.96); }
+  .info-bar .actions .btn-primary{
     background: var(--blue);
     color:#fff;
   }
-  .download-row .btn-secondary{
-    background: var(--card);
+  .info-bar .actions .btn-secondary{
+    background: var(--bg);
     color: var(--blue);
   }
-  .download-row .btn:active{ transform:scale(0.97); }
+
+  .zoom-controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding: 8px 12px;
+    background: var(--card);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+  }
+  .zoom-controls button{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:none;
+    background: var(--bg);
+    color: var(--text);
+    font-size:16px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+  }
+  .zoom-controls button:active{ transform:scale(0.92); background: var(--separator); }
+  .zoom-controls .zoom-level{
+    font-size:13px;
+    font-weight:600;
+    color: var(--secondary);
+    min-width:40px;
+    text-align:center;
+  }
+
+  @media (max-width:600px){
+    .topbar{ justify-content:center; }
+    .info-bar{ flex-direction:column; align-items:stretch; text-align:center; }
+    .info-bar .actions{ justify-content:center; }
+  }
 </style>
 </head>
 <body>
@@ -180,16 +196,38 @@
     </a>
   </div>
 
-  <div class="pdf-container" id="pdfContainer">
-    <div class="loading-text" id="loadingText">
-      <i class="fas fa-spinner fa-spin" style="color:var(--blue);font-size:20px;display:block;margin-bottom:12px;"></i>
-      جاري تحميل السيرة الذاتية ...
+  <div class="cv-container">
+    <!-- معاينة الصورة -->
+    <div class="cv-image-wrapper" id="imageWrapper">
+      <img id="cvImage" src="image.png" alt="السيرة الذاتية - محمد شعبان">
+    </div>
+
+    <!-- شريط المعلومات والأزرار -->
+    <div class="info-bar">
+      <span class="label">
+        <i class="fas fa-file-image"></i> معاينة السيرة الذاتية
+      </span>
+      <div class="actions">
+        <a class="btn-secondary" href="image.png" download="cv.png">
+          <i class="fas fa-download"></i> تحميل الصورة
+        </a>
+        <a class="btn-primary" href="cv.pdf" download>
+          <i class="fas fa-file-pdf"></i> تحميل PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- أدوات التكبير -->
+    <div class="zoom-controls">
+      <button id="zoomOut" type="button" aria-label="تصغير">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button id="zoomIn" type="button" aria-label="تكبير">+</button>
+      <button id="zoomReset" type="button" aria-label="إعادة ضبط" style="width:auto;padding:0 12px;border-radius:16px;font-size:12px;">↺</button>
     </div>
   </div>
 
-  <!-- pdf.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
+    // تطبيق الثيم
     (function(){
       const saved = localStorage.getItem('theme');
       if (saved === 'dark' || saved === 'light') {
@@ -197,106 +235,62 @@
       }
     })();
 
-    const pdfjsLib = window.pdfjsLib;
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    // === نظام التكبير ===
+    const img = document.getElementById('cvImage');
+    const zoomLevelEl = document.getElementById('zoomLevel');
+    let currentZoom = 1;
+    const MIN_ZOOM = 0.5;
+    const MAX_ZOOM = 3;
+    const STEP = 0.1;
 
-    const container = document.getElementById('pdfContainer');
-    const loadingText = document.getElementById('loadingText');
-
-    // جودة عالية جداً عشان النص يظهر واضح
-    const QUALITY = 3.2;
-    const PIXEL_RATIO = window.devicePixelRatio || 1;
-
-    // اسم ملف الصورة البديلة (لو عندك صورة للسيرة الذاتية)
-    const FALLBACK_IMAGE = 'cv.png'; // غير الاسم لو الصورة بأسم تاني
-
-    pdfjsLib.getDocument('cv.pdf?v=' + Date.now()).promise
-      .then(async (pdf) => {
-        loadingText.remove();
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: QUALITY });
-
-          const wrapper = document.createElement('div');
-          wrapper.className = 'page-wrapper';
-
-          const canvas = document.createElement('canvas');
-          canvas.width = Math.floor(viewport.width * PIXEL_RATIO);
-          canvas.height = Math.floor(viewport.height * PIXEL_RATIO);
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
-          canvas.style.maxWidth = Math.floor(viewport.width) + 'px';
-
-          wrapper.appendChild(canvas);
-          container.appendChild(wrapper);
-
-          const ctx = canvas.getContext('2d');
-          await page.render({
-            canvasContext: ctx,
-            viewport: viewport,
-            transform: [PIXEL_RATIO, 0, 0, PIXEL_RATIO, 0, 0]
-          }).promise;
-        }
-
-        // إضافة أزرار تحميل بعد عرض الصفحات
-        addDownloadButtons();
-      })
-      .catch((err) => {
-        console.warn('PDF load error:', err);
-        loadingText.className = 'error-text';
-        loadingText.innerHTML = `
-          <i class="fas fa-exclamation-circle" style="font-size:24px;display:block;margin-bottom:12px;color:#ff3b30;"></i>
-          تعذر عرض المعاينة المباشرة.
-          <br><br>
-          <a href="cv.pdf" target="_blank">📄 اضغط هنا لفتح الملف</a>
-          <br><br>
-          أو استخدم زر التحميل بالأعلى.
-        `;
-
-        // محاولة عرض الصورة البديلة
-        tryFallbackImage();
-      });
-
-    function addDownloadButtons() {
-      const row = document.createElement('div');
-      row.className = 'download-row';
-      row.innerHTML = `
-        <a class="btn btn-primary" href="cv.pdf" download>
-          <i class="fas fa-file-download"></i> تحميل PDF
-        </a>
-        <a class="btn btn-secondary" href="cv.pdf" target="_blank">
-          <i class="fas fa-external-link-alt"></i> فتح في متصفح
-        </a>
-      `;
-      container.appendChild(row);
+    function updateZoom() {
+      img.style.transform = `scale(${currentZoom})`;
+      img.style.transformOrigin = 'top left';
+      zoomLevelEl.textContent = Math.round(currentZoom * 100) + '%';
     }
 
-    function tryFallbackImage() {
-      // لو الصورة البديلة موجودة، اعرضها
-      const img = new Image();
-      img.onload = function() {
-        // الصورة موجودة، اعرضها مكان الـ PDF
-        const wrapper = document.createElement('div');
-        wrapper.className = 'fallback-image';
-        wrapper.style.display = 'block';
-        wrapper.innerHTML = `
-          <div class="fallback-label"><i class="fas fa-image"></i> معاينة بديلة</div>
-          <img src="${FALLBACK_IMAGE}" alt="السيرة الذاتية - معاينة بديلة">
-        `;
-        // نحذف رسالة الخطأ ونضيف الصورة
-        const loading = document.getElementById('loadingText');
-        if (loading) loading.remove();
-        container.appendChild(wrapper);
+    document.getElementById('zoomIn').addEventListener('click', () => {
+      if (currentZoom < MAX_ZOOM) {
+        currentZoom = Math.min(currentZoom + STEP, MAX_ZOOM);
+        updateZoom();
+      }
+    });
 
-        // ونضيف أزرار التحميل
-        addDownloadButtons();
-      };
-      img.onerror = function() {
-        // الصورة مش موجودة، خلاص نكتفي برسالة الخطأ
-      };
-      img.src = FALLBACK_IMAGE + '?v=' + Date.now();
-    }
+    document.getElementById('zoomOut').addEventListener('click', () => {
+      if (currentZoom > MIN_ZOOM) {
+        currentZoom = Math.max(currentZoom - STEP, MIN_ZOOM);
+        updateZoom();
+      }
+    });
+
+    document.getElementById('zoomReset').addEventListener('click', () => {
+      currentZoom = 1;
+      updateZoom();
+    });
+
+    // دعم اللمس (pinch to zoom) على الموبايل
+    let lastTouchDist = 0;
+    const wrapper = document.getElementById('imageWrapper');
+
+    wrapper.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2) {
+        const t = e.touches;
+        lastTouchDist = Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+      }
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2 && lastTouchDist > 0) {
+        const t = e.touches;
+        const dist = Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+        const delta = (dist - lastTouchDist) / 200;
+        currentZoom = Math.min(Math.max(currentZoom + delta, MIN_ZOOM), MAX_ZOOM);
+        updateZoom();
+        lastTouchDist = dist;
+      }
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', () => { lastTouchDist = 0; }, { passive: true });
   </script>
 </body>
 </html>
