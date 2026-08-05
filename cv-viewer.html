@@ -40,6 +40,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height:100vh;
   }
   .topbar{
     position: sticky;
@@ -71,41 +72,70 @@
   .download-btn{ background: var(--blue); color:#fff; }
   .back-btn:active, .download-btn:active{ transform: scale(0.96); }
 
-  .pdf-container{
+  .cv-container{
     max-width: 900px;
     margin: 16px auto;
     padding: 0 12px 40px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap: 20px;
+    gap:20px;
   }
-  .pdf-container canvas{
-    max-width:100%;
-    height:auto;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    background:#fff;
-    display:block;
-    /* important: width is set via inline style, keep aspect ratio */
-  }
-  .page-wrapper{
+
+  /* ===== عرض PDF باستخدام iframe (حل بسيط) ===== */
+  .pdf-iframe-wrapper{
     width:100%;
-    display:flex;
-    justify-content:center;
     background: var(--card);
     border-radius: 12px;
     box-shadow: var(--shadow);
+    overflow:hidden;
     padding: 8px;
   }
-  .loading-text, .error-text{
+  .pdf-iframe-wrapper iframe{
+    width:100%;
+    height: 600px;
+    border:0;
+    border-radius: 8px;
+    background:#fff;
+    display:block;
+  }
+
+  /* ===== عرض الصورة (لو الـ PDF مش واضح) ===== */
+  .cv-image-wrapper{
+    width:100%;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    padding: 8px;
+  }
+  .cv-image-wrapper img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius: 8px;
+  }
+
+  .fallback-message{
     text-align:center;
     color: var(--secondary);
-    font-size: 15px;
-    margin-top: 40px;
+    font-size: 14px;
     padding: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    width:100%;
   }
-  .error-text{ color: #ff3b30; }
+  .fallback-message a{
+    color: var(--blue);
+    text-decoration:none;
+    font-weight:600;
+  }
+
+  @media (max-width:600px){
+    .pdf-iframe-wrapper iframe{ height: 450px; }
+    .topbar{ flex-wrap:wrap; justify-content:center; }
+  }
 </style>
 </head>
 <body>
@@ -114,71 +144,43 @@
       <i class="fas fa-arrow-right"></i> رجوع للصفحة الرئيسية
     </a>
     <a class="download-btn" href="cv.pdf" download>
-      <i class="fas fa-file-download"></i> تحميل
+      <i class="fas fa-file-download"></i> تحميل PDF
     </a>
   </div>
 
-  <div class="pdf-container" id="pdfContainer">
-    <div class="loading-text" id="loadingText">⏳ جاري تحميل الـ CV ...</div>
+  <div class="cv-container" id="cvContainer">
+
+    <!-- المعاينة باستخدام iframe (حل سريع ونظيف) -->
+    <div class="pdf-iframe-wrapper">
+      <iframe src="cv.pdf#toolbar=0" title="السيرة الذاتية - محمد شعبان"></iframe>
+    </div>
+
+    <!-- رسالة توضيحية في حالة عدم ظهور الـ PDF -->
+    <div class="fallback-message">
+      <i class="fas fa-info-circle" style="color:var(--blue);"></i>
+      إذا لم تظهر المعاينة، 
+      <a href="cv.pdf" target="_blank">اضغط هنا لفتح الملف</a>
+      أو استخدم زر التحميل بالأعلى.
+    </div>
+
+    <!-- صورة بديلة لو حابب تعرضها (علقها أو اشطبها لو مش عايزها) -->
+    <!-- 
+    <div class="cv-image-wrapper">
+      <img src="cv.png" alt="السيرة الذاتية">
+    </div>
+    -->
+
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
+    // تطبيق الثيم المختار من localStorage
     (function(){
       const saved = localStorage.getItem('theme');
       if (saved === 'dark' || saved === 'light') {
         document.documentElement.setAttribute('data-theme', saved);
       }
     })();
-
-    const pdfjsLib = window.pdfjsLib;
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-    const container = document.getElementById('pdfContainer');
-    const loadingText = document.getElementById('loadingText');
-
-    // 🔥 زيادة الجودة بشكل ملحوظ عشان النص يبقي واضح
-    const QUALITY = 2.8;   // scale عالي
-    const PIXEL_RATIO = window.devicePixelRatio || 1;
-
-    pdfjsLib.getDocument('cv.pdf?v=' + Date.now()).promise
-      .then(async (pdf) => {
-        loadingText.remove();
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const viewport = page.getViewport({ scale: QUALITY });
-
-          // حاوية لكل صفحة عشان تظهر منفصلة ومرتبة
-          const wrapper = document.createElement('div');
-          wrapper.className = 'page-wrapper';
-
-          const canvas = document.createElement('canvas');
-          // حجم الرسم (دقة عالية)
-          canvas.width = Math.floor(viewport.width * PIXEL_RATIO);
-          canvas.height = Math.floor(viewport.height * PIXEL_RATIO);
-          // حجم العرض في الشاشة (نفس عرض الحاوية)
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
-          canvas.style.maxWidth = Math.floor(viewport.width) + 'px';
-
-          wrapper.appendChild(canvas);
-          container.appendChild(wrapper);
-
-          const ctx = canvas.getContext('2d');
-          // نرسم بجودة عالية
-          await page.render({
-            canvasContext: ctx,
-            viewport: viewport,
-            transform: [PIXEL_RATIO, 0, 0, PIXEL_RATIO, 0, 0]
-          }).promise;
-        }
-      })
-      .catch((err) => {
-        console.warn(err);
-        loadingText.textContent = '❌ تعذر عرض المعاينة. اضغط "تحميل" لفتح الملف مباشرة.';
-        loadingText.className = 'error-text';
-      });
   </script>
+
 </body>
 </html>
