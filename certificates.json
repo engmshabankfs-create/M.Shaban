@@ -1,51 +1,61 @@
 [
   {
     "title": "CSWA",
+    "category": "SOLIDWORKS",
     "image": "certificates/CSWA.png",
     "pdf": "certificates/CSWA.pdf"
   },
   {
     "title": "SOLIDWORKS xShape Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS xShape Associate.png",
     "pdf": "certificates/SOLIDWORKS xShape Associate.pdf"
   },
   {
     "title": "SOLIDWORKS xDesign Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS xDesign Associate.png",
     "pdf": "certificates/SOLIDWORKS xDesign Associate.pdf"
   },
   {
     "title": "SOLIDWORKS Additive Manufacturing Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS Additive Manufacturing Associate.png",
     "pdf": "certificates/SOLIDWORKS Additive Manufacturing Associate.pdf"
   },
   {
     "title": "SOLIDWORKS Sustainability Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS Sustainability Associate.png",
     "pdf": "certificates/SOLIDWORKS Sustainability Associate.pdf"
   },
   {
     "title": "DraftSight Associate - 2D Design and Drafting",
+    "category": "SOLIDWORKS",
     "image": "certificates/DraftSight Associate - 2D Design and Drafting.png",
     "pdf": "certificates/DraftSight Associate - 2D Design and Drafting.pdf"
   },
   {
     "title": "SOLIDWORKS Electrical Design Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS Electrical Design Associate.png",
     "pdf": "certificates/SOLIDWORKS Electrical Design Associate.pdf"
   },
   {
     "title": "SOLIDWORKS xMold Associate",
+    "category": "SOLIDWORKS",
     "image": "certificates/SOLIDWORKS xMold Associate.png",
     "pdf": "certificates/SOLIDWORKS xMold Associate.pdf"
-    },
+  },
   {
     "title": "شركة وسط الدلتا لإنتاج الكهرباء",
+    "category": "دورات تدريبية",
     "image": "certificates/شركة وسط الدلتا لإنتاج الكهرباء.jpg",
     "pdf": "certificates/شركة وسط الدلتا لإنتاج الكهرباء.pdf"
-    },
+  },
   {
     "title": "شركة ترسانة الاسكندرية",
+    "category": "دورات تدريبية",
     "image": "certificates/شركة ترسانة الاسكندرية.jpg",
     "pdf": "certificates/شركة ترسانة الاسكندرية.pdf"
   }
