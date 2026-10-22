@@ -1005,7 +1005,7 @@
   </div>
 
   <!-- ===== Projects overlay =====
-       قسم Projects: بيعرض الأقسام الفرعية (زي Rivet). عايز تضيف مشروع جديد؟
+       قسم Projects: بيعرض الأقسام الفرعية (زي Revit). عايز تضيف مشروع جديد؟
        ضيف الملفات في projects.json (نفس مجلد الصفحة) — مش هتلمس الكود. -->
   <div class="cert-overlay-backdrop" id="projectsOverlay">
     <div class="cert-overlay-header">
@@ -1282,7 +1282,7 @@
     // عايز تضيف/تشيل ملف؟ عدّل projects.json بس.
     // عايز مشروع جديد يظهر حتى قبل ما تضيفله ملفات، أو تغيّر أيقونته/لونه؟ زوّد سطر في projectMeta.
     const projectMeta = {
-      'Rivet': { icon: 'fa-gear', color: '#FF9500' },
+      'Revit': { icon: 'fa-gear', color: '#FF9500' },
       'AutoCad': { icon: 'fa-drafting-compass', color: '#E5322D' }
     };
     function projectMetaFor(name){
@@ -1296,6 +1296,7 @@
     const projectsGrid = document.getElementById('projectsGrid');
     const projectDetail = document.getElementById('projectDetail');
     let currentProject = null;
+    let currentSection = null;
     let projectsState = 'loading'; // loading | ready | error
     let projectsData = [];
 
@@ -1306,8 +1307,20 @@
     function projectOf(item){
       return item.category || item.project || 'أخرى';
     }
+    // القسم الفرعي (اختياري) جوه المشروع: حقل "section" في projects.json
+    function sectionOf(item){
+      return item.section || item.subcategory || '';
+    }
     function projectFiles(name){
       return projectsData.filter((f) => projectOf(f) === name && (f.pdf || f.file));
+    }
+    function sectionNames(name){
+      const names = [];
+      projectFiles(name).forEach((f) => {
+        const s = sectionOf(f);
+        if (s && !names.includes(s)) names.push(s);
+      });
+      return names;
     }
     // أسماء المشاريع: اللي في projectMeta (بالترتيب) + أي مشروع جديد ظهر في projects.json
     function projectNames(){
@@ -1319,8 +1332,25 @@
       return names;
     }
 
+    function fileRowsHtml(files){
+      return '<div class="card">' + files.map((f) => {
+        const pdf = f.pdf || f.file;
+        const title = f.title || f.name || pdf;
+        return `
+      <div class="row file-row">
+        <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
+        <span class="file-title">${escapeHtml(title)}</span>
+        <span class="file-actions">
+          <a class="file-btn view" href="${escapeHtml(pdf)}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
+          <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="تحميل"><i class="fas fa-file-download"></i></a>
+        </span>
+      </div>`;
+      }).join('') + '</div>';
+    }
+
     function renderProjects(){
       currentProject = null;
+      currentSection = null;
       projectsOverlayTitle.textContent = 'Projects';
       projectsOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> رجوع';
       projectDetail.style.display = 'none';
@@ -1338,46 +1368,73 @@
       projectsOverlay.scrollTop = 0;
     }
 
-    function openProject(name, updateHash = true){
+    // يفتح مشروع (وقسم فرعي جواه لو section اتحدد)
+    function openProject(name, section = null, updateHash = true){
       if (!projectNames().includes(name)) { renderProjects(); return; }
+      if (section && projectsState === 'ready' && !sectionNames(name).includes(section)) section = null;
       currentProject = name;
-      if (updateHash) setProjectsHash(name);
-      projectsOverlayTitle.textContent = name;
-      projectsOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> الأقسام';
-      projectsGrid.style.display = 'none';
+      currentSection = section || null;
+      if (updateHash) setProjectsHash(name, currentSection);
+      const meta = projectMetaFor(name);
 
+      projectsOverlayTitle.textContent = currentSection || name;
+      projectsOverlayBack.innerHTML = currentSection
+        ? '<i class="fas fa-arrow-right"></i> ' + escapeHtml(name)
+        : '<i class="fas fa-arrow-right"></i> الأقسام';
+
+      projectsGrid.innerHTML = '';
+      projectsGrid.style.display = 'none';
       let html = '';
+
       if (projectsState === 'loading') {
         html = '<p>جاري تحميل الملفات...</p>';
       } else if (projectsState === 'error') {
         html = '<p>تعذر تحميل ملف projects.json</p>';
+      } else if (currentSection) {
+        // جوه قسم فرعي: ملفاته بس
+        const files = projectFiles(name).filter((f) => sectionOf(f) === currentSection);
+        html = files.length
+          ? fileRowsHtml(files)
+          : `<p>ملفات ${escapeHtml(currentSection)} هتتضاف هنا قريبًا.</p>`;
       } else {
-        const files = projectFiles(name);
-        if (files.length === 0) {
-          html = `<p>ملفات ${escapeHtml(name)} هتتضاف هنا قريبًا.</p>`;
-        } else {
-          html = '<div class="card">' + files.map((f) => {
-            const pdf = f.pdf || f.file;
-            const title = f.title || f.name || pdf;
+        // صفحة المشروع: الأقسام الفرعية كأيقونات + الملفات اللي من غير قسم
+        const all = projectFiles(name);
+        const sections = sectionNames(name);
+        const direct = all.filter((f) => !sectionOf(f));
+        if (sections.length) {
+          projectsGrid.innerHTML = sections.map((s) => {
+            const count = all.filter((f) => sectionOf(f) === s).length;
             return `
-          <div class="row file-row">
-            <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
-            <span class="file-title">${escapeHtml(title)}</span>
-            <span class="file-actions">
-              <a class="file-btn view" href="${escapeHtml(pdf)}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
-              <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="تحميل"><i class="fas fa-file-download"></i></a>
-            </span>
-          </div>`;
-          }).join('') + '</div>';
+        <button type="button" class="cert-category-item" data-section="${escapeHtml(s)}">
+          <span class="cert-category-icon" style="background:${meta.color}"><i class="fas fa-folder"></i></span>
+          <span class="cert-category-label">${escapeHtml(s)}</span>
+          <span class="cert-category-count">${count} ملف</span>
+        </button>`;
+          }).join('');
+          projectsGrid.style.display = 'grid';
+        }
+        if (direct.length) {
+          html = fileRowsHtml(direct);
+        } else if (!sections.length) {
+          html = `<p>ملفات ${escapeHtml(name)} هتتضاف هنا قريبًا.</p>`;
         }
       }
-      projectDetail.innerHTML = html;
-      projectDetail.style.display = 'block';
+
+      if (html) {
+        projectDetail.innerHTML = html;
+        projectDetail.style.display = 'block';
+      } else {
+        projectDetail.innerHTML = '';
+        projectDetail.style.display = 'none';
+      }
       projectsOverlay.scrollTop = 0;
     }
 
-    function setProjectsHash(name = null){
-      const nextHash = name ? '#projects/' + encodeURIComponent(name) : '#projects';
+    // الروابط: #projects أو #projects/Revit أو #projects/Revit/اسم القسم
+    function setProjectsHash(name = null, section = null){
+      let nextHash = '#projects';
+      if (name) nextHash += '/' + encodeURIComponent(name);
+      if (name && section) nextHash += '/' + encodeURIComponent(section);
       if (window.location.hash !== nextHash) window.location.hash = nextHash;
     }
 
@@ -1401,9 +1458,10 @@
       projectsOverlay.classList.add('open');
       const raw = hash.slice('#projects'.length).replace(/^\//, '');
       if (raw) {
-        let name = raw;
-        try { name = decodeURIComponent(raw); } catch (_) {}
-        openProject(name, false);
+        const parts = raw.split('/').map((p) => {
+          try { return decodeURIComponent(p); } catch (_) { return p; }
+        });
+        openProject(parts[0], parts[1] || null, false);
       } else {
         renderProjects();
       }
@@ -1414,11 +1472,18 @@
       openProjectsOverlay();
     });
     projectsGrid.addEventListener('click', (e) => {
-      const btn = e.target.closest('.cert-category-item');
+      const sec = e.target.closest('[data-section]');
+      if (sec && currentProject) {
+        openProject(currentProject, sec.getAttribute('data-section'));
+        return;
+      }
+      const btn = e.target.closest('[data-project]');
       if (btn) openProject(btn.getAttribute('data-project'));
     });
     projectsOverlayBack.addEventListener('click', () => {
-      if (currentProject) {
+      if (currentSection) {
+        openProject(currentProject);
+      } else if (currentProject) {
         setProjectsHash();
         renderProjects();
       } else {
@@ -1433,7 +1498,7 @@
     // تحميل projects.json
     function refreshProjectsView(){
       if (!projectsOverlay.classList.contains('open')) return;
-      if (currentProject) openProject(currentProject, false);
+      if (currentProject) openProject(currentProject, currentSection, false);
       else renderProjects();
     }
     fetch('projects.json', { cache: 'no-store' })
