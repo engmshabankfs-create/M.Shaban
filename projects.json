@@ -9,7 +9,8 @@
     "title": "اكتب اسم ملف Shopping Mall هنا",
     "category": "Revit",
     "section": "Shopping Mall",
-    "pdf": "projects/Shopping-Mall.pdf"
+    "pdf": "projects/Shopping-Mall.pdf",
+    "hidden": true
   },
   {
     "title": "AutoCad - اكتب اسم الملف هنا",
