@@ -2,11 +2,11 @@
   {
     "title": "Rivet - اكتب اسم الملف هنا",
     "category": "Rivet",
-    "pdf": "projects/Rivet/file-name.pdf"
+    "pdf": "projects/Rivet-file-name.pdf"
   },
   {
-    "title": "Ventilation - اكتب اسم الملف هنا",
-    "category": "Ventilation",
-    "pdf": "projects/Ventilation/file-name.pdf"
+    "title": "AutoCad - اكتب اسم الملف هنا",
+    "category": "AutoCad",
+    "pdf": "projects/AutoCad-file-name.pdf"
   }
 ]
