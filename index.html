@@ -1121,10 +1121,21 @@
 
     let currentCategory = null; // null = شاشة الأقسام الرئيسية
 
-    function openCertificatesOverlay(){
+    // Deep links: #certifications أو #certifications/HVAC
+    function setCertificatesHash(category = null){
+      const nextHash = category
+        ? '#certifications/' + encodeURIComponent(category)
+        : '#certifications';
+      if (window.location.hash !== nextHash) window.location.hash = nextHash;
+    }
+
+    function openCertificatesOverlay(updateHash = true){
       certificatesOverlay.classList.add('open');
       certificatesOverlay.scrollTop = 0;
       currentCategory = null;
+      if (updateHash && !window.location.hash.toLowerCase().startsWith('#certifications')) {
+        setCertificatesHash();
+      }
       // لو البيانات لسه ما وصلتش، اعرض حالة التحميل بدل شاشة فاضية
       if (certificatesState === 'loading') {
         showCertSkeleton();
@@ -1132,17 +1143,52 @@
         renderCategories(certificatesData);
       }
     }
-    function closeCertificatesOverlay(){
+    function closeCertificatesOverlay(updateHash = true){
       certificatesOverlay.classList.remove('open');
+      if (updateHash && window.location.hash.toLowerCase().startsWith('#certifications')) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
     }
 
-    certificatesBtn.addEventListener('click', openCertificatesOverlay);
+    function syncCertificatesFromHash(){
+      const hash = window.location.hash || '';
+      if (!hash.toLowerCase().startsWith('#certifications')) {
+        if (certificatesOverlay.classList.contains('open')) closeCertificatesOverlay(false);
+        return;
+      }
+      openCertificatesOverlay(false);
+      if (certificatesState !== 'ready') return;
+      const rawCategory = hash.slice('#certifications'.length).replace(/^\//, '');
+      if (rawCategory) {
+        let category = rawCategory;
+        try { category = decodeURIComponent(rawCategory); } catch (_) {}
+        const categories = groupByCategory(certificatesData);
+        if (Object.prototype.hasOwnProperty.call(categories, category)) {
+          openCategory(category, false);
+        } else {
+          renderCategories(certificatesData);
+        }
+      } else {
+        renderCategories(certificatesData);
+      }
+    }
+
+    certificatesBtn.addEventListener('click', () => {
+      if (window.location.hash.toLowerCase().startsWith('#certifications')) {
+        syncCertificatesFromHash();
+      } else {
+        setCertificatesHash();
+        openCertificatesOverlay(false);
+      }
+    });
+    window.addEventListener('hashchange', syncCertificatesFromHash);
     certificatesOverlayBack.addEventListener('click', () => {
       // لو داخل قسم معيّن: ارجع لقائمة الأقسام. لو في قائمة الأقسام: اقفل الشاشة كلها.
       if (currentCategory) {
+        setCertificatesHash();
         renderCategories(certificatesData);
       } else {
-        closeCertificatesOverlay();
+        closeCertificatesOverlay(true);
       }
     });
     document.addEventListener('keydown', (e) => {
@@ -1239,8 +1285,9 @@
     });
 
     // فتح قسم معيّن: يعرض بس الشهادات اللي جواه
-    function openCategory(cat){
+    function openCategory(cat, updateHash = true){
       currentCategory = cat;
+      if (updateHash) setCertificatesHash(cat);
       certOverlayTitle.textContent = cat;
       certificatesOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> الأقسام';
       certCategoryGrid.style.display = 'none';
@@ -1405,7 +1452,9 @@
         certificatesState = 'ready';
         certificatesData = Array.isArray(data) ? data : [];
         // لو الشاشة مفتوحة فعلاً وقاعدة تستنى التحميل، اعرض الأقسام على طول
-        if (certificatesOverlay.classList.contains('open')) {
+        if (window.location.hash.toLowerCase().startsWith('#certifications')) {
+          syncCertificatesFromHash();
+        } else if (certificatesOverlay.classList.contains('open')) {
           renderCategories(certificatesData);
         }
       })
@@ -1419,6 +1468,11 @@
         certEmpty.style.display = 'block';
         certCountEl.textContent = '';
       });
+
+    // افتح القسم المطلوب تلقائيًا عند دخول الزائر برابط مشاركة مباشر.
+    if (window.location.hash.toLowerCase().startsWith('#certifications')) {
+      syncCertificatesFromHash();
+    }
 
     // Dark mode: follow system by default, allow manual override
     const root = document.documentElement;
