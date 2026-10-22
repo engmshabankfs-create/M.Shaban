@@ -15,6 +15,7 @@
   {
     "title": "AutoCad - اكتب اسم الملف هنا",
     "category": "AutoCad",
-    "pdf": "projects/AutoCad-file-name.pdf"
+    "pdf": "projects/AutoCad-file-name.pdf",
+    "hidden": true
   }
 ]
