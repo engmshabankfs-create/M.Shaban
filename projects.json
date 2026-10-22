@@ -1,11 +1,18 @@
 [
   {
-    "title": "Ventilation",
-    "category": "Rivet",
-    "pdf": "projects/Ventilation.pdf"
+    "title": "حسابات المناطق الحرجة",
+    "category": "Revit",
+    "section": "Hospital",
+    "pdf": "Ventilation"
   },
   {
-    "title": "قيد التطوير",
+    "title": "اكتب اسم ملف Shopping Mall هنا",
+    "category": "Revit",
+    "section": "Shopping Mall",
+    "pdf": "projects/Shopping-Mall.pdf"
+  },
+  {
+    "title": "AutoCad - اكتب اسم الملف هنا",
     "category": "AutoCad",
     "pdf": "projects/AutoCad-file-name.pdf"
   }
