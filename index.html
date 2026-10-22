@@ -1113,6 +1113,7 @@
     const categoryMeta = {
       'SOLIDWORKS': { icon: 'fa-cube', color: '#D0342C' },
       'HVAC': { icon: 'fa-fan', color: '#0A84FF' },
+      'Revit': { icon: 'fa-drafting-compass', color: '#149B8E' },
       'دورات تدريبية': { icon: 'fa-briefcase', color: '#5856D6' }
     };
     function metaFor(cat){
@@ -1247,7 +1248,8 @@
       certCategoryGrid.innerHTML = '';
 
       const grouped = groupByCategory(list);
-      const cats = Object.keys(grouped);
+      // أظهر قسم Revit حتى لو لم تُضف شهاداته بعد
+      const cats = [...new Set([...Object.keys(grouped), 'Revit'])];
       hideCertSkeleton();
 
       if (cats.length === 0) {
