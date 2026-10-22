@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Rivet - اكتب اسم الملف هنا",
+    "category": "Rivet",
+    "pdf": "projects/Rivet/file-name.pdf"
+  },
+  {
+    "title": "Ventilation - اكتب اسم الملف هنا",
+    "category": "Ventilation",
+    "pdf": "projects/Ventilation/file-name.pdf"
+  }
+]
