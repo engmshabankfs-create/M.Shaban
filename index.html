@@ -1203,12 +1203,20 @@
     // كل قسم (category) بياخد أيقونة ولون مميز. عايز تضيف قسم جديد؟
     // زوّد سطر هنا بنفس اسم "category" اللي هتكتبه في certificates.json
     const categoryMeta = {
-      'SOLIDWORKS': { icon: 'fa-cube', color: '#D0342C' },
+      // logo (اختياري): مسار صورة اللوجو. لو الصورة مش موجودة بيرجع للأيقونة تلقائيًا.
+      'SOLIDWORKS': { icon: 'fa-cube', color: '#D0342C', logo: 'certificates/logos/solidworks.png' },
       'HVAC': { icon: 'fa-fan', color: '#0A84FF' },
       'دورات تدريبية': { icon: 'fa-briefcase', color: '#5856D6' }
     };
     function metaFor(cat){
       return categoryMeta[cat] || { icon: 'fa-folder', color: '#8E8E93' };
+    }
+    // أيقونة القسم: لوجو لو متحدد (وبيرجع للأيقونة لو الصورة فشلت)
+    function categoryIconHtml(name, meta){
+      if (meta.logo) {
+        return `<span class="cert-category-icon has-logo"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(name)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.style.background='${meta.color}';this.outerHTML='<i class=&quot;fas ${meta.icon}&quot;></i>'"></span>`;
+      }
+      return `<span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>`;
     }
 
     let currentCategory = null; // null = شاشة الأقسام الرئيسية
@@ -1606,7 +1614,7 @@
         item.className = 'cert-category-item';
         item.setAttribute('data-category', cat);
         item.innerHTML = `
-          <span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>
+          ${categoryIconHtml(cat, meta)}
           <span class="cert-category-label">${cat}</span>
           <span class="cert-category-count">${grouped[cat].length} شهادة</span>
         `;
