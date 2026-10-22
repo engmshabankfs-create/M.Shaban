@@ -58,5 +58,11 @@
     "category": "دورات تدريبية",
     "image": "certificates/شركة ترسانة الاسكندرية.jpg",
     "pdf": "certificates/شركة ترسانة الاسكندرية.pdf"
+  },
+  {
+    "title": "InnovEgypt",
+    "category": "دورات تدريبية",
+    "image": "certificates/InnovEgypt.jpeg",
+    "pdf": "certificates/InnovEgypt.pdf"
   }
 ]
