@@ -1508,7 +1508,8 @@
       })
       .then((data) => {
         projectsState = 'ready';
-        projectsData = Array.isArray(data) ? data : [];
+        // أي عنصر فيه "hidden": true بيتخفي من الصفحة (من غير ما تمسحه من الملف)
+        projectsData = Array.isArray(data) ? data.filter((f) => f && !f.hidden) : [];
         refreshProjectsView();
       })
       .catch(() => {
