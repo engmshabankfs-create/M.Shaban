@@ -261,6 +261,7 @@
     .icon-telegram{ background:#229ED9; }
     .icon-group{ background:#5856D6; }
     .icon-blog{ background:#FF9500; }
+    .icon-projects{ background:#30B0C7; }
 
     .row-label{
       flex:1;
@@ -536,6 +537,65 @@
       font-weight:600;
       color:var(--secondary);
     }
+
+    /* Projects detail */
+    .project-detail{
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+      margin-bottom: 24px;
+      text-align:center;
+    }
+    .project-detail p{
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--secondary);
+    }
+    .project-detail .card{
+      margin: 14px 0 0;
+      box-shadow:none;
+      border:1px solid var(--separator);
+      text-align:left;
+    }
+
+    .project-detail .file-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px;
+    }
+    .project-detail .file-row .row-icon{ background:#FF3B30; }
+    .project-detail .file-title{
+      flex:1;
+      min-width:0;
+      font-size:14px;
+      font-weight:600;
+      color:var(--text);
+      text-align:left;
+      word-break:break-word;
+    }
+    .project-detail .file-actions{
+      display:flex;
+      gap:6px;
+      flex-shrink:0;
+    }
+    .project-detail .file-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      border:none;
+      font-size:14px;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .project-detail .file-btn.view{ background: var(--bg); color: var(--blue); }
+    .project-detail .file-btn.download{ background: var(--blue); color:#fff; }
+    .project-detail .file-btn:active{ transform: scale(0.94); }
 
     .cert-item{
       background: var(--card);
@@ -898,6 +958,11 @@
         <span class="row-label">Certifications <small id="certCount"></small></span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </button>
+      <button class="row" id="projectsBtn" type="button">
+        <span class="row-icon icon-projects"><i class="fas fa-diagram-project"></i></span>
+        <span class="row-label">Projects</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </button>
     </div>
 
     <div class="group-title">Curriculum Vitae</div>
@@ -936,6 +1001,22 @@
       <div id="certEmpty" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">
         لا توجد شهادات بعد
       </div>
+    </div>
+  </div>
+
+  <!-- ===== Projects overlay =====
+       قسم Projects: بيعرض الأقسام الفرعية (زي Rivet). عايز تضيف مشروع جديد؟
+       ضيف الملفات في projects.json (نفس مجلد الصفحة) — مش هتلمس الكود. -->
+  <div class="cert-overlay-backdrop" id="projectsOverlay">
+    <div class="cert-overlay-header">
+      <button class="cert-overlay-back" id="projectsOverlayBack" type="button">
+        <i class="fas fa-arrow-right"></i> رجوع
+      </button>
+      <div class="cert-overlay-title" id="projectsOverlayTitle">Projects</div>
+    </div>
+    <div class="cert-overlay-body">
+      <div class="cert-grid" id="projectsGrid"></div>
+      <div id="projectDetail" class="project-detail" style="display:none;"></div>
     </div>
   </div>
 
@@ -1194,6 +1275,183 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && certificatesOverlay.classList.contains('open')) closeCertificatesOverlay();
     });
+
+    // ===== Projects =====
+    // بيانات المشاريع بتتحمّل تلقائي من ملف projects.json (نفس مجلد الصفحة، زي certificates.json).
+    // كل عنصر في الملف: { "title": "اسم الملف", "category": "اسم المشروع", "pdf": "مسار الـ PDF" }
+    // عايز تضيف/تشيل ملف؟ عدّل projects.json بس.
+    // عايز مشروع جديد يظهر حتى قبل ما تضيفله ملفات، أو تغيّر أيقونته/لونه؟ زوّد سطر في projectMeta.
+    const projectMeta = {
+      'Rivet': { icon: 'fa-gear', color: '#FF9500' },
+      'Ventilation': { icon: 'fa-fan', color: '#0A84FF' }
+    };
+    function projectMetaFor(name){
+      return projectMeta[name] || { icon: 'fa-folder', color: '#8E8E93' };
+    }
+
+    const projectsBtn = document.getElementById('projectsBtn');
+    const projectsOverlay = document.getElementById('projectsOverlay');
+    const projectsOverlayBack = document.getElementById('projectsOverlayBack');
+    const projectsOverlayTitle = document.getElementById('projectsOverlayTitle');
+    const projectsGrid = document.getElementById('projectsGrid');
+    const projectDetail = document.getElementById('projectDetail');
+    let currentProject = null;
+    let projectsState = 'loading'; // loading | ready | error
+    let projectsData = [];
+
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function projectOf(item){
+      return item.category || item.project || 'أخرى';
+    }
+    function projectFiles(name){
+      return projectsData.filter((f) => projectOf(f) === name && (f.pdf || f.file));
+    }
+    // أسماء المشاريع: اللي في projectMeta (بالترتيب) + أي مشروع جديد ظهر في projects.json
+    function projectNames(){
+      const names = Object.keys(projectMeta);
+      projectsData.forEach((f) => {
+        const n = projectOf(f);
+        if (!names.includes(n)) names.push(n);
+      });
+      return names;
+    }
+
+    function renderProjects(){
+      currentProject = null;
+      projectsOverlayTitle.textContent = 'Projects';
+      projectsOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> رجوع';
+      projectDetail.style.display = 'none';
+      projectsGrid.innerHTML = projectNames().map((name) => {
+        const meta = projectMetaFor(name);
+        const count = projectsState === 'ready' ? projectFiles(name).length : null;
+        return `
+        <button type="button" class="cert-category-item" data-project="${escapeHtml(name)}">
+          <span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>
+          <span class="cert-category-label">${escapeHtml(name)}</span>
+          ${count === null ? '' : `<span class="cert-category-count">${count} ملف</span>`}
+        </button>`;
+      }).join('');
+      projectsGrid.style.display = 'grid';
+      projectsOverlay.scrollTop = 0;
+    }
+
+    function openProject(name, updateHash = true){
+      if (!projectNames().includes(name)) { renderProjects(); return; }
+      currentProject = name;
+      if (updateHash) setProjectsHash(name);
+      projectsOverlayTitle.textContent = name;
+      projectsOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> الأقسام';
+      projectsGrid.style.display = 'none';
+
+      let html = '';
+      if (projectsState === 'loading') {
+        html = '<p>جاري تحميل الملفات...</p>';
+      } else if (projectsState === 'error') {
+        html = '<p>تعذر تحميل ملف projects.json</p>';
+      } else {
+        const files = projectFiles(name);
+        if (files.length === 0) {
+          html = `<p>ملفات ${escapeHtml(name)} هتتضاف هنا قريبًا.</p>`;
+        } else {
+          html = '<div class="card">' + files.map((f) => {
+            const pdf = f.pdf || f.file;
+            const title = f.title || f.name || pdf;
+            return `
+          <div class="row file-row">
+            <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
+            <span class="file-title">${escapeHtml(title)}</span>
+            <span class="file-actions">
+              <a class="file-btn view" href="${escapeHtml(pdf)}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
+              <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="تحميل"><i class="fas fa-file-download"></i></a>
+            </span>
+          </div>`;
+          }).join('') + '</div>';
+        }
+      }
+      projectDetail.innerHTML = html;
+      projectDetail.style.display = 'block';
+      projectsOverlay.scrollTop = 0;
+    }
+
+    function setProjectsHash(name = null){
+      const nextHash = name ? '#projects/' + encodeURIComponent(name) : '#projects';
+      if (window.location.hash !== nextHash) window.location.hash = nextHash;
+    }
+
+    function openProjectsOverlay(){
+      projectsOverlay.classList.add('open');
+      renderProjects();
+    }
+    function closeProjectsOverlay(updateHash = true){
+      projectsOverlay.classList.remove('open');
+      if (updateHash && window.location.hash.toLowerCase().startsWith('#projects')) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    function syncProjectsFromHash(){
+      const hash = window.location.hash || '';
+      if (!hash.toLowerCase().startsWith('#projects')) {
+        if (projectsOverlay.classList.contains('open')) closeProjectsOverlay(false);
+        return;
+      }
+      projectsOverlay.classList.add('open');
+      const raw = hash.slice('#projects'.length).replace(/^\//, '');
+      if (raw) {
+        let name = raw;
+        try { name = decodeURIComponent(raw); } catch (_) {}
+        openProject(name, false);
+      } else {
+        renderProjects();
+      }
+    }
+
+    projectsBtn.addEventListener('click', () => {
+      setProjectsHash();
+      openProjectsOverlay();
+    });
+    projectsGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cert-category-item');
+      if (btn) openProject(btn.getAttribute('data-project'));
+    });
+    projectsOverlayBack.addEventListener('click', () => {
+      if (currentProject) {
+        setProjectsHash();
+        renderProjects();
+      } else {
+        closeProjectsOverlay(true);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && projectsOverlay.classList.contains('open')) closeProjectsOverlay();
+    });
+    window.addEventListener('hashchange', syncProjectsFromHash);
+
+    // تحميل projects.json
+    function refreshProjectsView(){
+      if (!projectsOverlay.classList.contains('open')) return;
+      if (currentProject) openProject(currentProject, false);
+      else renderProjects();
+    }
+    fetch('projects.json', { cache: 'no-store' })
+      .then((res) => {
+        if (!res.ok) throw new Error('projects.json not found');
+        return res.json();
+      })
+      .then((data) => {
+        projectsState = 'ready';
+        projectsData = Array.isArray(data) ? data : [];
+        refreshProjectsView();
+      })
+      .catch(() => {
+        projectsState = 'error';
+        refreshProjectsView();
+      });
+
+    if (window.location.hash.toLowerCase().startsWith('#projects')) syncProjectsFromHash();
 
     // Certificates: loaded dynamically from certificates.json
     const certGrid = document.getElementById('certGrid');
