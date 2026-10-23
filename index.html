@@ -1352,6 +1352,17 @@
       return names;
     }
 
+    // رابط المعاينة: على الموبايل بنفتح الملف في عارض PDF.js (متصفحات الموبايل بتحمّل الـ PDF بدل ما تعرضه)
+    function viewHref(pdf){
+      if (!isMobileBrowser) return pdf;
+      try {
+        const abs = new URL(pdf, window.location.href).href;
+        return 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(abs);
+      } catch (_) {
+        return pdf;
+      }
+    }
+
     function fileRowsHtml(files){
       return '<div class="card">' + files.map((f) => {
         const pdf = f.pdf || f.file;
@@ -1361,7 +1372,7 @@
         <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
         <span class="file-title">${escapeHtml(title)}</span>
         <span class="file-actions">
-          <a class="file-btn view" href="${escapeHtml(pdf)}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
+          <a class="file-btn view" href="${escapeHtml(viewHref(pdf))}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
           <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="تحميل"><i class="fas fa-file-download"></i></a>
         </span>
       </div>`;
