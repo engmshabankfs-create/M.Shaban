@@ -725,6 +725,71 @@
       margin-top:12px;
       opacity:0.9;
     }
+    /* videos inside a certificates category */
+    .cert-section-title{
+      grid-column: 1 / -1;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 6px 4px 0;
+    }
+    .cert-video-thumb{
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
+      font: inherit;
+      text-align: start;
+    }
+    .cert-video-thumb .video-poster{
+      width: 100%;
+      height: 108px;
+      display: block;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1c1c1e, #3a3a3c);
+    }
+    .video-play{
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .video-play i{
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.58);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      padding-inline-start: 3px;
+    }
+    @media (max-width:480px){
+      .cert-video-thumb .video-poster, .video-play{ height: 96px; }
+    }
+    .video-wrap{
+      width: min(92vw, 880px);
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+    .video-wrap iframe, .video-wrap video{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
     .lightbox-close{
       position:fixed;
       top:18px;
@@ -1122,6 +1187,17 @@
     </div>
   </div>
 
+  <!-- Video lightbox (YouTube أو ملف فيديو) -->
+  <button class="lightbox-close" id="videoLightboxClose" type="button" style="display:none;" data-i18n-aria="ariaClose" aria-label="Close">
+    <i class="fas fa-xmark"></i>
+  </button>
+  <div class="lightbox-backdrop" id="videoLightbox">
+    <div class="lightbox-inner">
+      <div class="video-wrap" id="videoWrap"></div>
+      <div class="lightbox-caption" id="videoCaption"></div>
+    </div>
+  </div>
+
   <div class="sheet-backdrop" id="telegramSheet">
     <div class="sheet">
       <div class="sheet-group">
@@ -1204,7 +1280,10 @@
         toastCertLinkCopied: 'Certificate link copied',
         shareText: 'Get in touch with Eng. Mohamed Shaban',
         fileCount: (n) => n + (n === 1 ? ' file' : ' files'),
-        certCountLabel: (n) => n + (n === 1 ? ' certificate' : ' certificates'),
+        certCountLabel: (n, v = 0) => [n ? n + (n === 1 ? ' certificate' : ' certificates') : '', v ? v + (v === 1 ? ' video' : ' videos') : ''].filter(Boolean).join(' · '),
+        videosHeading: 'Videos',
+        videoCount: (n) => n + (n === 1 ? ' video' : ' videos'),
+        certsHeading: 'Certificates',
         preview: 'Preview',
         download: 'Download',
         projLoading: 'Loading files...',
@@ -1266,7 +1345,10 @@
         toastCertLinkCopied: 'تم نسخ رابط الشهادة',
         shareText: 'تواصل مع المهندس محمد شعبان',
         fileCount: (n) => n + ' ملف',
-        certCountLabel: (n) => n + ' شهادة',
+        certCountLabel: (n, v = 0) => [n ? n + ' شهادة' : '', v ? v + ' فيديو' : ''].filter(Boolean).join(' · '),
+        videosHeading: 'الفيديوهات',
+        videoCount: (n) => n + ' فيديو',
+        certsHeading: 'الشهادات',
         preview: 'معاينة',
         download: 'تحميل',
         projLoading: 'جاري تحميل الملفات...',
@@ -1445,11 +1527,12 @@
     }
 
     let currentCategory = null; // null = شاشة الأقسام الرئيسية
+    let currentSub = null;      // null أو 'videos' (مجلد الفيديوهات جوه القسم)
 
     // Deep links: #certifications أو #certifications/HVAC
-    function setCertificatesHash(category = null){
+    function setCertificatesHash(category = null, sub = null){
       const nextHash = category
-        ? '#certifications/' + encodeURIComponent(category)
+        ? '#certifications/' + encodeURIComponent(category) + (sub ? '/' + encodeURIComponent(sub) : '')
         : '#certifications';
       if (window.location.hash !== nextHash) window.location.hash = nextHash;
     }
@@ -1483,13 +1566,16 @@
       }
       openCertificatesOverlay(false);
       if (certificatesState !== 'ready') return;
-      const rawCategory = hash.slice('#certifications'.length).replace(/^\//, '');
+      const rawParts = hash.slice('#certifications'.length).replace(/^\//, '').split('/');
+      const rawCategory = rawParts[0];
+      let subPart = rawParts[1] || null;
+      try { if (subPart) subPart = decodeURIComponent(subPart); } catch (_) {}
       if (rawCategory) {
         let category = rawCategory;
         try { category = decodeURIComponent(rawCategory); } catch (_) {}
         const categories = groupByCategory(certificatesData);
         if (Object.prototype.hasOwnProperty.call(categories, category)) {
-          openCategory(category, false);
+          openCategory(category, false, subPart);
         } else {
           renderCategories(certificatesData);
         }
@@ -1509,7 +1595,9 @@
     window.addEventListener('hashchange', syncCertificatesFromHash);
     certificatesOverlayBack.addEventListener('click', () => {
       // لو داخل قسم معيّن: ارجع لقائمة الأقسام. لو في قائمة الأقسام: اقفل الشاشة كلها.
-      if (currentCategory) {
+      if (currentCategory && currentSub) {
+        openCategory(currentCategory, true); // من مجلد الفيديوهات لصفحة القسم
+      } else if (currentCategory) {
         setCertificatesHash();
         renderCategories(certificatesData);
       } else {
@@ -1824,6 +1912,7 @@
     function renderCategories(list){
       currentCategory = null;
       certOverlayTitle.textContent = t('certifications');
+      currentSub = null;
       certificatesOverlayBack.innerHTML = backBtnHtml(t('back'));
       certGrid.style.display = 'none';
       certCategoryGrid.innerHTML = '';
@@ -1852,7 +1941,7 @@
         item.innerHTML = `
           ${categoryIconHtml(label, meta)}
           <span class="cert-category-label">${escapeHtml(label)}</span>
-          <span class="cert-category-count">${escapeHtml(t('certCountLabel', grouped[cat].length))}</span>
+          <span class="cert-category-count">${escapeHtml(t('certCountLabel', grouped[cat].filter((c) => !isVideoItem(c)).length, grouped[cat].filter(isVideoItem).length))}</span>
         `;
         frag.appendChild(item);
       });
@@ -1868,14 +1957,25 @@
     });
 
     // فتح قسم معيّن: يعرض بس الشهادات اللي جواه
-    function openCategory(cat, updateHash = true){
+    function openCategory(cat, updateHash = true, sub = null){
       currentCategory = cat;
-      if (updateHash) setCertificatesHash(cat);
-      certOverlayTitle.textContent = displayName(cat);
-      certificatesOverlayBack.innerHTML = backBtnHtml(t('sections'));
       certCategoryGrid.style.display = 'none';
-      const grouped = groupByCategory(certificatesData);
-      renderCertificates(grouped[cat] || []);
+      const items = groupByCategory(certificatesData)[cat] || [];
+      const videos = items.filter(isVideoItem);
+      const certs = items.filter((c) => !isVideoItem(c));
+      if (sub !== 'videos' || videos.length === 0) sub = null;
+      currentSub = sub;
+      if (updateHash) setCertificatesHash(cat, sub);
+      if (sub === 'videos') {
+        // مجلد الفيديوهات: فيديوهات بس، من غير شهادات
+        certOverlayTitle.textContent = t('videosHeading');
+        certificatesOverlayBack.innerHTML = backBtnHtml(displayName(cat));
+        renderVideos(videos);
+      } else {
+        certOverlayTitle.textContent = displayName(cat);
+        certificatesOverlayBack.innerHTML = backBtnHtml(t('sections'));
+        renderCertificates(certs, videos.length);
+      }
       certificatesOverlay.scrollTop = 0;
     }
 
@@ -1892,6 +1992,18 @@
     }
 
     certGrid.addEventListener('click', (e) => {
+      // مجلد الفيديوهات جوه القسم
+      const folderBtn = e.target.closest('[data-folder="videos"]');
+      if (folderBtn && currentCategory) {
+        openCategory(currentCategory, true, 'videos');
+        return;
+      }
+      // فيديو: يفتح في نافذة تشغيل
+      const vthumb = e.target.closest('.cert-video-thumb');
+      if (vthumb) {
+        openVideoLightbox(vthumb.getAttribute('data-video'), vthumb.getAttribute('data-title') || '');
+        return;
+      }
       // زر معاينة PDF
       const viewBtn = e.target.closest('.cert-view-btn');
       if (viewBtn) {
@@ -1912,6 +2024,49 @@
       }
     });
     certLightboxClose.addEventListener('click', closeCertLightbox);
+
+    // ===== Video lightbox =====
+    const videoLightbox = document.getElementById('videoLightbox');
+    const videoLightboxClose = document.getElementById('videoLightboxClose');
+    const videoWrap = document.getElementById('videoWrap');
+    const videoCaption = document.getElementById('videoCaption');
+
+    function openVideoLightbox(url, caption){
+      const id = youtubeId(url);
+      videoWrap.innerHTML = '';
+      if (id) {
+        const f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0&playsinline=1';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+        f.allowFullscreen = true;
+        f.referrerPolicy = 'strict-origin-when-cross-origin';
+        f.title = caption || 'Video';
+        videoWrap.appendChild(f);
+      } else {
+        const v = document.createElement('video');
+        v.src = url;
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        videoWrap.appendChild(v);
+      }
+      videoCaption.textContent = caption || '';
+      videoLightbox.classList.add('open');
+      videoLightboxClose.style.display = 'flex';
+    }
+    function closeVideoLightbox(){
+      videoLightbox.classList.remove('open');
+      videoLightboxClose.style.display = 'none';
+      videoWrap.innerHTML = ''; // بيوقف الفيديو
+      videoCaption.textContent = '';
+    }
+    videoLightboxClose.addEventListener('click', closeVideoLightbox);
+    videoLightbox.addEventListener('click', (e) => {
+      if (e.target === videoLightbox) closeVideoLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && videoLightbox.classList.contains('open')) closeVideoLightbox();
+    });
     certLightbox.addEventListener('click', (e) => {
       if (e.target === certLightbox) closeCertLightbox();
     });
@@ -1944,11 +2099,98 @@
       }
     });
 
-    function renderCertificates(list){
+    function buildVideosFolder(n){
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cert-category-item';
+      btn.setAttribute('data-folder', 'videos');
+      btn.innerHTML = `
+        <span class="cert-category-icon" style="background:#FF3B30"><i class="fas fa-play"></i></span>
+        <span class="cert-category-label">${escapeHtml(t('videosHeading'))}</span>
+        <span class="cert-category-count">${escapeHtml(t('videoCount', n))}</span>
+      `;
+      return btn;
+    }
+    function renderVideos(videos){
       certGrid.innerHTML = '';
       hideCertSkeleton();
       certCategoryGrid.style.display = 'none';
-      if (!Array.isArray(list) || list.length === 0){
+      certEmpty.style.display = 'none';
+      certCountEl.textContent = `(${certificatesData.length})`;
+      const sortedV = [...videos].sort((a, b) => {
+        const da = new Date(a.date || a.year || 0).getTime() || 0;
+        const db = new Date(b.date || b.year || 0).getTime() || 0;
+        return db - da;
+      });
+      const frag = document.createDocumentFragment();
+      sortedV.forEach((v) => frag.appendChild(buildVideoCard(v)));
+      certGrid.appendChild(frag);
+      certGrid.style.display = 'grid';
+    }
+    function isVideoItem(c){
+      return !!(c && c.video);
+    }
+    function youtubeId(url){
+      try {
+        const u = new URL(url, window.location.href);
+        const h = u.hostname.replace(/^www\./, '');
+        if (h === 'youtu.be') return u.pathname.slice(1).split('/')[0];
+        if (h.endsWith('youtube.com') || h.endsWith('youtube-nocookie.com')) {
+          if (u.searchParams.get('v')) return u.searchParams.get('v');
+          const m = u.pathname.match(/\/(embed|shorts|live)\/([^/?]+)/);
+          if (m) return m[2];
+        }
+      } catch (_) {}
+      return '';
+    }
+    function buildVideoCard(v){
+      const url = v.video;
+      const ytId = youtubeId(url);
+      const title = itemTitle(v);
+      const poster = v.thumbnail || v.image || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
+
+      const item = document.createElement('div');
+      item.className = 'cert-item';
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cert-video-thumb';
+      btn.setAttribute('data-video', url);
+      btn.setAttribute('data-title', title);
+
+      if (poster) {
+        const imgEl = document.createElement('img');
+        imgEl.className = 'video-poster';
+        imgEl.src = poster;
+        imgEl.alt = title || 'Video';
+        imgEl.loading = 'lazy';
+        imgEl.addEventListener('load', () => imgEl.classList.add('loaded'));
+        btn.appendChild(imgEl);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'video-poster';
+        btn.appendChild(ph);
+      }
+
+      const play = document.createElement('span');
+      play.className = 'video-play';
+      play.innerHTML = '<i class="fas fa-play"></i>';
+      btn.appendChild(play);
+
+      const label = document.createElement('div');
+      label.className = 'cert-label';
+      label.textContent = title;
+      btn.appendChild(label);
+
+      item.appendChild(btn);
+      return item;
+    }
+
+    function renderCertificates(list, videoCount = 0){
+      certGrid.innerHTML = '';
+      hideCertSkeleton();
+      certCategoryGrid.style.display = 'none';
+      if (!Array.isArray(list) || (list.length === 0 && videoCount === 0)){
         certGrid.style.display = 'none';
         certEmpty.style.display = 'block';
         certCountEl.textContent = '';
@@ -1965,6 +2207,8 @@
       certEmpty.style.display = 'none';
       certCountEl.textContent = `(${certificatesData.length})`;
       const frag = document.createDocumentFragment();
+      // مجلد "Videos" بيظهر أول حاجة جوه القسم (لو فيه فيديوهات)، والشهادات تحته
+      if (videoCount > 0) frag.appendChild(buildVideosFolder(videoCount));
       sorted.forEach((cert) => {
         const img = cert.image || cert.img || '';
         const full = cert.full || img;
@@ -2233,7 +2477,7 @@
 
       // أعد رسم الشاشات المفتوحة باللغة الجديدة
       if (certificatesOverlay.classList.contains('open') && certificatesState === 'ready') {
-        if (currentCategory) openCategory(currentCategory, false);
+        if (currentCategory) openCategory(currentCategory, false, currentSub);
         else renderCategories(certificatesData);
       }
       if (projectsOverlay.classList.contains('open')) refreshProjectsView();
