@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,19 +14,28 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#007aff">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="profile">
+  <!-- Open Graph (WhatsApp / Facebook / Telegram / LinkedIn link preview)
+       مهم: og:image لازم يكون لينك مطلق (https://...) عشان واتساب يعرضه.
+       لو الصفحة مستضافة على دومين تاني غير engshab.blogspot.com، غيّر الدومين في
+       og:image / og:image:secure_url / og:url / twitter:image / JSON-LD تحت. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mohamed Shaban">
   <meta property="og:title" content="Mohamed Shaban | Mechanical Engineer">
   <meta property="og:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
-  <meta property="og:image" content="me.jpg">
+  <meta property="og:image" content="https://engshab.blogspot.com/me.jpg">
+  <meta property="og:image:secure_url" content="https://engshab.blogspot.com/me.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Eng. Mohamed Shaban — Mechanical Power & Energy Engineer">
   <meta property="og:url" content="https://engshab.blogspot.com/">
-  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ar_AR">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Mohamed Shaban | Mechanical Engineer">
   <meta name="twitter:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
-  <meta name="twitter:image" content="me.jpg">
+  <meta name="twitter:image" content="https://engshab.blogspot.com/me.jpg">
+  <meta name="twitter:image:alt" content="Eng. Mohamed Shaban — Mechanical Power & Energy Engineer">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -39,8 +48,9 @@
     "name": "Mohamed Shaban",
     "jobTitle": "Mechanical Power & Energy Engineer",
     "email": "mailto:eng.m.shaban.kfs@gmail.com",
+    "telephone": "+201094517814",
     "url": "https://engshab.blogspot.com/",
-    "image": "me.jpg",
+    "image": "https://engshab.blogspot.com/me.jpg",
     "sameAs": [
       "https://www.linkedin.com/in/m-shaban-kfs",
       "https://www.facebook.com/share/14on6ZyFRE2/",
@@ -99,7 +109,7 @@
       min-height:100vh;
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Tahoma, "Helvetica Neue", Arial, sans-serif;
       display:flex;
       justify-content:center;
       padding: 56px 16px;
@@ -136,10 +146,40 @@
       html:not([data-theme="light"]) .theme-toggle .fa-moon{ display:none; }
     }
 
+    /* language toggle (EN / AR) */
+    .lang-toggle{
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border: none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 7px;
+      cursor:pointer;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      z-index: 50;
+      transition: background .3s ease, color .3s ease, transform .15s ease;
+    }
+    .lang-toggle i{ color: var(--blue); font-size: 14px; }
+    .lang-toggle:active{ transform: scale(0.94); }
+
     .container{
       width:100%;
       max-width: 400px;
     }
+
+    /* direction-aware helpers */
+    html[dir="rtl"] .row-chevron{ transform: scaleX(-1); }
+    html[dir="ltr"] .back-arrow{ transform: scaleX(-1); }
 
     /* profile header */
     .profile-header{
@@ -180,6 +220,7 @@
       margin: 0 0 4px;
       letter-spacing: -0.3px;
     }
+    html[dir="rtl"] h1{ letter-spacing: 0; }
 
     .status-line{
       font-size: 15px;
@@ -192,9 +233,9 @@
     .typing{
       white-space:nowrap;
       overflow:hidden;
-      border-right: 2px solid var(--blue);
+      border-inline-end: 2px solid var(--blue);
       animation: blink-cursor .8s steps(1) infinite;
-      padding-right:2px;
+      padding-inline-end:2px;
       color: var(--blue);
       font-weight: 700;
     }
@@ -207,8 +248,10 @@
       color: var(--secondary);
       text-transform: uppercase;
       letter-spacing: 0.4px;
-      margin: 0 0 8px 14px;
+      margin: 0 0 8px;
+      margin-inline-start: 14px;
     }
+    html[dir="rtl"] .group-title{ letter-spacing: 0; }
 
     .card{
       background: var(--card);
@@ -254,6 +297,7 @@
       flex-shrink:0;
     }
     .icon-whatsapp{ background:#25D366; }
+    .icon-call{ background:#34C759; }
     .icon-email{ background:#8E8E93; }
     .icon-linkedin{ background:#0A66C2; }
     .icon-facebook{ background:#1877F2; }
@@ -267,7 +311,7 @@
       flex:1;
       font-size: 15.5px;
       font-weight: 500;
-      text-align: left;
+      text-align: start;
     }
 
     .row-chevron{
@@ -386,7 +430,7 @@
       text-align:center;
       font-size: 16px;
       font-weight: 700;
-      margin-right: 40px;
+      margin-inline-end: 40px;
     }
     .cert-overlay-body{
       padding: 16px;
@@ -568,7 +612,7 @@
       margin: 14px 0 0;
       box-shadow:none;
       border:1px solid var(--separator);
-      text-align:left;
+      text-align:start;
     }
 
     .project-detail .file-row{
@@ -584,7 +628,7 @@
       font-size:14px;
       font-weight:600;
       color:var(--text);
-      text-align:left;
+      text-align:start;
       word-break:break-word;
     }
     .project-detail .file-actions{
@@ -617,7 +661,7 @@
       border:none;
       padding:0;
       font-family:inherit;
-      text-align:left;
+      text-align:start;
       transition: transform .1s ease, opacity .15s ease;
     }
     .cert-item:active{ transform: scale(0.97); opacity:0.9; }
@@ -892,7 +936,12 @@
 </head>
 <body>
 
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+  <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="ariaLang" aria-label="Switch language">
+    <i class="fas fa-globe"></i>
+    <span id="langLabel">العربية</span>
+  </button>
+
+  <button class="theme-toggle" id="themeToggle" type="button" data-i18n-aria="ariaTheme" aria-label="Toggle dark mode">
     <i class="fas fa-moon"></i>
     <i class="fas fa-sun"></i>
   </button>
@@ -900,10 +949,10 @@
   <div class="container">
 
     <div class="profile-header">
-      <button type="button" class="profile-pic" id="profilePicBtn" aria-label="عرض الصورة بالكامل">
+      <button type="button" class="profile-pic" id="profilePicBtn" data-i18n-aria="ariaPic" aria-label="View full photo">
         <img src="me.jpg" alt="ENG Mohamed Shaban">
       </button>
-      <h1>Mohamed Shaban</h1>
+      <h1 data-i18n="name">Mohamed Shaban</h1>
       <div class="status-line">
         <span class="typing" id="typing"></span>
       </div>
@@ -912,44 +961,49 @@
     <div class="quick-actions">
       <button class="quick-action" id="copyNumberBtn" type="button">
         <i class="fas fa-copy"></i>
-        <span>نسخ الرقم</span>
+        <span data-i18n="copyNumber">Copy Number</span>
       </button>
       <button class="quick-action" id="saveContactBtn" type="button">
         <i class="fas fa-address-card"></i>
-        <span>حفظ جهة الاتصال</span>
+        <span data-i18n="saveContact">Save Contact</span>
       </button>
       <button class="quick-action" id="shareBtn" type="button">
         <i class="fas fa-share-nodes"></i>
-        <span>مشاركة</span>
+        <span data-i18n="share">Share</span>
       </button>
       <button class="quick-action" id="qrBtn" type="button">
         <i class="fas fa-qrcode"></i>
-        <span>QR Code</span>
+        <span data-i18n="qr">QR Code</span>
       </button>
     </div>
 
     <div class="card">
-      <a class="row" href="https://wa.me/201094517814" target="_blank">
+      <a class="row" href="https://wa.me/201094517814" target="_blank" rel="noopener">
         <span class="row-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></span>
-        <span class="row-label">WhatsApp</span>
+        <span class="row-label" data-i18n="whatsapp">WhatsApp</span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </a>
+      <a class="row" href="tel:+201094517814">
+        <span class="row-icon icon-call"><i class="fas fa-phone"></i></span>
+        <span class="row-label" data-i18n="call">Call</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
       <a class="row" href="mailto:eng.m.shaban.kfs@gmail.com">
         <span class="row-icon icon-email"><i class="fas fa-envelope"></i></span>
-        <span class="row-label">Email</span>
+        <span class="row-label" data-i18n="email">Email</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
-      <a class="row" href="https://www.linkedin.com/in/m-shaban-kfs?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">
+      <a class="row" href="https://www.linkedin.com/in/m-shaban-kfs?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener">
         <span class="row-icon icon-linkedin"><i class="fab fa-linkedin-in"></i></span>
         <span class="row-label">LinkedIn</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
-      <a class="row" href="https://www.facebook.com/share/14on6ZyFRE2/" target="_blank">
+      <a class="row" href="https://www.facebook.com/share/14on6ZyFRE2/" target="_blank" rel="noopener">
         <span class="row-icon icon-facebook"><i class="fab fa-facebook-f"></i></span>
         <span class="row-label">Facebook</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
-      <a class="row" href="https://youtube.com/@eng.m.shaban?si=_45glZ1-534MI1eC" target="_blank">
+      <a class="row" href="https://youtube.com/@eng.m.shaban?si=_45glZ1-534MI1eC" target="_blank" rel="noopener">
         <span class="row-icon icon-youtube"><i class="fab fa-youtube"></i></span>
         <span class="row-label">YouTube</span>
         <i class="fas fa-chevron-right row-chevron"></i>
@@ -959,30 +1013,30 @@
         <span class="row-label">Telegram</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </button>
-      <a class="row" href="https://engshab.blogspot.com/" target="_blank">
+      <a class="row" href="https://engshab.blogspot.com/" target="_blank" rel="noopener">
         <span class="row-icon icon-blog"><i class="fas fa-globe"></i></span>
         <span class="row-label">M.Shaban</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
       <button class="row" id="certificatesBtn" type="button">
         <span class="row-icon icon-group"><i class="fas fa-certificate"></i></span>
-        <span class="row-label">Certifications <small id="certCount"></small></span>
+        <span class="row-label"><span data-i18n="certifications">Certifications</span> <small id="certCount"></small></span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </button>
       <button class="row" id="projectsBtn" type="button">
         <span class="row-icon icon-projects"><i class="fas fa-diagram-project"></i></span>
-        <span class="row-label">Projects</span>
+        <span class="row-label" data-i18n="projects">Projects</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </button>
     </div>
 
-    <div class="group-title">Curriculum Vitae</div>
+    <div class="group-title" data-i18n="cvTitle">Curriculum Vitae</div>
     <div class="cv-actions">
       <button class="btn outline" id="viewCvBtn" type="button">
         <i class="fas fa-eye"></i> View CV
       </button>
       <a class="btn solid" href="cv.pdf" download>
-        <i class="fas fa-file-download"></i> Download CV
+        <i class="fas fa-file-download"></i> <span data-i18n="downloadCv">Download CV</span>
       </a>
     </div>
 
@@ -990,40 +1044,42 @@
       <iframe id="cvFrame" src="" title="CV Preview"></iframe>
     </div>
 
-    <footer>Mechanical Power &amp; Energy Engineering</footer>
+    <footer data-i18n="footer">Mechanical Power &amp; Energy Engineering</footer>
   </div>
 
   <!-- ===== Certificates overlay =====
        بتتفتح بالضغط على زرار "الشهادات". البيانات بتتحمّل تلقائي من ملف
        certificates.json (نفس مجلد الصفحة). عايز تضيف/تشيل شهادة؟
-       مش هتلمس الكود خالص هنا — عدّل ملف certificates.json بس. -->
+       مش هتلمس الكود خالص هنا — عدّل ملف certificates.json بس.
+       (اختياري) لعنوان بلغتين: "title_en" و "title_ar" جنب "title". -->
   <div class="cert-overlay-backdrop" id="certificatesOverlay">
     <div class="cert-overlay-header">
       <button class="cert-overlay-back" id="certificatesOverlayBack" type="button">
-        <i class="fas fa-arrow-right"></i> رجوع
+        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
       </button>
-      <div class="cert-overlay-title" id="certOverlayTitle">Certifications</div>
+      <div class="cert-overlay-title" id="certOverlayTitle" data-i18n="certifications">Certifications</div>
     </div>
     <div class="cert-overlay-body">
-      <div class="cert-loading-text" id="certLoadingText">جاري تحميل الشهادات...</div>
+      <div class="cert-loading-text" id="certLoadingText" data-i18n="certLoading">Loading certificates...</div>
       <div class="cert-grid" id="certSkeletonGrid" style="display:none;"></div>
       <div class="cert-grid" id="certCategoryGrid" style="display:none;"></div>
       <div class="cert-grid" id="certGrid" style="display:none;"></div>
-      <div id="certEmpty" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">
-        لا توجد شهادات بعد
+      <div id="certEmpty" data-i18n="noCerts" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">
+        No certificates yet
       </div>
     </div>
   </div>
 
   <!-- ===== Projects overlay =====
        قسم Projects: بيعرض الأقسام الفرعية (زي Revit). عايز تضيف مشروع جديد؟
-       ضيف الملفات في projects.json (نفس مجلد الصفحة) — مش هتلمس الكود. -->
+       ضيف الملفات في projects.json (نفس مجلد الصفحة) — مش هتلمس الكود.
+       (اختياري) لعنوان بلغتين: "title_en" و "title_ar" جنب "title". -->
   <div class="cert-overlay-backdrop" id="projectsOverlay">
     <div class="cert-overlay-header">
       <button class="cert-overlay-back" id="projectsOverlayBack" type="button">
-        <i class="fas fa-arrow-right"></i> رجوع
+        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
       </button>
-      <div class="cert-overlay-title" id="projectsOverlayTitle">Projects</div>
+      <div class="cert-overlay-title" id="projectsOverlayTitle" data-i18n="projects">Projects</div>
     </div>
     <div class="cert-overlay-body">
       <div class="cert-grid" id="projectsGrid"></div>
@@ -1033,7 +1089,7 @@
 
   <!-- Profile picture lightbox (مع زر رجوع للصفحة الرئيسية) -->
   <button class="lightbox-back" id="profileLightboxBack" type="button">
-    <i class="fas fa-arrow-right"></i> رجوع للصفحة الرئيسية
+    <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="backHome">Back to main page</span>
   </button>
   <div class="lightbox-backdrop" id="profileLightbox">
     <div class="lightbox-inner">
@@ -1042,7 +1098,7 @@
   </div>
 
   <!-- Certificate lightbox -->
-  <button class="lightbox-close" id="certLightboxClose" type="button" style="display:none;" aria-label="Close">
+  <button class="lightbox-close" id="certLightboxClose" type="button" style="display:none;" data-i18n-aria="ariaClose" aria-label="Close">
     <i class="fas fa-xmark"></i>
   </button>
   <div class="lightbox-backdrop" id="certLightbox">
@@ -1050,7 +1106,7 @@
       <img class="lightbox-content" id="certLightboxImg" src="" alt="Certificate">
       <div class="lightbox-caption" id="certLightboxCaption"></div>
       <button class="lightbox-share" id="certLightboxShare" type="button">
-        <i class="fas fa-share-nodes"></i> مشاركة الشهادة
+        <i class="fas fa-share-nodes"></i> <span data-i18n="shareCert">Share certificate</span>
       </button>
     </div>
   </div>
@@ -1058,11 +1114,11 @@
   <div class="sheet-backdrop" id="telegramSheet">
     <div class="sheet">
       <div class="sheet-group">
-        <div class="sheet-title">اختر</div>
-        <a class="sheet-option" href="https://t.me/ENG_M_Shaban" target="_blank">الملف الشخصي</a>
-        <a class="sheet-option" href="https://t.me/EngMShaban" target="_blank">قناة التلجرام</a>
+        <div class="sheet-title" data-i18n="choose">Choose</div>
+        <a class="sheet-option" href="https://t.me/ENG_M_Shaban" target="_blank" rel="noopener" data-i18n="tgProfile">Profile</a>
+        <a class="sheet-option" href="https://t.me/EngMShaban" target="_blank" rel="noopener" data-i18n="tgChannel">Telegram Channel</a>
       </div>
-      <button class="sheet-cancel" id="telegramSheetCancel" type="button">إلغاء</button>
+      <button class="sheet-cancel" id="telegramSheetCancel" type="button" data-i18n="cancel">Cancel</button>
     </div>
   </div>
 
@@ -1070,35 +1126,179 @@
     <div class="sheet">
       <div class="sheet-group" style="padding:16px;">
         <div class="qr-tabs">
-          <button class="qr-tab active" id="qrTabSite" type="button">الموقع</button>
-          <button class="qr-tab" id="qrTabWhatsapp" type="button">واتساب</button>
-          <button class="qr-tab" id="qrTabContact" type="button">جهة الاتصال</button>
+          <button class="qr-tab active" id="qrTabSite" type="button" data-i18n="qrSite">Website</button>
+          <button class="qr-tab" id="qrTabWhatsapp" type="button" data-i18n="whatsapp">WhatsApp</button>
+          <button class="qr-tab" id="qrTabContact" type="button" data-i18n="qrContact">Contact</button>
         </div>
         <div class="qr-box">
           <img id="qrImage" src="" alt="QR Code">
         </div>
       </div>
-      <button class="sheet-cancel" id="qrSheetCancel" type="button">إغلاق</button>
+      <button class="sheet-cancel" id="qrSheetCancel" type="button" data-i18n="close">Close</button>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    // Typing effect
-    const texts = [
-      "Mechanical Power Engineer",
-      "Energy & Machines Specialist",
-      "Industrial Maintenance Expert",
-      "Always Learning & Innovating"
-    ];
+    // ===================== i18n (English default / Arabic) =====================
+    const I18N = {
+      en: {
+        pageTitle: 'ENG Mohamed Shaban | Mechanical Engineer',
+        metaDesc: 'Mohamed Shaban — Mechanical Power & Energy Engineer. Contact, CV, and social links.',
+        name: 'Mohamed Shaban',
+        langBtn: 'العربية',
+        typing: [
+          'Mechanical Power Engineer',
+          'Energy & Machines Specialist',
+          'Industrial Maintenance Expert',
+          'Always Learning & Innovating'
+        ],
+        copyNumber: 'Copy Number',
+        saveContact: 'Save Contact',
+        share: 'Share',
+        qr: 'QR Code',
+        whatsapp: 'WhatsApp',
+        call: 'Call',
+        email: 'Email',
+        certifications: 'Certifications',
+        projects: 'Projects',
+        cvTitle: 'Curriculum Vitae',
+        viewCv: 'View CV',
+        hideCv: 'Hide CV',
+        downloadCv: 'Download CV',
+        footer: 'Mechanical Power & Energy Engineering',
+        back: 'Back',
+        sections: 'Sections',
+        backHome: 'Back to main page',
+        certLoading: 'Loading certificates...',
+        noCerts: 'No certificates yet',
+        shareCert: 'Share certificate',
+        certificate: 'Certificate',
+        choose: 'Choose',
+        tgProfile: 'Profile',
+        tgChannel: 'Telegram Channel',
+        cancel: 'Cancel',
+        close: 'Close',
+        qrSite: 'Website',
+        qrContact: 'Contact',
+        toastCopied: 'Number copied',
+        toastCopyFail: "Couldn't copy the number",
+        toastSaved: 'Contact saved',
+        toastLinkCopied: 'Page link copied',
+        toastShareFail: "Couldn't share the link",
+        toastCertLinkCopied: 'Certificate link copied',
+        shareText: 'Get in touch with Eng. Mohamed Shaban',
+        fileCount: (n) => n + (n === 1 ? ' file' : ' files'),
+        certCountLabel: (n) => n + (n === 1 ? ' certificate' : ' certificates'),
+        preview: 'Preview',
+        download: 'Download',
+        projLoading: 'Loading files...',
+        projError: "Couldn't load projects.json",
+        projSoon: (n) => n + ' files will be added here soon.',
+        other: 'Other',
+        ariaLang: 'Switch language',
+        ariaTheme: 'Toggle dark mode',
+        ariaPic: 'View full photo',
+        ariaClose: 'Close'
+      },
+      ar: {
+        pageTitle: 'م. محمد شعبان | مهندس ميكانيكا',
+        metaDesc: 'محمد شعبان — مهندس قوى وطاقة ميكانيكية. بيانات التواصل والسيرة الذاتية وروابط التواصل الاجتماعي.',
+        name: 'محمد شعبان',
+        langBtn: 'English',
+        typing: [
+          'مهندس قوى ميكانيكية',
+          'متخصص في الطاقة والماكينات',
+          'خبير في الصيانة الصناعية',
+          'دائمًا أتعلم وأبتكر'
+        ],
+        copyNumber: 'نسخ الرقم',
+        saveContact: 'حفظ جهة الاتصال',
+        share: 'مشاركة',
+        qr: 'QR Code',
+        whatsapp: 'واتساب',
+        call: 'اتصال مباشر',
+        email: 'البريد الإلكتروني',
+        certifications: 'الشهادات',
+        projects: 'المشاريع',
+        cvTitle: 'السيرة الذاتية',
+        viewCv: 'عرض السيرة الذاتية',
+        hideCv: 'إخفاء السيرة الذاتية',
+        downloadCv: 'تحميل السيرة الذاتية',
+        footer: 'هندسة القوى الميكانيكية والطاقة',
+        back: 'رجوع',
+        sections: 'الأقسام',
+        backHome: 'رجوع للصفحة الرئيسية',
+        certLoading: 'جاري تحميل الشهادات...',
+        noCerts: 'لا توجد شهادات بعد',
+        shareCert: 'مشاركة الشهادة',
+        certificate: 'شهادة',
+        choose: 'اختر',
+        tgProfile: 'الملف الشخصي',
+        tgChannel: 'قناة التلجرام',
+        cancel: 'إلغاء',
+        close: 'إغلاق',
+        qrSite: 'الموقع',
+        qrContact: 'جهة الاتصال',
+        toastCopied: 'تم نسخ الرقم',
+        toastCopyFail: 'تعذر نسخ الرقم',
+        toastSaved: 'تم حفظ جهة الاتصال',
+        toastLinkCopied: 'تم نسخ رابط الصفحة',
+        toastShareFail: 'تعذر مشاركة الرابط',
+        toastCertLinkCopied: 'تم نسخ رابط الشهادة',
+        shareText: 'تواصل مع المهندس محمد شعبان',
+        fileCount: (n) => n + ' ملف',
+        certCountLabel: (n) => n + ' شهادة',
+        preview: 'معاينة',
+        download: 'تحميل',
+        projLoading: 'جاري تحميل الملفات...',
+        projError: 'تعذر تحميل ملف projects.json',
+        projSoon: (n) => 'ملفات ' + n + ' هتتضاف هنا قريبًا.',
+        other: 'أخرى',
+        ariaLang: 'تغيير اللغة',
+        ariaTheme: 'تبديل الوضع الداكن',
+        ariaPic: 'عرض الصورة بالكامل',
+        ariaClose: 'إغلاق'
+      }
+    };
+
+    // أسماء الأقسام/المشاريع اللي بتيجي من ملفات JSON وليها ترجمة.
+    // أي اسم مش موجود هنا بيظهر زي ما هو في ملف JSON.
+    const NAME_MAP = {
+      'Other': { en: 'Other', ar: 'أخرى' },
+      'دورات تدريبية': { en: 'Training Courses', ar: 'دورات تدريبية' }
+    };
+
+    let lang = 'en'; // الافتراضي: الإنجليزية
+    try {
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang === 'ar' || savedLang === 'en') lang = savedLang;
+    } catch (_) {}
+
+    function t(key, ...args){
+      let v = I18N[lang][key];
+      if (v === undefined) v = I18N.en[key];
+      return typeof v === 'function' ? v(...args) : v;
+    }
+    function displayName(n){
+      const m = NAME_MAP[n];
+      return m ? m[lang] : n;
+    }
+    // عنوان عنصر من JSON: title_en / title_ar لو موجودين، وإلا title العادي
+    function itemTitle(item, fallback = ''){
+      return item['title_' + lang] || item.title || item.name || fallback;
+    }
+
+    // ===================== Typing effect =====================
     const typingEl = document.getElementById('typing');
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
 
     function tick() {
-      const current = texts[textIndex];
+      const texts = t('typing');
+      const current = texts[textIndex % texts.length];
       if (!isDeleting) {
         charIndex++;
         typingEl.textContent = current.slice(0, charIndex);
@@ -1109,10 +1309,10 @@
 
       let delay = isDeleting ? 55 : 110;
 
-      if (!isDeleting && charIndex === current.length) {
+      if (!isDeleting && charIndex >= current.length) {
         delay = 1500;
         isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
+      } else if (isDeleting && charIndex <= 0) {
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
         delay = 300;
@@ -1120,6 +1320,10 @@
       setTimeout(tick, delay);
     }
     tick();
+
+    function backBtnHtml(label){
+      return '<i class="fas fa-arrow-right back-arrow"></i> ' + escapeHtml(label);
+    }
 
     // View CV toggle (inline viewer على الديسكتوب، تاب جديد على الموبايل)
     const viewCvBtn = document.getElementById('viewCvBtn');
@@ -1130,6 +1334,11 @@
     // متصفحات الموبايل (خصوصًا كروم أندرويد) مش بتعرف تعرض PDF جوه iframe —
     // بتظهر كارت "فتح" بدل المعاينة. الحل: افتح الملف في تاب جديد بدل الـ iframe.
     const isMobileBrowser = window.matchMedia('(pointer: coarse)').matches;
+
+    function updateCvBtn(){
+      const isOpen = cvViewer.classList.contains('open');
+      viewCvBtn.innerHTML = `<i class="fas ${isOpen ? 'fa-eye-slash' : 'fa-eye'}"></i> ${escapeHtml(t(isOpen ? 'hideCv' : 'viewCv'))}`;
+    }
 
     viewCvBtn.addEventListener('click', () => {
       if (isMobileBrowser) {
@@ -1142,11 +1351,9 @@
           cvFrame.src = 'cv.pdf';
           cvLoaded = true;
         }
-        viewCvBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide CV';
         cvViewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } else {
-        viewCvBtn.innerHTML = '<i class="fas fa-eye"></i> View CV';
       }
+      updateCvBtn();
     });
 
     // Telegram action sheet
@@ -1325,7 +1532,7 @@
     }
 
     function projectOf(item){
-      return item.category || item.project || 'أخرى';
+      return item.category || item.project || 'Other';
     }
     // القسم الفرعي (اختياري) جوه المشروع: حقل "section" في projects.json
     function sectionOf(item){
@@ -1366,14 +1573,14 @@
     function fileRowsHtml(files){
       return '<div class="card">' + files.map((f) => {
         const pdf = f.pdf || f.file;
-        const title = f.title || f.name || pdf;
+        const title = itemTitle(f, pdf);
         return `
       <div class="row file-row">
         <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
         <span class="file-title">${escapeHtml(title)}</span>
         <span class="file-actions">
-          <a class="file-btn view" href="${escapeHtml(viewHref(pdf))}" target="_blank" rel="noopener" aria-label="معاينة"><i class="fas fa-eye"></i></a>
-          <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="تحميل"><i class="fas fa-file-download"></i></a>
+          <a class="file-btn view" href="${escapeHtml(viewHref(pdf))}" target="_blank" rel="noopener" aria-label="${escapeHtml(t('preview'))}"><i class="fas fa-eye"></i></a>
+          <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="${escapeHtml(t('download'))}"><i class="fas fa-file-download"></i></a>
         </span>
       </div>`;
       }).join('') + '</div>';
@@ -1382,20 +1589,21 @@
     function renderProjects(){
       currentProject = null;
       currentSection = null;
-      projectsOverlayTitle.textContent = 'Projects';
-      projectsOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> رجوع';
+      projectsOverlayTitle.textContent = t('projects');
+      projectsOverlayBack.innerHTML = backBtnHtml(t('back'));
       projectDetail.style.display = 'none';
       projectsGrid.innerHTML = projectNames().map((name) => {
         const meta = projectMetaFor(name);
+        const label = displayName(name);
         const count = projectsState === 'ready' ? projectFiles(name).length : null;
         const iconHtml = meta.logo
-          ? `<span class="cert-category-icon has-logo"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(name)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.style.background='${meta.color}';this.outerHTML='<i class=&quot;fas ${meta.icon}&quot;></i>'"></span>`
+          ? `<span class="cert-category-icon has-logo"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(label)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.style.background='${meta.color}';this.outerHTML='<i class=&quot;fas ${meta.icon}&quot;></i>'"></span>`
           : `<span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>`;
         return `
         <button type="button" class="cert-category-item" data-project="${escapeHtml(name)}">
           ${iconHtml}
-          <span class="cert-category-label">${escapeHtml(name)}</span>
-          ${count === null ? '' : `<span class="cert-category-count">${count} ملف</span>`}
+          <span class="cert-category-label">${escapeHtml(label)}</span>
+          ${count === null ? '' : `<span class="cert-category-count">${escapeHtml(t('fileCount', count))}</span>`}
         </button>`;
       }).join('');
       projectsGrid.style.display = 'grid';
@@ -1411,25 +1619,23 @@
       if (updateHash) setProjectsHash(name, currentSection);
       const meta = projectMetaFor(name);
 
-      projectsOverlayTitle.textContent = currentSection || name;
-      projectsOverlayBack.innerHTML = currentSection
-        ? '<i class="fas fa-arrow-right"></i> ' + escapeHtml(name)
-        : '<i class="fas fa-arrow-right"></i> الأقسام';
+      projectsOverlayTitle.textContent = displayName(currentSection || name);
+      projectsOverlayBack.innerHTML = backBtnHtml(currentSection ? displayName(name) : t('sections'));
 
       projectsGrid.innerHTML = '';
       projectsGrid.style.display = 'none';
       let html = '';
 
       if (projectsState === 'loading') {
-        html = '<p>جاري تحميل الملفات...</p>';
+        html = '<p>' + escapeHtml(t('projLoading')) + '</p>';
       } else if (projectsState === 'error') {
-        html = '<p>تعذر تحميل ملف projects.json</p>';
+        html = '<p>' + escapeHtml(t('projError')) + '</p>';
       } else if (currentSection) {
         // جوه قسم فرعي: ملفاته بس
         const files = projectFiles(name).filter((f) => sectionOf(f) === currentSection);
         html = files.length
           ? fileRowsHtml(files)
-          : `<p>ملفات ${escapeHtml(currentSection)} هتتضاف هنا قريبًا.</p>`;
+          : `<p>${escapeHtml(t('projSoon', displayName(currentSection)))}</p>`;
       } else {
         // صفحة المشروع: الأقسام الفرعية كأيقونات + الملفات اللي من غير قسم
         const all = projectFiles(name);
@@ -1441,8 +1647,8 @@
             return `
         <button type="button" class="cert-category-item" data-section="${escapeHtml(s)}">
           <span class="cert-category-icon" style="background:${meta.color}"><i class="fas fa-folder"></i></span>
-          <span class="cert-category-label">${escapeHtml(s)}</span>
-          <span class="cert-category-count">${count} ملف</span>
+          <span class="cert-category-label">${escapeHtml(displayName(s))}</span>
+          <span class="cert-category-count">${escapeHtml(t('fileCount', count))}</span>
         </button>`;
           }).join('');
           projectsGrid.style.display = 'grid';
@@ -1450,7 +1656,7 @@
         if (direct.length) {
           html = fileRowsHtml(direct);
         } else if (!sections.length) {
-          html = `<p>ملفات ${escapeHtml(name)} هتتضاف هنا قريبًا.</p>`;
+          html = `<p>${escapeHtml(t('projSoon', displayName(name)))}</p>`;
         }
       }
 
@@ -1589,7 +1795,7 @@
     function groupByCategory(list){
       const map = {};
       list.forEach((c) => {
-        const cat = c.category || 'أخرى';
+        const cat = c.category || 'Other';
         if (!map[cat]) map[cat] = [];
         map[cat].push(c);
       });
@@ -1599,8 +1805,8 @@
     // شاشة الأقسام (الصفحة الرئيسية لل Certifications): كل قسم أيقونة واحدة
     function renderCategories(list){
       currentCategory = null;
-      certOverlayTitle.textContent = 'Certifications';
-      certificatesOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> رجوع';
+      certOverlayTitle.textContent = t('certifications');
+      certificatesOverlayBack.innerHTML = backBtnHtml(t('back'));
       certGrid.style.display = 'none';
       certCategoryGrid.innerHTML = '';
 
@@ -1620,14 +1826,15 @@
       const frag = document.createDocumentFragment();
       cats.forEach((cat) => {
         const meta = metaFor(cat);
+        const label = displayName(cat);
         const item = document.createElement('button');
         item.type = 'button';
         item.className = 'cert-category-item';
         item.setAttribute('data-category', cat);
         item.innerHTML = `
-          ${categoryIconHtml(cat, meta)}
-          <span class="cert-category-label">${cat}</span>
-          <span class="cert-category-count">${grouped[cat].length} شهادة</span>
+          ${categoryIconHtml(label, meta)}
+          <span class="cert-category-label">${escapeHtml(label)}</span>
+          <span class="cert-category-count">${escapeHtml(t('certCountLabel', grouped[cat].length))}</span>
         `;
         frag.appendChild(item);
       });
@@ -1646,8 +1853,8 @@
     function openCategory(cat, updateHash = true){
       currentCategory = cat;
       if (updateHash) setCertificatesHash(cat);
-      certOverlayTitle.textContent = cat;
-      certificatesOverlayBack.innerHTML = '<i class="fas fa-arrow-right"></i> الأقسام';
+      certOverlayTitle.textContent = displayName(cat);
+      certificatesOverlayBack.innerHTML = backBtnHtml(t('sections'));
       certCategoryGrid.style.display = 'none';
       const grouped = groupByCategory(certificatesData);
       renderCertificates(grouped[cat] || []);
@@ -1697,7 +1904,7 @@
     // مشاركة الشهادة المفتوحة حاليًا (صورة أو رابط حسب دعم المتصفح)
     certLightboxShare.addEventListener('click', async () => {
       const src = certLightboxImg.src;
-      const caption = certLightboxCaption.textContent || 'شهادة';
+      const caption = certLightboxCaption.textContent || t('certificate');
       try {
         if (navigator.share) {
           if (navigator.canShare) {
@@ -1712,7 +1919,7 @@
           await navigator.share({ title: caption, url: src });
         } else {
           await navigator.clipboard.writeText(src);
-          showToast('تم نسخ رابط الشهادة');
+          showToast(t('toastCertLinkCopied'));
         }
       } catch (e) {
         // المستخدم لغى المشاركة أو حصل خطأ — تجاهل بهدوء
@@ -1738,12 +1945,12 @@
       });
 
       certEmpty.style.display = 'none';
-      certCountEl.textContent = `(${sorted.length})`;
+      certCountEl.textContent = `(${certificatesData.length})`;
       const frag = document.createDocumentFragment();
       sorted.forEach((cert) => {
         const img = cert.image || cert.img || '';
         const full = cert.full || img;
-        const title = cert.title || cert.name || '';
+        const title = itemTitle(cert);
         const pdf = cert.pdf || '';
         if (!img) return;
 
@@ -1759,7 +1966,7 @@
 
         const imgEl = document.createElement('img');
         imgEl.src = img;
-        imgEl.alt = title || 'Certificate';
+        imgEl.alt = title || t('certificate');
         imgEl.loading = 'lazy';
         imgEl.addEventListener('load', () => imgEl.classList.add('loaded'));
 
@@ -1781,13 +1988,13 @@
           viewBtn.type = 'button';
           viewBtn.setAttribute('data-full', full);
           viewBtn.setAttribute('data-title', title);
-          viewBtn.innerHTML = '<i class="fas fa-eye"></i> معاينة';
+          viewBtn.innerHTML = '<i class="fas fa-eye"></i> ' + escapeHtml(t('preview'));
 
           const downloadBtn = document.createElement('a');
           downloadBtn.className = 'btn-mini solid cert-download-btn';
           downloadBtn.href = pdf;
           downloadBtn.setAttribute('download', '');
-          downloadBtn.innerHTML = '<i class="fas fa-file-download"></i> تحميل';
+          downloadBtn.innerHTML = '<i class="fas fa-file-download"></i> ' + escapeHtml(t('download'));
 
           actions.appendChild(viewBtn);
           actions.appendChild(downloadBtn);
@@ -1883,9 +2090,9 @@
     document.getElementById('copyNumberBtn').addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(CONTACT.phone);
-        showToast('تم نسخ الرقم');
+        showToast(t('toastCopied'));
       } catch (e) {
-        showToast('تعذر نسخ الرقم');
+        showToast(t('toastCopyFail'));
       }
     });
 
@@ -1909,14 +2116,14 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('تم حفظ جهة الاتصال');
+      showToast(t('toastSaved'));
     });
 
     // Share profile
     document.getElementById('shareBtn').addEventListener('click', async () => {
       const shareData = {
-        title: 'Mohamed Shaban | Mechanical Engineer',
-        text: 'تواصل مع المهندس محمد شعبان',
+        title: t('pageTitle'),
+        text: t('shareText'),
         url: window.location.href
       };
       if (navigator.share) {
@@ -1924,9 +2131,9 @@
       } else {
         try {
           await navigator.clipboard.writeText(shareData.url);
-          showToast('تم نسخ رابط الصفحة');
+          showToast(t('toastLinkCopied'));
         } catch (e) {
-          showToast('تعذر مشاركة الرابط');
+          showToast(t('toastShareFail'));
         }
       }
     });
@@ -1979,6 +2186,48 @@
     qrSheet.addEventListener('click', (e) => {
       if (e.target === qrSheet) qrSheet.classList.remove('open');
     });
+
+    // ===================== Language switch =====================
+    const langToggle = document.getElementById('langToggle');
+    const langLabel = document.getElementById('langLabel');
+    const metaDescEl = document.querySelector('meta[name="description"]');
+
+    function applyLang(){
+      root.lang = lang;
+      root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.title = t('pageTitle');
+      if (metaDescEl) metaDescEl.setAttribute('content', t('metaDesc'));
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = t(el.getAttribute('data-i18n'));
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach((el) => {
+        el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+      });
+      langLabel.textContent = t('langBtn');
+      updateCvBtn();
+
+      // ابدأ كتابة النصوص من الأول باللغة الجديدة
+      textIndex = 0;
+      charIndex = 0;
+      isDeleting = false;
+      typingEl.textContent = '';
+
+      // أعد رسم الشاشات المفتوحة باللغة الجديدة
+      if (certificatesOverlay.classList.contains('open') && certificatesState === 'ready') {
+        if (currentCategory) openCategory(currentCategory, false);
+        else renderCategories(certificatesData);
+      }
+      if (projectsOverlay.classList.contains('open')) refreshProjectsView();
+    }
+
+    langToggle.addEventListener('click', () => {
+      lang = lang === 'en' ? 'ar' : 'en';
+      try { localStorage.setItem('lang', lang); } catch (_) {}
+      applyLang();
+    });
+
+    applyLang();
   </script>
 </body>
 </html>
