@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ENG Mohamed Shaban | Mechanical Engineer</title>
-  <meta name="description" content="Mohamed Shaban — Mechanical Power & Energy Engineer. Contact, CV, and social links.">
+  <title>ENG Mohamed Shaban | Mechanical Power Engineer</title>
+  <meta name="description" content="Mohamed Shaban — Mechanical Power Engineer | MEP &amp; BIM, HVAC, Plumbing, Fire Fighting &amp; SolidWorks. Contact info, CV, and social links.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -20,22 +20,22 @@
        لو ربطت دومين خاص بيك، غيّر الدومين في og:image / og:image:secure_url / og:url / twitter:image / JSON-LD تحت. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Mohamed Shaban">
-  <meta property="og:title" content="Mohamed Shaban | Mechanical Engineer">
-  <meta property="og:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
+  <meta property="og:title" content="Mohamed Shaban | Mechanical Power Engineer">
+  <meta property="og:description" content="Mechanical Power Engineer — MEP &amp; BIM • HVAC • Plumbing • Fire Fighting • SolidWorks">
   <meta property="og:image" content="https://engmshabankfs-create.github.io/M.Shaban/og-image.jpg">
   <meta property="og:image:secure_url" content="https://engmshabankfs-create.github.io/M.Shaban/og-image.jpg">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:alt" content="Eng. Mohamed Shaban — Mechanical Power & Energy Engineer">
+  <meta property="og:image:alt" content="Eng. Mohamed Shaban — Mechanical Power Engineer">
   <meta property="og:url" content="https://engmshabankfs-create.github.io/M.Shaban/">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ar_AR">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Mohamed Shaban | Mechanical Engineer">
-  <meta name="twitter:description" content="Mechanical Power & Energy Engineer — contact info, CV, and social links.">
+  <meta name="twitter:title" content="Mohamed Shaban | Mechanical Power Engineer">
+  <meta name="twitter:description" content="Mechanical Power Engineer — MEP &amp; BIM • HVAC • Plumbing • Fire Fighting • SolidWorks">
   <meta name="twitter:image" content="https://engmshabankfs-create.github.io/M.Shaban/og-image.jpg">
-  <meta name="twitter:image:alt" content="Eng. Mohamed Shaban — Mechanical Power & Energy Engineer">
+  <meta name="twitter:image:alt" content="Eng. Mohamed Shaban — Mechanical Power Engineer">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -46,7 +46,8 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Mohamed Shaban",
-    "jobTitle": "Mechanical Power & Energy Engineer",
+    "jobTitle": "Mechanical Power Engineer",
+    "knowsAbout": ["MEP", "HVAC", "Plumbing", "Fire Fighting", "BIM", "Revit", "SolidWorks"],
     "email": "mailto:eng.m.shaban.kfs@gmail.com",
     "telephone": "+201094517814",
     "url": "https://engshab.blogspot.com/",
@@ -221,6 +222,15 @@
       letter-spacing: -0.3px;
     }
     html[dir="rtl"] h1{ letter-spacing: 0; }
+
+    .tagline{
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.6;
+      max-width: 340px;
+      margin: 0 0 8px;
+    }
 
     .status-line{
       font-size: 15px;
@@ -953,6 +963,7 @@
         <img src="me.jpg" alt="ENG Mohamed Shaban">
       </button>
       <h1 data-i18n="name">Mohamed Shaban</h1>
+      <div class="tagline" data-i18n="tagline">Mechanical Power Engineer</div>
       <div class="status-line">
         <span class="typing" id="typing"></span>
       </div>
@@ -1015,7 +1026,7 @@
       </button>
       <a class="row" href="https://engshab.blogspot.com/" target="_blank" rel="noopener">
         <span class="row-icon icon-blog"><i class="fas fa-globe"></i></span>
-        <span class="row-label">M.Shaban</span>
+        <span class="row-label" data-i18n="website">Website</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </a>
       <button class="row" id="certificatesBtn" type="button">
@@ -1044,7 +1055,7 @@
       <iframe id="cvFrame" src="" title="CV Preview"></iframe>
     </div>
 
-    <footer data-i18n="footer">Mechanical Power &amp; Energy Engineering</footer>
+    <footer data-i18n="footer">Mechanical Power Engineering</footer>
   </div>
 
   <!-- ===== Certificates overlay =====
@@ -1144,14 +1155,17 @@
     // ===================== i18n (English default / Arabic) =====================
     const I18N = {
       en: {
-        pageTitle: 'ENG Mohamed Shaban | Mechanical Engineer',
-        metaDesc: 'Mohamed Shaban — Mechanical Power & Energy Engineer. Contact, CV, and social links.',
+        pageTitle: 'ENG Mohamed Shaban | Mechanical Power Engineer',
+        metaDesc: 'Mohamed Shaban — Mechanical Power Engineer | MEP & BIM, HVAC, Plumbing, Fire Fighting & SolidWorks. Contact info, CV, and social links.',
         name: 'Mohamed Shaban',
+        tagline: 'Mechanical Power Engineer',
+        website: 'Website',
         langBtn: 'العربية',
         typing: [
-          'Mechanical Power Engineer',
-          'Energy & Machines Specialist',
-          'Industrial Maintenance Expert',
+          'MEP & BIM Engineer',
+          'HVAC • Plumbing • Fire Fighting',
+          'BIM & Revit Specialist',
+          'SolidWorks Designer',
           'Always Learning & Innovating'
         ],
         copyNumber: 'Copy Number',
@@ -1167,7 +1181,7 @@
         viewCv: 'View CV',
         hideCv: 'Hide CV',
         downloadCv: 'Download CV',
-        footer: 'Mechanical Power & Energy Engineering',
+        footer: 'Mechanical Power Engineering',
         back: 'Back',
         sections: 'Sections',
         backHome: 'Back to main page',
@@ -1203,14 +1217,17 @@
         ariaClose: 'Close'
       },
       ar: {
-        pageTitle: 'م. محمد شعبان | مهندس ميكانيكا',
-        metaDesc: 'محمد شعبان — مهندس قوى وطاقة ميكانيكية. بيانات التواصل والسيرة الذاتية وروابط التواصل الاجتماعي.',
+        pageTitle: 'م. محمد شعبان | مهندس قوى ميكانيكية',
+        metaDesc: 'محمد شعبان — مهندس قوى ميكانيكية | MEP وBIM، تكييف وسباكة ومكافحة حريق، SolidWorks. بيانات التواصل والسيرة الذاتية وروابط التواصل.',
         name: 'محمد شعبان',
+        tagline: 'مهندس قوى ميكانيكية',
+        website: 'الموقع الإلكتروني',
         langBtn: 'English',
         typing: [
-          'مهندس قوى ميكانيكية',
-          'متخصص في الطاقة والماكينات',
-          'خبير في الصيانة الصناعية',
+          'مهندس MEP وBIM',
+          'تكييف • سباكة • مكافحة حريق',
+          'متخصص BIM وRevit',
+          'مصمم SolidWorks',
           'دائمًا أتعلم وأبتكر'
         ],
         copyNumber: 'نسخ الرقم',
@@ -1226,7 +1243,7 @@
         viewCv: 'عرض السيرة الذاتية',
         hideCv: 'إخفاء السيرة الذاتية',
         downloadCv: 'تحميل السيرة الذاتية',
-        footer: 'هندسة القوى الميكانيكية والطاقة',
+        footer: 'هندسة القوى الميكانيكية',
         back: 'رجوع',
         sections: 'الأقسام',
         backHome: 'رجوع للصفحة الرئيسية',
@@ -1272,7 +1289,8 @@
 
     let lang = 'en'; // الافتراضي: الإنجليزية
     try {
-      const savedLang = localStorage.getItem('lang');
+      // الإنجليزية دايمًا هي الافتراضي. الوحيد اللي بيغيّرها لينك فيه ?lang=ar
+      const savedLang = new URLSearchParams(window.location.search).get('lang');
       if (savedLang === 'ar' || savedLang === 'en') lang = savedLang;
     } catch (_) {}
 
@@ -2223,7 +2241,7 @@
 
     langToggle.addEventListener('click', () => {
       lang = lang === 'en' ? 'ar' : 'en';
-      try { localStorage.setItem('lang', lang); } catch (_) {}
+      // مفيش حفظ للغة: كل ما الصفحة تتفتح من جديد ترجع إنجليزي
       applyLang();
     });
 
