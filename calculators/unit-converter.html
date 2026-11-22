@@ -1261,9 +1261,15 @@ html[data-theme="dark"] .act-ghost { background: #2c2c2e; color: var(--text); }
   letter-spacing: .1px;
 }
 
+
+/* Back to site — top-left */
+.site-back{position:fixed;top:66px;left:18px;z-index:50;height:36px;padding:0 16px;border-radius:18px;background:var(--card);box-shadow:var(--shadow);color:var(--blue);font-family:inherit;font-size:13.5px;font-weight:700;text-decoration:none;display:flex;align-items:center;direction:ltr;transition:transform .15s ease}
+.site-back:active{transform:scale(.94)}
 </style>
 </head>
 <body>
+
+<a class="site-back" href="../index.html#calculations">Back</a>
 
 <!-- ============ TOP BAR ============ -->
 <header class="topbar">
@@ -2985,8 +2991,8 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
     $('#qrHintEl').textContent = T.qrHint;
     $('#qrDoneBtn').innerHTML = ico.done + T.done;
     $('#footNote') && ($('#footNote').innerHTML = state.lang === 'ar'
-      ? '<a href="../index.html#calculations" style="display:inline-block;margin-bottom:10px;padding:9px 16px;border-radius:20px;background:var(--card);box-shadow:var(--shadow);color:var(--blue);font-weight:700;text-decoration:none">← رجوع للحسابات</a><br>محوّل وحدات هندسي — <b>' + DB.length + '</b> فئة و <b>' + totalUnits() + '</b> وحدة · يعمل بدون إنترنت · صُمم بواسطة M.Shaban'
-      : '<a href="../index.html#calculations" style="display:inline-block;margin-bottom:10px;padding:9px 16px;border-radius:20px;background:var(--card);box-shadow:var(--shadow);color:var(--blue);font-weight:700;text-decoration:none">← Back to Calculations</a><br>Engineering unit converter — <b>' + DB.length + '</b> categories, <b>' + totalUnits() + '</b> units · works offline · by M.Shaban');
+      ? 'محوّل وحدات هندسي — <b>' + DB.length + '</b> فئة و <b>' + totalUnits() + '</b> وحدة · يعمل بدون إنترنت · صُمم بواسطة M.Shaban'
+      : 'Engineering unit converter — <b>' + DB.length + '</b> categories, <b>' + totalUnits() + '</b> units · works offline · by M.Shaban');
     $('#countLabel').textContent = totalUnits().toLocaleString('en-US') + ' ' + T.searchUnits;
     $('#searchInput').setAttribute('aria-label', T.search);
   }
