@@ -7,5 +7,14 @@
     "icon": "fa-droplet",
     "color": "#0A84FF",
     "url": "calculators/sprinkler-pipe-size.html"
+  },
+  {
+    "title_en": "Giant Unit Converter",
+    "title_ar": "محوّل الوحدات العملاق",
+    "subtitle_en": "50 categories • 500+ units",
+    "subtitle_ar": "50 فئة • +500 وحدة",
+    "icon": "fa-right-left",
+    "color": "#34C759",
+    "url": "calculators/unit-converter.html"
   }
 ]
