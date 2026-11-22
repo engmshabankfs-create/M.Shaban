@@ -2,11 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>ENG Mohamed Shaban | Mechanical Power Engineer</title>
   <meta name="description" content="Mohamed Shaban — Mechanical Power Engineer | MEP &amp; BIM, HVAC, Plumbing, Fire Fighting &amp; SolidWorks. Contact info, CV, and social links.">
 
-  <!-- Favicon -->
+  <!-- Favicon (inline, offline-safe) -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="favicon.svg">
 
@@ -37,9 +37,6 @@
   <meta name="twitter:image" content="https://engmshabankfs-create.github.io/M.Shaban/og-image.jpg">
   <meta name="twitter:image:alt" content="Eng. Mohamed Shaban — Mechanical Power Engineer">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
   <!-- Structured data (SEO) -->
   <script type="application/ld+json">
   {
@@ -63,971 +60,1332 @@
   </script>
 
   <style>
-    :root{
-      --bg: #f2f2f7;
-      --card: #ffffff;
-      --text: #1c1c1e;
-      --secondary: #8a8a8e;
-      --blue: #007aff;
-      --separator: #e5e5ea;
-      --green: #34c759;
-      --red: #ff3b30;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.05);
-      --sheet-bg: rgba(255,255,255,0.97);
-      color-scheme: light;
-    }
+  /* =====================================================================
+     MS iOS ENGINEERING — DESIGN SYSTEM SKIN
+     01 tokens · 02 base · 03 corner controls · 04 hero · 05 quick actions
+     06 cards & inset rows · 07 buttons · 08 CV viewer · 09 footer
+     10 screens/overlays · 11 tiles & grids · 12 project detail
+     13 lightboxes · 14 sheets · 15 toast · 16 skeleton · 17 responsive
+     ===================================================================== */
 
-    @media (prefers-color-scheme: dark){
-      :root:not([data-theme="light"]){
-        --bg: #000000;
-        --card: #1c1c1e;
-        --text: #f2f2f7;
-        --secondary: #98989d;
-        --blue: #0a84ff;
-        --separator: #38383a;
-        --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
-        --sheet-bg: rgba(28,28,30,0.97);
-        color-scheme: dark;
-      }
-    }
+  /* ---------- 01. TOKENS ---------- */
+  :root{
+    color-scheme: light;
+    --bg:        #f2f2f7;
+    --card:      #ffffff;
+    --text:      #1c1c1e;
+    --secondary: #8a8a8e;
+    --blue:      #007aff;
+    --separator: #e5e5ea;
+    --green:     #34c759;
+    --red:       #ff3b30;
+    --orange:    #ff9500;
+    --shadow:    0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+    --sheet-bg:  rgba(255,255,255,.97);
+    --fill:      rgba(120,120,128,.12);
+    --fill-2:    rgba(120,120,128,.18);
+    --chev:      #c7c7cc;
+    --field:     #f2f2f7;
+    --raised:    #ffffff;
+    --wash:      rgba(0,122,255,.08);
+    --header-bg: rgba(242,242,247,.86);
+    --ring:      0 0 0 3px rgba(0,122,255,.28);
+  }
 
-    [data-theme="dark"]{
-      --bg: #000000;
-      --card: #1c1c1e;
-      --text: #f2f2f7;
-      --secondary: #98989d;
-      --blue: #0a84ff;
-      --separator: #38383a;
-      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
-      --sheet-bg: rgba(28,28,30,0.97);
+  html[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:        #000000;
+    --card:      #1c1c1e;
+    --text:      #f2f2f7;
+    --secondary: #98989d;
+    --blue:      #0a84ff;
+    --separator: #38383a;
+    --shadow:    0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    --sheet-bg:  rgba(28,28,30,.97);
+    --fill:      rgba(120,120,128,.18);
+    --fill-2:    rgba(120,120,128,.26);
+    --chev:      #5a5a5e;
+    --field:     #2c2c2e;
+    --raised:    #3a3a3c;
+    --wash:      rgba(10,132,255,.16);
+    --header-bg: rgba(0,0,0,.72);
+    --ring:      0 0 0 3px rgba(10,132,255,.38);
+  }
+
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]){
       color-scheme: dark;
+      --bg:        #000000;
+      --card:      #1c1c1e;
+      --text:      #f2f2f7;
+      --secondary: #98989d;
+      --blue:      #0a84ff;
+      --separator: #38383a;
+      --shadow:    0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --sheet-bg:  rgba(28,28,30,.97);
+      --fill:      rgba(120,120,128,.18);
+      --fill-2:    rgba(120,120,128,.26);
+      --chev:      #5a5a5e;
+      --field:     #2c2c2e;
+      --raised:    #3a3a3c;
+      --wash:      rgba(10,132,255,.16);
+      --header-bg: rgba(0,0,0,.72);
+      --ring:      0 0 0 3px rgba(10,132,255,.38);
     }
+  }
 
-    *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  /* ---------- 02. BASE ---------- */
+  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-    body{
-      margin:0;
-      min-height:100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Tahoma, "Helvetica Neue", Arial, sans-serif;
-      display:flex;
-      justify-content:center;
-      padding: 56px 16px;
-      transition: background .3s ease, color .3s ease;
-    }
+  body{
+    margin:0;
+    min-height:100vh;
+    display:block;                       /* never flex-centre the page */
+    padding:64px 16px 56px;              /* clears the fixed corner controls */
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Tahoma,
+                "Helvetica Neue", Arial, sans-serif;
+    font-size:15px;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    transition:background .3s ease, color .3s ease;
+  }
 
-    /* theme toggle */
-    .theme-toggle{
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      border: none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      color: var(--text);
-      font-size: 16px;
-      z-index: 50;
-      transition: background .3s ease, color .3s ease, transform .15s ease;
-    }
-    .theme-toggle:active{ transform: scale(0.92); }
-    .theme-toggle .fa-sun{ display:none; }
-    .theme-toggle .fa-moon{ display:inline; }
-    [data-theme="dark"] .theme-toggle .fa-sun{ display:inline; color:#ffd60a; }
-    [data-theme="dark"] .theme-toggle .fa-moon{ display:none; }
-    @media (prefers-color-scheme: dark){
-      html:not([data-theme="light"]) .theme-toggle .fa-sun{ display:inline; color:#ffd60a; }
-      html:not([data-theme="light"]) .theme-toggle .fa-moon{ display:none; }
-    }
+  svg{ display:block; }
+  button{ font-family:inherit; }
+  a{ text-decoration:none; }
+  ::selection{ background:rgba(0,122,255,.18); }
 
-    /* language toggle (EN / AR) */
-    .lang-toggle{
-      position: fixed;
-      top: 18px;
-      left: 18px;
-      height: 40px;
-      padding: 0 14px;
-      border-radius: 20px;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      border: none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 7px;
-      cursor:pointer;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 13.5px;
-      font-weight: 700;
-      z-index: 50;
-      transition: background .3s ease, color .3s ease, transform .15s ease;
-    }
-    .lang-toggle i{ color: var(--blue); font-size: 14px; }
-    .lang-toggle:active{ transform: scale(0.94); }
+  .container{
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+  }
 
-    .container{
-      width:100%;
-      max-width: 400px;
-    }
+  :focus-visible{
+    outline:none;
+    box-shadow:var(--ring);
+    border-radius:12px;
+  }
 
-    /* direction-aware helpers */
-    html[dir="rtl"] .row-chevron{ transform: scaleX(-1); }
-    html[dir="ltr"] .back-arrow{ transform: scaleX(-1); }
+  .sprite{ position:absolute; width:0; height:0; overflow:hidden; }
 
-    /* profile header */
-    .profile-header{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      margin-bottom: 28px;
-    }
+  /* ---------- 03. FIXED CORNER CONTROLS ---------- */
+  .lang-toggle,
+  .theme-toggle{
+    position:fixed;
+    top:18px;
+    height:40px;
+    border:none;
+    background:var(--card);
+    color:var(--text);
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:50;
+    transition:background .3s ease, color .3s ease, transform .12s ease;
+  }
+  .lang-toggle:active,
+  .theme-toggle:active{ transform:scale(.93); }
 
-    .profile-pic{
-      width: 148px;
-      height: 148px;
-      border-radius: 50%;
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      border: 3px solid var(--card);
-      margin-bottom: 16px;
-      transition: transform .2s ease;
-      padding:0;
-      background:none;
-      cursor:pointer;
-      appearance:none;
-      -webkit-appearance:none;
-    }
-    .profile-pic:active{ transform: scale(0.97); }
-    .profile-pic img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-    }
+  .lang-toggle{
+    left:18px;
+    right:auto;
+    gap:7px;
+    padding:0 14px;
+    border-radius:20px;
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1;
+    letter-spacing:0;
+  }
+  .lang-toggle svg{ width:16px; height:16px; color:var(--blue); }
 
-    h1{
-      font-size: 22px;
-      font-weight: 700;
-      margin: 0 0 4px;
-      letter-spacing: -0.3px;
-    }
-    html[dir="rtl"] h1{ letter-spacing: 0; }
+  .theme-toggle{
+    right:18px;
+    left:auto;
+    width:40px;
+    padding:0;
+    border-radius:50%;
+  }
+  .theme-toggle svg{ width:17px; height:17px; color:var(--text); }
+  .theme-toggle .i-moon{ display:block; }
+  .theme-toggle .i-sun{ display:none; }
 
-    .tagline{
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.6;
-      max-width: 340px;
-      margin: 0 0 8px;
-    }
+  html[data-theme="dark"] .theme-toggle .i-moon{ display:none; }
+  html[data-theme="dark"] .theme-toggle .i-sun{ display:block; color:#ffd60a; }
 
-    .status-line{
-      font-size: 15px;
-      color: var(--secondary);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height: 20px;
-    }
-    .typing{
-      white-space:nowrap;
-      overflow:hidden;
-      border-inline-end: 2px solid var(--blue);
-      animation: blink-cursor .8s steps(1) infinite;
-      padding-inline-end:2px;
-      color: var(--blue);
-      font-weight: 700;
-    }
-    @keyframes blink-cursor{ 50%{ border-color: transparent; } }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]) .theme-toggle .i-moon{ display:none; }
+    html:not([data-theme="light"]) .theme-toggle .i-sun{ display:block; color:#ffd60a; }
+  }
 
-    /* grouped list card */
-    .group-title{
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      margin: 0 0 8px;
-      margin-inline-start: 14px;
-    }
-    html[dir="rtl"] .group-title{ letter-spacing: 0; }
+  html[dir="rtl"] .lang-toggle{ left:auto; right:18px; }
+  html[dir="rtl"] .theme-toggle{ right:auto; left:18px; }
 
-    .card{
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
+  /* ---------- 04. HERO ---------- */
+  .profile-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    margin-bottom:22px;
+  }
 
-    .row{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      padding: 12px 16px;
-      text-decoration:none;
-      color: var(--text);
-      position: relative;
-      transition: background .15s ease;
-    }
-    .row:active{ background: rgba(120,120,128,0.12); }
-    .row + .row{ border-top: 1px solid var(--separator); }
-    button.row{
-      width:100%;
-      background: none;
-      font-family: inherit;
-      cursor:pointer;
-      appearance:none;
-      -webkit-appearance:none;
-      border:none;
-      outline:none;
-      margin:0;
-    }
+  .profile-pic{
+    position:relative;
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    overflow:hidden;
+    padding:0;
+    margin:0 0 14px;
+    border:3px solid var(--card);
+    background:var(--fill);
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    appearance:none;
+    -webkit-appearance:none;
+    transition:transform .16s ease;
+  }
+  .profile-pic:active{ transform:scale(.97); }
+  .profile-pic img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 18%;
+    display:block;
+  }
+  .avatar-fb{
+    position:absolute;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:var(--wash);
+    color:var(--blue);
+    opacity:.72;
+  }
+  .avatar-fb svg{ width:54px; height:54px; }
 
-    .row-icon{
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size: 15px;
-      flex-shrink:0;
-    }
-    .icon-whatsapp{ background:#25D366; }
-    .icon-call{ background:#34C759; }
-    .icon-email{ background:#8E8E93; }
-    .icon-linkedin{ background:#0A66C2; }
-    .icon-facebook{ background:#1877F2; }
-    .icon-youtube{ background:#FF0000; }
-    .icon-telegram{ background:#229ED9; }
-    .icon-group{ background:#5856D6; }
-    .icon-blog{ background:#FF9500; }
-    .icon-projects{ background:#30B0C7; }
-    .icon-calc{ background:#FF2D55; }
+  h1{
+    font-size:clamp(21px, 5.4vw, 27px);
+    font-weight:800;
+    line-height:1.25;
+    letter-spacing:-.3px;
+    margin:0;
+    color:var(--text);
+  }
+  html[dir="rtl"] h1{ letter-spacing:0; }
 
-    .row-label{
-      flex:1;
-      font-size: 15.5px;
-      font-weight: 500;
-      text-align: start;
-    }
+  .tagline{
+    font-size:14.5px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--blue);
+    max-width:340px;
+    margin:7px 0 0;
+  }
 
-    .row-chevron{
-      color: #c7c7cc;
-      font-size: 13px;
-    }
+  .status-line{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:22px;
+    margin-top:5px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--secondary);
+  }
+  .typing{
+    white-space:nowrap;
+    overflow:hidden;
+    color:var(--secondary);
+    font-weight:700;
+    padding-inline-end:2px;
+    border-inline-end:2px solid var(--blue);
+    animation:blink-cursor .8s steps(1) infinite;
+  }
+  @keyframes blink-cursor{ 50%{ border-color:transparent; } }
 
-    /* CV actions */
-    .cv-actions{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
+  /* ---------- 05. QUICK ACTIONS ---------- */
+  .quick-actions{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .quick-action{
+    background:var(--card);
+    border:none;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:14px 6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    color:var(--text);
+    transition:transform .1s ease, opacity .15s ease, background .2s ease;
+  }
+  .quick-action svg{ width:19px; height:19px; color:var(--blue); }
+  .quick-action span{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    min-height:2.4em;
+    font-size:11.5px;
+    font-weight:600;
+    line-height:1.2;
+    text-align:center;
+  }
+  .quick-action:active{ transform:scale(.95); opacity:.85; }
 
-    .btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      width:100%;
-      padding: 14px 16px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      text-decoration:none;
-      cursor:pointer;
-      border: none;
-      font-family: inherit;
-      transition: opacity .15s ease, transform .1s ease;
-    }
-    .btn:active{ transform: scale(0.985); opacity:0.9; }
+  /* ---------- 06. CARDS & INSET ROWS ---------- */
+  .card{
+    background:var(--card);
+    border-radius:14px;
+    border:none;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    margin-bottom:16px;
+    padding:0;
+  }
 
-    .btn.solid{
-      background: var(--blue);
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
+  .group-title{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:var(--secondary);
+    margin:0 0 8px;
+    margin-inline-start:14px;
+  }
+  html[dir="rtl"] .group-title{ letter-spacing:0; text-transform:none; }
 
-    .btn.outline{
-      background: var(--card);
-      color: var(--blue);
-      box-shadow: var(--shadow);
-    }
+  .row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:12px 16px;
+    margin:0;
+    background:none;
+    border:none;
+    border-top:1px solid var(--separator);
+    color:var(--text);
+    position:relative;
+    text-align:start;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:600;
+    line-height:1.5;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .row:first-child{ border-top:none; }
+  .row:active{ background:var(--fill-2); }
+  .row:focus-visible{ box-shadow:inset var(--ring); }
+  button.row{ appearance:none; -webkit-appearance:none; outline:none; }
 
-    /* inline CV viewer */
-    .cv-viewer{
-      max-height:0;
-      overflow:hidden;
-      margin-top:0;
-      border-radius: 14px;
-      transition: max-height .4s ease, margin-top .4s ease;
-      background: var(--card);
-    }
-    .cv-viewer.open{
-      max-height:600px;
-      margin-top:14px;
-      box-shadow: var(--shadow);
-    }
-    .cv-viewer iframe{
-      width:100%;
-      height:560px;
-      border:0;
-      border-radius: 14px;
-      background:#fff;
-      display:block;
-    }
+  .row-icon{
+    width:34px;
+    height:34px;
+    border-radius:9px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(120,120,128,.12);
+    background:color-mix(in srgb, var(--tile, var(--blue)) 20%, transparent);
+    color:var(--tile, var(--blue));
+    transition:background .2s ease, color .2s ease;
+  }
+  .row-icon svg{
+    width:19px;
+    height:19px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));
+  }
 
-    /* ===== Certificates overlay ===== */
-    .cert-overlay-backdrop{
-      position:fixed;
-      inset:0;
-      background: var(--bg);
-      z-index: 160;
-      opacity:0;
-      pointer-events:none;
-      transform: translateY(12px);
-      transition: opacity .25s ease, transform .25s ease;
-      overflow-y:auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .cert-overlay-backdrop.open{
-      opacity:1;
-      pointer-events:auto;
-      transform: translateY(0);
-    }
-    .cert-overlay-header{
-      position:sticky;
-      top:0;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 16px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--separator);
-      z-index: 1;
-    }
-    .cert-overlay-back{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      background: var(--card);
-      color: var(--blue);
-      border:none;
-      border-radius: 20px;
-      padding: 9px 14px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      cursor:pointer;
-      box-shadow: var(--shadow);
-    }
-    .cert-overlay-back:active{ transform: scale(0.95); }
-    .cert-overlay-title{
-      flex:1;
-      text-align:center;
-      font-size: 16px;
-      font-weight: 700;
-      margin-inline-end: 40px;
-    }
-    .cert-overlay-body{
-      padding: 16px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
+  .row-label{
+    flex:1;
+    min-width:0;
+    font-size:15px;
+    font-weight:600;
+    text-align:start;
+  }
+  .row-label small{
+    color:var(--secondary);
+    font-weight:600;
+    font-size:12.5px;
+    margin-inline-start:5px;
+    white-space:nowrap;
+  }
 
-    /* ===== Certificates section ===== */
-    .cert-grid{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
+  .row-chevron{
+    width:12px;
+    height:12px;
+    flex-shrink:0;
+    color:var(--chev);
+  }
+  html[dir="rtl"] .row-chevron{ transform:scaleX(-1); }
+  html[dir="ltr"] .back-arrow{ transform:scaleX(-1); }
 
-    /* Skeleton loading placeholders */
-    .cert-skeleton-item{
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .cert-skeleton-item .cert-skeleton-img{
-      height: 108px;
-      background: linear-gradient(90deg, var(--separator) 25%, rgba(120,120,128,0.18) 37%, var(--separator) 63%);
-      background-size: 400% 100%;
-      animation: skeleton-shimmer 1.4s ease infinite;
-    }
-    .cert-skeleton-item .cert-skeleton-label{
-      height: 12px;
-      margin: 10px 14px 12px;
-      border-radius: 6px;
-      background: linear-gradient(90deg, var(--separator) 25%, rgba(120,120,128,0.18) 37%, var(--separator) 63%);
-      background-size: 400% 100%;
-      animation: skeleton-shimmer 1.4s ease infinite;
-    }
-    @keyframes skeleton-shimmer{
-      0%{ background-position: 100% 50%; }
-      100%{ background-position: 0 50%; }
-    }
-    .cert-loading-text{
-      text-align:center;
-      color: var(--secondary);
-      font-size: 13px;
-      margin: -8px 0 16px;
-      display:none;
-    }
+  /* ---------- 07. BUTTONS ---------- */
+  .cv-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:16px;
+  }
 
-    .row-label small{
-      color: var(--secondary);
-      font-weight: 500;
-      font-size: 13px;
-    }
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    width:100%;
+    padding:15px 18px;
+    border:none;
+    border-radius:13px;
+    font-family:inherit;
+    font-size:15.5px;
+    font-weight:700;
+    line-height:1.2;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .15s ease, opacity .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn svg{ width:18px; height:18px; flex-shrink:0; }
+  .btn:active{ transform:scale(.985); opacity:.92; }
 
-    /* certificate image fade-in once loaded */
-    .cert-item img{
-      opacity:0;
-      transition: opacity .25s ease;
-    }
-    .cert-item img.loaded{ opacity:1; }
+  .btn.solid{
+    background:var(--blue);
+    color:#fff;
+    box-shadow:0 6px 18px rgba(0,122,255,.28);
+  }
+  .btn.outline{
+    background:var(--fill);
+    color:var(--blue);
+    box-shadow:none;
+  }
 
-    /* share button inside certificate lightbox */
-    .lightbox-share{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      margin-top:14px;
-      background: rgba(255,255,255,0.15);
-      color:#fff;
-      border:none;
-      border-radius: 20px;
-      padding: 9px 16px;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      cursor:pointer;
-    }
-    .lightbox-share:active{ transform: scale(0.95); }
+  /* ---------- 08. CV VIEWER ---------- */
+  .cv-viewer{
+    max-height:0;
+    overflow:hidden;
+    margin-top:0;
+    border-radius:14px;
+    background:var(--card);
+    transition:max-height .35s ease, margin-top .35s ease;
+  }
+  .cv-viewer.open{
+    max-height:620px;
+    margin-top:0;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+  }
+  .cv-viewer iframe{
+    width:100%;
+    height:560px;
+    border:0;
+    border-radius:14px;
+    background:#fff;
+    display:block;
+  }
 
-    /* view/download buttons under each certificate card */
-    .cert-item-actions{
-      display:flex;
-      gap:6px;
-      padding: 0 8px 10px;
-    }
-    .cert-item-actions .btn-mini{
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-      padding:8px 6px;
-      border-radius:10px;
-      font-size:11.5px;
-      font-weight:600;
-      text-decoration:none;
-      cursor:pointer;
-      border:none;
-      font-family:inherit;
-      transition: opacity .15s ease, transform .1s ease;
-    }
-    .cert-item-actions .btn-mini:active{ transform:scale(0.96); opacity:0.9; }
-    .cert-item-actions .btn-mini.outline{
-      background: var(--bg);
-      color: var(--blue);
-    }
-    .cert-item-actions .btn-mini.solid{
-      background: var(--blue);
-      color:#fff;
-    }
+  /* ---------- 09. FOOTER ---------- */
+  footer{
+    text-align:center;
+    font-size:12px;
+    font-weight:500;
+    color:var(--secondary);
+    line-height:1.7;
+    max-width:400px;
+    margin:24px auto 0;
+  }
 
-    /* category folder tiles (Certifications home) */
-    .cert-category-item{
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      border:none;
-      cursor:pointer;
-      padding: 22px 10px 16px;
-      font-family:inherit;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      transition: transform .1s ease, opacity .15s ease;
-    }
-    .cert-category-item:active{ transform: scale(0.97); opacity:0.9; }
-    a.cert-category-item{ text-decoration:none; color:inherit; }
-    .cert-category-icon{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:24px;
-      flex-shrink:0;
-    }
-    .cert-category-icon.has-logo{
-      background:#fff;
-      padding:8px;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
-    }
-    .cert-category-icon.has-logo img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-    }
-    .cert-category-label{
-      font-size:14px;
-      font-weight:700;
-      color:var(--text);
-      text-align:center;
-      line-height:1.3;
-    }
-    .cert-category-count{
-      font-size:12px;
-      font-weight:600;
-      color:var(--secondary);
-    }
+  /* ---------- 10. SCREENS / FULL-SCREEN OVERLAYS ---------- */
+  .cert-overlay-backdrop{
+    position:fixed;
+    inset:0;
+    background:var(--bg);
+    z-index:160;
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(10px);
+    transition:opacity .24s ease, transform .24s ease;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cert-overlay-backdrop.open{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
 
-    /* Projects detail */
-    .project-detail{
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 18px 16px;
-      margin-bottom: 24px;
-      text-align:center;
-    }
-    .project-detail p{
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--secondary);
-    }
-    .project-detail .card{
-      margin: 14px 0 0;
-      box-shadow:none;
-      border:1px solid var(--separator);
-      text-align:start;
-    }
+  .cert-overlay-header{
+    position:sticky;
+    top:0;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-height:58px;
+    padding:12px 16px;
+    background:var(--header-bg);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:inset 0 -1px 0 var(--separator);
+  }
 
-    .project-detail .file-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding: 12px;
-    }
-    .project-detail .file-row .row-icon{ background:#FF3B30; }
-    .project-detail .file-title{
-      flex:1;
-      min-width:0;
-      font-size:14px;
-      font-weight:600;
-      color:var(--text);
-      text-align:start;
-      word-break:break-word;
-    }
-    .project-detail .file-actions{
-      display:flex;
-      gap:6px;
-      flex-shrink:0;
-    }
-    .project-detail .file-btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:34px;
-      height:34px;
-      border-radius:10px;
-      border:none;
-      font-size:14px;
-      text-decoration:none;
-      cursor:pointer;
-    }
-    .project-detail .file-btn.view{ background: var(--bg); color: var(--blue); }
-    .project-detail .file-btn.download{ background: var(--blue); color:#fff; }
-    .project-detail .file-btn:active{ transform: scale(0.94); }
+  .cert-overlay-back{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    min-height:40px;
+    padding:0 15px;
+    background:var(--card);
+    color:var(--blue);
+    border:none;
+    border-radius:20px;
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform .12s ease, background .2s ease;
+  }
+  .cert-overlay-back svg{ width:14px; height:14px; }
+  .cert-overlay-back:active{ transform:scale(.95); }
 
-    .cert-item{
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      cursor:pointer;
-      border:none;
-      padding:0;
-      font-family:inherit;
-      text-align:start;
-      transition: transform .1s ease, opacity .15s ease;
-    }
-    .cert-item:active{ transform: scale(0.97); opacity:0.9; }
-    .cert-item img{
-      width:100%;
-      height: 108px;
-      object-fit: cover;
-      display:block;
-      background: #e5e5ea;
-    }
-    .cert-item .cert-label{
-      padding: 8px 10px 10px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text);
-      text-align:center;
-      line-height:1.3;
-    }
+  .cert-overlay-title{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    max-width:calc(100% - 148px);
+    text-align:center;
+    font-size:16.5px;
+    font-weight:800;
+    letter-spacing:-.2px;
+    line-height:1.3;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  html[dir="rtl"] .cert-overlay-title{ letter-spacing:0; }
 
-    /* lightbox for full certificate / profile picture view */
-    .lightbox-backdrop{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:200;
-      opacity:0;
-      pointer-events:none;
-      padding: 24px;
-      transition: background .25s ease, opacity .25s ease;
-    }
-    .lightbox-backdrop.open{
-      background: rgba(0,0,0,0.85);
-      opacity:1;
-      pointer-events:auto;
-    }
-    .lightbox-content{
-      max-width:100%;
-      max-height:80vh;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-      display:block;
-    }
-    .lightbox-caption{
-      color:#fff;
-      text-align:center;
-      font-size:14px;
-      font-weight:600;
-      margin-top:12px;
-      opacity:0.9;
-    }
-    /* videos inside a certificates category */
-    .cert-section-title{
-      grid-column: 1 / -1;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--secondary);
-      margin: 6px 4px 0;
-    }
-    .cert-video-thumb{
-      position: relative;
-      display: block;
-      width: 100%;
-      padding: 0;
-      border: 0;
-      background: none;
-      cursor: pointer;
-      font: inherit;
-      text-align: start;
-    }
-    .cert-video-thumb .video-poster{
-      width: 100%;
-      height: 108px;
-      display: block;
-      object-fit: cover;
-      background: linear-gradient(135deg, #1c1c1e, #3a3a3c);
-    }
-    .video-play{
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 108px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-    .video-play i{
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.58);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      padding-inline-start: 3px;
-    }
-    @media (max-width:480px){
-      .cert-video-thumb .video-poster, .video-play{ height: 96px; }
-    }
-    .video-wrap{
-      width: min(92vw, 880px);
-      aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
-    .video-wrap iframe, .video-wrap video{
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-    }
+  .cert-overlay-body{
+    padding:16px 16px 48px;
+    max-width:400px;
+    margin:0 auto;
+  }
 
-    .lightbox-close{
-      position:fixed;
-      top:18px;
-      right:18px;
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      background: rgba(255,255,255,0.15);
-      color:#fff;
-      border:none;
-      font-size:18px;
-      cursor:pointer;
-      z-index:201;
-    }
-    .lightbox-close:active{ transform: scale(0.92); }
+  /* ---------- 11. TILES & GRIDS ---------- */
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+    margin-bottom:16px;
+  }
 
-    /* زر الرجوع للصفحة الرئيسية - يظهر فوق صورة البروفايل لما تتفتح */
-    .lightbox-back{
-      position:fixed;
-      top:18px;
-      left:18px;
-      display:none;
-      align-items:center;
-      gap:8px;
-      background: rgba(255,255,255,0.15);
-      color:#fff;
-      border:none;
-      border-radius: 20px;
-      padding: 10px 16px;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      cursor:pointer;
-      z-index:201;
-      transition: background .15s ease, transform .1s ease;
-    }
-    .lightbox-back:active{ transform: scale(0.95); background: rgba(255,255,255,0.28); }
+  .cert-category-item{
+    background:var(--card);
+    border:none;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    padding:20px 10px 14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:9px;
+    font-family:inherit;
+    color:var(--text);
+    transition:transform .1s ease, opacity .15s ease, background .2s ease;
+  }
+  .cert-category-item:active{ transform:scale(.97); opacity:.9; }
+  a.cert-category-item{ text-decoration:none; color:inherit; }
 
-    .lightbox-inner{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      max-width:100%;
-    }
+  .cert-category-icon{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(120,120,128,.12);
+    background:color-mix(in srgb, var(--tile, var(--blue)) 20%, transparent);
+    color:var(--tile, var(--blue));
+  }
+  .cert-category-icon svg{
+    width:26px;
+    height:26px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));
+  }
+  .cert-category-icon.has-logo{
+    background:var(--card);
+    padding:9px;
+    box-shadow:inset 0 0 0 1px var(--separator);
+  }
+  .cert-category-icon.has-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+  }
 
-    footer{
-      text-align:center;
-      font-size: 12px;
-      color: var(--secondary);
-      margin-top: 22px;
-    }
+  .cert-category-label{
+    font-size:14px;
+    font-weight:700;
+    color:var(--text);
+    text-align:center;
+    line-height:1.3;
+    word-break:break-word;
+  }
+  .cert-category-count{
+    font-size:12px;
+    font-weight:600;
+    color:var(--secondary);
+    text-align:center;
+    line-height:1.3;
+  }
 
-    @media (max-width:480px){
-      .profile-pic{ width:128px; height:128px; }
-      h1{ font-size: 20px; }
-      .row-label{ font-size: 15px; }
-      .cv-viewer.open{ max-height:420px; }
-      .cv-viewer iframe{ height:400px; }
-      .cert-item img{ height: 96px; }
-    }
+  /* dark mode: neutral tile wash, glyph keeps its hue */
+  html[data-theme="dark"] .row-icon,
+  html[data-theme="dark"] .cert-category-icon:not(.has-logo){ background:rgba(255,255,255,.09); }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]) .row-icon,
+    html:not([data-theme="light"]) .cert-category-icon:not(.has-logo){ background:rgba(255,255,255,.09); }
+  }
 
-    /* action sheet */
-    .sheet-backdrop{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0);
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      z-index:100;
-      opacity:0;
-      pointer-events:none;
-      transition: background .25s ease, opacity .25s ease;
-    }
-    .sheet-backdrop.open{
-      background: rgba(0,0,0,0.35);
-      opacity:1;
-      pointer-events:auto;
-    }
-    .sheet{
-      width:100%;
-      max-width: 400px;
-      margin: 0 16px 16px;
-      transform: translateY(110%);
-      transition: transform .3s cubic-bezier(.32,.72,0,1);
-    }
-    .sheet-backdrop.open .sheet{
-      transform: translateY(0);
-    }
-    .sheet-group{
-      background: var(--sheet-bg);
-      border-radius: 14px;
-      overflow:hidden;
-      margin-bottom: 8px;
-      text-align:center;
-    }
-    .sheet-title{
-      padding: 14px 16px 12px;
-      font-size: 13px;
-      color: var(--secondary);
-      border-bottom: 1px solid var(--separator);
-    }
-    .sheet-option{
-      display:block;
-      width:100%;
-      padding: 15px 16px;
-      background:none;
-      border:none;
-      font-family:inherit;
-      font-size: 17px;
-      font-weight: 500;
-      color: var(--blue);
-      text-decoration:none;
-      cursor:pointer;
-    }
-    .sheet-option:active{ background: rgba(120,120,128,0.16); }
-    .sheet-option + .sheet-option{ border-top: 1px solid var(--separator); }
-    .sheet-cancel{
-      display:block;
-      width:100%;
-      padding: 15px 16px;
-      background: var(--sheet-bg);
-      border-radius: 14px;
-      border:none;
-      font-family:inherit;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--blue);
-      cursor:pointer;
-    }
-    .sheet-cancel:active{ background: rgba(120,120,128,0.16); }
+  /* certificate thumbnails */
+  .cert-item{
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    cursor:pointer;
+    border:none;
+    padding:0;
+    font-family:inherit;
+    text-align:start;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  .cert-item:active{ transform:scale(.97); opacity:.9; }
+  .cert-item img{
+    width:100%;
+    height:108px;
+    object-fit:cover;
+    display:block;
+    background:var(--fill);
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .cert-item img.loaded{ opacity:1; }
+  .cert-item .cert-label{
+    padding:8px 10px 10px;
+    font-size:12.5px;
+    font-weight:600;
+    line-height:1.3;
+    color:var(--text);
+    text-align:center;
+  }
 
-    /* quick actions row (icon-only buttons) */
-    .quick-actions{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .quick-action{
-      background: var(--card);
-      border: none;
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 14px 6px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 8px;
-      cursor:pointer;
-      font-family: inherit;
-      color: var(--text);
-      transition: transform .1s ease, opacity .15s ease;
-    }
-    .quick-action:active{ transform: scale(0.95); opacity:0.85; }
-    .quick-action i{ font-size: 17px; color: var(--blue); }
-    .quick-action span{ font-size: 11.5px; font-weight: 600; text-align:center; line-height:1.2; }
+  .cert-item-actions{
+    display:flex;
+    gap:6px;
+    padding:0 8px 10px;
+  }
+  .cert-item-actions .btn-mini{
+    flex:1;
+    min-height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    padding:0 6px;
+    border-radius:10px;
+    border:none;
+    font-family:inherit;
+    font-size:11.5px;
+    font-weight:700;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  .cert-item-actions .btn-mini svg{ width:13px; height:13px; }
+  .cert-item-actions .btn-mini:active{ transform:scale(.96); opacity:.9; }
+  .cert-item-actions .btn-mini.outline{ background:var(--fill); color:var(--blue); }
+  .cert-item-actions .btn-mini.solid{ background:var(--blue); color:#fff; }
 
-    /* QR sheet */
-    .qr-box{
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px;
-      display:flex;
-      justify-content:center;
-      margin: 4px 0 14px;
-    }
-    .qr-box img{
-      width: 190px;
-      height: 190px;
-      display:block;
-    }
-    .qr-tabs{
-      display:flex;
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .qr-tab{
-      flex:1;
-      padding: 8px 4px;
-      border-radius: 10px;
-      border: none;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 600;
-      background: rgba(120,120,128,0.12);
-      color: var(--text);
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .qr-tab.active{
-      background: var(--blue);
-      color:#fff;
-    }
+  /* videos inside a category */
+  .cert-section-title{
+    grid-column:1 / -1;
+    font-size:13px;
+    font-weight:700;
+    color:var(--secondary);
+    margin:6px 4px 0;
+  }
+  .cert-video-thumb{
+    position:relative;
+    display:block;
+    width:100%;
+    padding:0;
+    border:0;
+    background:none;
+    cursor:pointer;
+    font:inherit;
+    text-align:start;
+  }
+  .cert-video-thumb .video-poster{
+    width:100%;
+    height:108px;
+    display:block;
+    object-fit:cover;
+    background:var(--fill);
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .cert-video-thumb .video-poster.loaded{ opacity:1; }
+  .cert-video-thumb div.video-poster{ opacity:1; }
+  .video-play{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:108px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+  }
+  .video-play svg{
+    width:44px;
+    height:44px;
+    padding:11px;
+    border-radius:50%;
+    background:rgba(0,0,0,.58);
+    color:#fff;
+    box-sizing:border-box;
+  }
+  .video-wrap{
+    width:min(92vw, 880px);
+    aspect-ratio:16 / 9;
+    background:#000;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.4);
+  }
+  .video-wrap iframe,
+  .video-wrap video{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+  }
 
-    /* toast */
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 30px;
-      transform: translateX(-50%) translateY(20px);
-      background: rgba(28,28,30,0.92);
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 250;
-      opacity: 0;
-      pointer-events:none;
-      transition: opacity .25s ease, transform .25s ease;
-      white-space:nowrap;
+  /* ---------- 12. PROJECT DETAIL ---------- */
+  .project-detail{
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:18px 16px;
+    margin-bottom:16px;
+    text-align:center;
+  }
+  .project-detail p{
+    margin:0;
+    font-size:13.5px;
+    font-weight:600;
+    line-height:1.7;
+    color:var(--secondary);
+  }
+  .project-detail .card{
+    margin:14px 0 0;
+    background:var(--field);
+    box-shadow:none;
+    border:none;
+    border-radius:12px;
+    overflow:hidden;
+    text-align:start;
+  }
+
+  .project-detail .file-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 12px;
+  }
+  .project-detail .file-row .row-icon{ --tile:#ff3b30; }
+  .project-detail .file-title{
+    flex:1;
+    min-width:0;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--text);
+    text-align:start;
+    line-height:1.45;
+    word-break:break-word;
+  }
+  .project-detail .file-actions{
+    display:flex;
+    gap:6px;
+    flex-shrink:0;
+  }
+  .project-detail .file-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    border:none;
+    text-decoration:none;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  .project-detail .file-btn svg{ width:16px; height:16px; }
+  .project-detail .file-btn.view{ background:var(--card); color:var(--blue); }
+  .project-detail .file-btn.download{ background:var(--blue); color:#fff; }
+  .project-detail .file-btn:active{ transform:scale(.94); }
+
+  /* ---------- 13. LIGHTBOXES ---------- */
+  .lightbox-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:200;
+    opacity:0;
+    pointer-events:none;
+    padding:24px;
+    transition:background .25s ease, opacity .25s ease;
+  }
+  .lightbox-backdrop.open{
+    background:rgba(0,0,0,.86);
+    opacity:1;
+    pointer-events:auto;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .lightbox-content{
+    max-width:100%;
+    max-height:80vh;
+    border-radius:12px;
+    box-shadow:0 10px 40px rgba(0,0,0,.4);
+    display:block;
+  }
+  .lightbox-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    max-width:100%;
+  }
+  .lightbox-caption{
+    color:#fff;
+    text-align:center;
+    font-size:14px;
+    font-weight:600;
+    line-height:1.5;
+    margin-top:12px;
+    opacity:.92;
+  }
+
+  .lightbox-close{
+    position:fixed;
+    top:18px;
+    right:18px;
+    left:auto;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:201;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:transform .12s ease, background .2s ease;
+  }
+  .lightbox-close svg{ width:17px; height:17px; }
+  .lightbox-close:active{ transform:scale(.92); }
+
+  .lightbox-back{
+    position:fixed;
+    top:18px;
+    left:18px;
+    right:auto;
+    display:none;
+    align-items:center;
+    gap:7px;
+    padding:10px 16px;
+    border-radius:20px;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    border:none;
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1;
+    cursor:pointer;
+    z-index:201;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:background .15s ease, transform .12s ease;
+  }
+  .lightbox-back svg{ width:14px; height:14px; }
+  .lightbox-back:active{ transform:scale(.95); background:rgba(255,255,255,.28); }
+
+  .lightbox-share{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    min-height:40px;
+    margin-top:14px;
+    padding:0 18px;
+    border:none;
+    border-radius:20px;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .12s ease, background .2s ease;
+  }
+  .lightbox-share svg{ width:14px; height:14px; }
+  .lightbox-share:active{ transform:scale(.95); }
+
+  html[dir="rtl"] .lightbox-close{ right:auto; left:18px; }
+  html[dir="rtl"] .lightbox-back{ left:auto; right:18px; }
+
+  /* ---------- 14. SHEETS ---------- */
+  .sheet-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:background .28s ease, opacity .28s ease;
+  }
+  .sheet-backdrop.open{
+    background:rgba(0,0,0,.35);
+    opacity:1;
+    pointer-events:auto;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .sheet{
+    width:100%;
+    max-width:460px;
+    margin:0 12px calc(12px + env(safe-area-inset-bottom));
+    transform:translateY(110%);
+    transition:transform .32s cubic-bezier(.32,.72,0,1);
+  }
+  .sheet-backdrop.open .sheet{ transform:translateY(0); }
+
+  .sheet-group{
+    background:var(--sheet-bg);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:8px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+  }
+  .sheet-title{
+    padding:14px 16px 12px;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:var(--secondary);
+    box-shadow:inset 0 -1px 0 var(--separator);
+  }
+  html[dir="rtl"] .sheet-title{ letter-spacing:0; text-transform:none; }
+
+  .sheet-option{
+    display:block;
+    width:100%;
+    padding:15px 16px;
+    background:none;
+    border:none;
+    font-family:inherit;
+    font-size:16.5px;
+    font-weight:600;
+    color:var(--blue);
+    text-decoration:none;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .sheet-option + .sheet-option{ box-shadow:inset 0 1px 0 var(--separator); }
+  .sheet-option:active{ background:var(--fill-2); }
+
+  .sheet-cancel{
+    display:block;
+    width:100%;
+    padding:15px 16px;
+    background:var(--sheet-bg);
+    border:none;
+    border-radius:16px;
+    font-family:inherit;
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--blue);
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    transition:background .15s ease, transform .12s ease;
+  }
+  .sheet-cancel:active{ transform:scale(.99); background:var(--fill); }
+
+  /* QR sheet: segmented control + code */
+  .qr-tabs{
+    display:flex;
+    gap:2px;
+    padding:3px;
+    border-radius:11px;
+    background:var(--fill);
+    margin-bottom:12px;
+  }
+  .qr-tab{
+    flex:1;
+    min-height:40px;
+    padding:10px 4px;
+    border:none;
+    border-radius:9px;
+    background:transparent;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    color:var(--secondary);
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .24s cubic-bezier(.4,.1,.2,1), color .2s ease;
+  }
+  .qr-tab.active{
+    background:var(--blue);
+    color:#fff;
+    font-weight:800;
+    box-shadow:0 3px 10px rgba(0,122,255,.38);
+  }
+  .qr-box{
+    background:#fff;
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    justify-content:center;
+    margin:0;
+  }
+  .qr-box img{ width:190px; height:190px; display:block; }
+
+  /* ---------- 15. TOAST ---------- */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translate(-50%, 14px);
+    z-index:250;
+    max-width:86vw;
+    padding:12px 20px;
+    border-radius:22px;
+    background:rgba(30,30,32,.92);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:600;
+    line-height:1.4;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;
+  }
+  .toast.show{ opacity:1; transform:translate(-50%, 0); }
+
+  /* ---------- 16. SKELETON LOADING ---------- */
+  .cert-skeleton-item{
+    background:var(--card);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .cert-skeleton-item .cert-skeleton-img{
+    height:108px;
+    background:linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 37%, var(--fill) 63%);
+    background-size:400% 100%;
+    animation:skeleton-shimmer 1.4s ease infinite;
+  }
+  .cert-skeleton-item .cert-skeleton-label{
+    height:12px;
+    margin:10px 14px 12px;
+    border-radius:6px;
+    background:linear-gradient(90deg, var(--fill) 25%, var(--fill-2) 37%, var(--fill) 63%);
+    background-size:400% 100%;
+    animation:skeleton-shimmer 1.4s ease infinite;
+  }
+  @keyframes skeleton-shimmer{
+    0%{ background-position:100% 50%; }
+    100%{ background-position:0 50%; }
+  }
+  .cert-loading-text{
+    display:none;
+    text-align:center;
+    color:var(--secondary);
+    font-size:13px;
+    font-weight:600;
+    margin:-4px 0 14px;
+  }
+
+  /* ---------- 17. RESPONSIVE ---------- */
+  @media (hover:hover){
+    .row:hover{ background:var(--fill); }
+    .btn:hover{ opacity:.95; }
+    .quick-action:hover,
+    .cert-category-item:hover,
+    .cert-item:hover{ background:var(--card); }
+    .sheet-option:hover{ background:var(--fill); }
+    .cert-overlay-back:hover{ background:var(--card); }
+    .lightbox-close:hover,
+    .lightbox-back:hover,
+    .lightbox-share:hover{ background:rgba(255,255,255,.26); }
+  }
+
+  @media (max-width:480px){
+    .profile-pic{ width:126px; height:126px; }
+    .avatar-fb svg{ width:48px; height:48px; }
+    .cert-item img{ height:96px; }
+    .cert-video-thumb .video-poster,
+    .video-play{ height:96px; }
+    .cv-viewer.open{ max-height:440px; }
+    .cv-viewer iframe{ height:420px; }
+  }
+
+  @media (max-width:380px){
+    .lang-toggle{ font-size:12.5px; padding:0 12px; }
+    .quick-action{ padding:12px 4px; }
+    .quick-action span{ font-size:11px; }
+    .qr-tab{ font-size:12.5px; }
+    .cert-overlay-title{ font-size:15.5px; }
+  }
+
+  @media (min-width:780px){
+    body{ padding:64px 24px 56px; }
+    .profile-pic{ width:148px; height:148px; }
+    .avatar-fb svg{ width:56px; height:56px; }
+    .container{ max-width:400px; }
+    .cert-overlay-body{ max-width:400px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,
+    *::before,
+    *::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+      scroll-behavior:auto !important;
     }
-    .toast.show{
-      opacity:1;
-      transform: translateX(-50%) translateY(0);
-    }
+  }
   </style>
 </head>
 <body>
+  <!-- ================= INLINE SVG SPRITE (no icon fonts, no network) ================= -->
+  <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+    <defs>
+      <!-- UI icons: stroke family -->
+      <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9.2"/>
+        <path d="M2.8 12h18.4"/>
+        <path d="M12 2.8c2.6 2.4 4.1 5.7 4.1 9.2s-1.5 6.8-4.1 9.2c-2.6-2.4-4.1-5.7-4.1-9.2s1.5-6.8 4.1-9.2z"/>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.6 13.3A8.7 8.7 0 1 1 10.7 3.4a7 7 0 0 0 9.9 9.9z"/>
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2.6v2.3M12 19.1v2.3M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.6 12h2.3M19.1 12h2.3M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>
+      </symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8.8" y="8.8" width="11.4" height="11.4" rx="2.8"/>
+        <path d="M15.5 5.4A2.6 2.6 0 0 0 12.9 2.8H6.6A2.6 2.6 0 0 0 4 5.4V12a2.6 2.6 0 0 0 2.6 2.6"/>
+      </symbol>
+      <symbol id="i-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.8" y="4.8" width="18.4" height="14.4" rx="3.2"/>
+        <circle cx="8.4" cy="10.5" r="2"/>
+        <path d="M5.1 16.2c.6-1.7 1.9-2.5 3.3-2.5s2.7.8 3.3 2.5"/>
+        <path d="M14.2 10h3.9M14.2 13.4h3.9"/>
+      </symbol>
+      <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="17.6" cy="5.4" r="2.4"/>
+        <circle cx="6.4" cy="12" r="2.4"/>
+        <circle cx="17.6" cy="18.6" r="2.4"/>
+        <path d="M8.6 10.8l6.8-4M8.6 13.2l6.8 4"/>
+      </symbol>
+      <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3.2" y="3.2" width="6.6" height="6.6" rx="2"/>
+        <rect x="14.2" y="3.2" width="6.6" height="6.6" rx="2"/>
+        <rect x="3.2" y="14.2" width="6.6" height="6.6" rx="2"/>
+        <path d="M14.2 14.2h2.8v2.8h-2.8z"/>
+        <path d="M20.6 14.2h.02M17 20.6h.02M20.6 20.6h.02"/>
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.6 3.4h2.1c.5 0 .9.3 1 .8l.7 2.9c.1.4 0 .8-.4 1l-1.6 1.1a12.6 12.6 0 0 0 5.4 5.4l1.1-1.6c.2-.3.6-.5 1-.4l2.9.7c.5.1.8.5.8 1v2.1a2.6 2.6 0 0 1-2.9 2.6C9.7 18.1 5.9 14.3 4 7.3a2.6 2.6 0 0 1 2.6-3.9z"/>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.8" y="5.4" width="18.4" height="13.2" rx="3"/>
+        <path d="M3.7 7.3l8.3 6 8.3-6"/>
+      </symbol>
+      <symbol id="i-cert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="9.4" r="5.2"/>
+        <path d="M9.2 13.5L8 21l4-2.2 4 2.2-1.2-7.5"/>
+      </symbol>
+      <symbol id="i-projects" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="6.6" height="6.6" rx="2"/>
+        <rect x="14.4" y="3" width="6.6" height="6.6" rx="2"/>
+        <rect x="3" y="14.4" width="6.6" height="6.6" rx="2"/>
+        <path d="M17.7 9.6v3.4a2.2 2.2 0 0 1-2.2 2.2h-3.4"/>
+      </symbol>
+      <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4.4" y="2.8" width="15.2" height="18.4" rx="3.2"/>
+        <path d="M8.2 7.2h7.6"/>
+        <path d="M8.6 11.6h.02M12 11.6h.02M15.4 11.6h.02M8.6 15.2h.02M12 15.2h.02M15.4 15.2h.02M8.6 18.4h.02M12 18.4h.02M15.4 18.4h.02"/>
+      </symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2.4 12S5.9 5.8 12 5.8 21.6 12 21.6 12 18.1 18.2 12 18.2 2.4 12 2.4 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3.4 3.4l17.2 17.2"/>
+        <path d="M10.3 6.1a10.7 10.7 0 0 1 1.7-.3c6.1 0 9.6 6.2 9.6 6.2a18 18 0 0 1-3.4 4.1"/>
+        <path d="M6.6 7.8A17 17 0 0 0 2.4 12S5.9 18.2 12 18.2a10.6 10.6 0 0 0 3.8-.7"/>
+        <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.2 2.8H7.6A2.8 2.8 0 0 0 4.8 5.6v12.8a2.8 2.8 0 0 0 2.8 2.8h8.8a2.8 2.8 0 0 0 2.8-2.8V7.6z"/>
+        <path d="M14.1 2.9v4.7h4.7"/>
+        <path d="M12 10.6v6M9.3 14.1L12 16.8l2.7-2.7"/>
+      </symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.2 12h15.2"/>
+        <path d="M13.4 6.2L19.2 12l-5.8 5.8"/>
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.2 6.2l11.6 11.6M17.8 6.2L6.2 17.8"/>
+      </symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.4 5.6L15.8 12l-6.4 6.4"/>
+      </symbol>
+      <symbol id="i-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2.6l8.2 4.6v9.6L12 21.4 3.8 16.8V7.2z"/>
+        <path d="M3.8 7.2L12 11.9l8.2-4.7M12 11.9v9.5"/>
+      </symbol>
+      <symbol id="i-fan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="1.9"/>
+        <path d="M12 10.1c0-2.6.9-5.2 3-6.1 2-.8 3.7.6 3.3 2.7-.4 2.1-3.2 3.3-6.3 3.4z"/>
+        <path d="M13.9 12c2.3 1 4.6 2.6 4.3 4.6-.3 2-2.3 2.6-3.9 1.3-1.6-1.3-1.6-3.9-.4-5.9z"/>
+        <path d="M10.1 12c-1 2.3-2.9 4.4-4.9 4.1-2-.3-2.5-2.3-1.2-3.9 1.3-1.6 3.9-1.6 6.1-.2z"/>
+      </symbol>
+      <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.8" y="7.4" width="18.4" height="13.2" rx="3"/>
+        <path d="M9 7.4V5.8a2.2 2.2 0 0 1 2.2-2.2h1.6A2.2 2.2 0 0 1 15 5.8v1.6"/>
+        <path d="M2.8 12.6h18.4"/>
+      </symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3.2 7.6a2.8 2.8 0 0 1 2.8-2.8h3.2c.7 0 1.4.3 1.9.8l1.3 1.3h5.8a2.8 2.8 0 0 1 2.8 2.8v6.9a2.8 2.8 0 0 1-2.8 2.8H6a2.8 2.8 0 0 1-2.8-2.8z"/>
+      </symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3.1"/>
+        <path d="M12 2.6l1.1 2.2 2.5-.4.5 2.5 2.2 1.1-1.1 2.2 1.1 2.2-2.2 1.1-.5 2.5-2.5-.4L12 21.4l-1.1-2.2-2.5.4-.5-2.5-2.2-1.1 1.1-2.2-1.1-2.2 2.2-1.1.5-2.5 2.5.4z"/>
+      </symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="4.7" r="1.8"/>
+        <path d="M11.1 6.3L8.2 20M12.9 6.3L15.8 20"/>
+        <path d="M9.4 12.4h5.2"/>
+      </symbol>
+      <symbol id="i-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3.2s5.4 5.5 5.4 9.3a5.4 5.4 0 0 1-10.8 0C6.6 8.7 12 3.2 12 3.2z"/>
+      </symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2.8H7.4A2.6 2.6 0 0 0 4.8 5.4v13.2a2.6 2.6 0 0 0 2.6 2.6h9.2a2.6 2.6 0 0 0 2.6-2.6V8z"/>
+        <path d="M13.9 2.9V8h5.2"/>
+        <path d="M8.6 13h6.8M8.6 16.4h4.4"/>
+      </symbol>
 
+      <!-- brand + solid glyphs -->
+      <symbol id="i-whatsapp" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12.04 2.5a9.5 9.5 0 0 0-8.1 14.4L2.5 21.5l4.75-1.4A9.5 9.5 0 1 0 12.04 2.5zm0 1.9a7.6 7.6 0 1 1-3.9 14.1l-.35-.2-2.6.75.7-2.53-.21-.36a7.6 7.6 0 0 1 6.36-11.76z"/>
+        <path fill="currentColor" d="M9.2 7.4c-.2 0-.5.06-.73.33-.24.27-.9.9-.9 2.2 0 1.3.94 2.53 1.07 2.71.13.18 1.83 2.95 4.48 4.02 2.2.88 2.65.7 3.12.66.47-.05 1.55-.63 1.77-1.25.22-.62.22-1.14.15-1.25-.06-.11-.24-.18-.5-.31-.26-.13-1.55-.77-1.79-.86-.24-.09-.41-.13-.59.13-.17.27-.68.87-.83 1.05-.15.18-.31.2-.57.07-.26-.13-1.1-.41-2.1-1.3-.78-.7-1.3-1.55-1.45-1.82-.15-.27-.02-.42.11-.55.12-.12.29-.33.43-.5.14-.16.19-.28.28-.46.09-.18.05-.34-.02-.47-.06-.13-.58-1.42-.8-1.94-.2-.51-.41-.44-.57-.45z"/>
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.9 9.6h4.2v11.5H2.9zM10.1 9.6h4v1.6h.06c.56-1.05 1.93-2.16 3.97-2.16 4.25 0 5.03 2.7 5.03 6.2v5.85h-4.2v-5.18c0-1.24-.02-2.83-1.75-2.83-1.75 0-2.02 1.35-2.02 2.74v5.27h-4.2z"/>
+      </symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15.4 21.9v-8.1h2.72l.4-3.16h-3.12V8.62c0-.91.26-1.53 1.57-1.53h1.67V4.26c-.29-.04-1.28-.13-2.44-.13-2.42 0-4.08 1.48-4.08 4.19v2.32H9.3v3.16h2.82v8.1z"/>
+      </symbol>
+      <symbol id="i-youtube" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M21.6 7.3a2.6 2.6 0 0 0-1.83-1.84C18.16 5 12 5 12 5s-6.16 0-7.77.46A2.6 2.6 0 0 0 2.4 7.3C2 8.93 2 12 2 12s0 3.07.4 4.7a2.6 2.6 0 0 0 1.83 1.84C5.84 19 12 19 12 19s6.16 0 7.77-.46a2.6 2.6 0 0 0 1.83-1.84C22 15.07 22 12 22 12s0-3.07-.4-4.7zM10.1 15.1V8.9L15.4 12z"/>
+      </symbol>
+      <symbol id="i-telegram" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M21.6 3.6a1.3 1.3 0 0 0-1.3-.2L2.9 10.2c-1 .38-.98 1.4.05 1.72l4.5 1.4 1.7 5.4c.18.58.5.7 1.02.2l2.6-2.4 4.4 3.2c.68.5 1.4.2 1.6-.75l2.9-13.6a1.3 1.3 0 0 0-.07-.77zM9.5 14.1l8.2-5.7-6.6 6.2-.1 2.9z"/>
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 12.7a4.35 4.35 0 1 0 0-8.7 4.35 4.35 0 0 0 0 8.7zm0 1.9c-3.45 0-6.4 1.95-6.4 4.35v1.25h12.8v-1.25c0-2.4-2.95-4.35-6.4-4.35z"/>
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M8.2 5.3a.9.9 0 0 1 1.36-.78l9.2 6.1a.9.9 0 0 1 0 1.5l-9.2 6.1a.9.9 0 0 1-1.36-.78z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ================= FIXED CORNER CONTROLS ================= -->
   <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="ariaLang" aria-label="Switch language">
-    <i class="fas fa-globe"></i>
+    <svg aria-hidden="true"><use href="#i-globe"/></svg>
     <span id="langLabel">العربية</span>
   </button>
 
   <button class="theme-toggle" id="themeToggle" type="button" data-i18n-aria="ariaTheme" aria-label="Toggle dark mode">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-sun"></i>
+    <svg class="i-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+    <svg class="i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
   </button>
 
   <div class="container">
 
+    <!-- ================= HERO ================= -->
     <div class="profile-header">
       <button type="button" class="profile-pic" id="profilePicBtn" data-i18n-aria="ariaPic" aria-label="View full photo">
-        <img src="me.jpg" alt="ENG Mohamed Shaban">
+        <img src="me.jpg" alt="ENG Mohamed Shaban" onerror="this.style.display='none';document.getElementById('picFallback').style.display='flex';">
+        <span class="avatar-fb" id="picFallback" aria-hidden="true"><svg><use href="#i-user"/></svg></span>
       </button>
       <h1 data-i18n="name">Mohamed Shaban</h1>
       <div class="tagline" data-i18n="tagline">Mechanical Power Engineer</div>
@@ -1036,90 +1394,93 @@
       </div>
     </div>
 
+    <!-- ================= QUICK ACTIONS ================= -->
     <div class="quick-actions">
       <button class="quick-action" id="copyNumberBtn" type="button">
-        <i class="fas fa-copy"></i>
+        <svg aria-hidden="true"><use href="#i-copy"/></svg>
         <span data-i18n="copyNumber">Copy Number</span>
       </button>
       <button class="quick-action" id="saveContactBtn" type="button">
-        <i class="fas fa-address-card"></i>
+        <svg aria-hidden="true"><use href="#i-contact"/></svg>
         <span data-i18n="saveContact">Save Contact</span>
       </button>
       <button class="quick-action" id="shareBtn" type="button">
-        <i class="fas fa-share-nodes"></i>
+        <svg aria-hidden="true"><use href="#i-share"/></svg>
         <span data-i18n="share">Share</span>
       </button>
       <button class="quick-action" id="qrBtn" type="button">
-        <i class="fas fa-qrcode"></i>
+        <svg aria-hidden="true"><use href="#i-qr"/></svg>
         <span data-i18n="qr">QR Code</span>
       </button>
     </div>
 
+    <!-- ================= CONTACT / LINKS (inset list) ================= -->
     <div class="card">
       <a class="row" href="https://wa.me/201094517814" target="_blank" rel="noopener">
-        <span class="row-icon icon-whatsapp"><i class="fab fa-whatsapp"></i></span>
+        <span class="row-icon" style="--tile:#25d366"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
         <span class="row-label" data-i18n="whatsapp">WhatsApp</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <a class="row" href="tel:+201094517814">
-        <span class="row-icon icon-call"><i class="fas fa-phone"></i></span>
+        <span class="row-icon" style="--tile:#34c759"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
         <span class="row-label" data-i18n="call">Call</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
-      <a class="row" href="mailto:eng.m.shaban.kfs@gmail.com">
-        <span class="row-icon icon-email"><i class="fas fa-envelope"></i></span>
+      <a class="row" href="/cdn-cgi/l/email-protection#97f2f9f0b9fab9e4fff6f5f6f9b9fcf1e4d7f0faf6fefbb9f4f8fa">
+        <span class="row-icon" style="--tile:#8a8a8e"><svg aria-hidden="true"><use href="#i-mail"/></svg></span>
         <span class="row-label" data-i18n="email">Email</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <a class="row" href="https://www.linkedin.com/in/m-shaban-kfs?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener">
-        <span class="row-icon icon-linkedin"><i class="fab fa-linkedin-in"></i></span>
+        <span class="row-icon" style="--tile:#0a66c2"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></span>
         <span class="row-label">LinkedIn</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <a class="row" href="https://www.facebook.com/share/14on6ZyFRE2/" target="_blank" rel="noopener">
-        <span class="row-icon icon-facebook"><i class="fab fa-facebook-f"></i></span>
+        <span class="row-icon" style="--tile:#1877f2"><svg aria-hidden="true"><use href="#i-facebook"/></svg></span>
         <span class="row-label">Facebook</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <a class="row" href="https://youtube.com/@eng.m.shaban?si=_45glZ1-534MI1eC" target="_blank" rel="noopener">
-        <span class="row-icon icon-youtube"><i class="fab fa-youtube"></i></span>
+        <span class="row-icon" style="--tile:#ff3b30"><svg aria-hidden="true"><use href="#i-youtube"/></svg></span>
         <span class="row-label">YouTube</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <button class="row" id="telegramBtn" type="button">
-        <span class="row-icon icon-telegram"><i class="fab fa-telegram-plane"></i></span>
+        <span class="row-icon" style="--tile:#229ed9"><svg aria-hidden="true"><use href="#i-telegram"/></svg></span>
         <span class="row-label">Telegram</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </button>
       <a class="row" href="https://engshab.blogspot.com/" target="_blank" rel="noopener">
-        <span class="row-icon icon-blog"><i class="fas fa-globe"></i></span>
+        <span class="row-icon" style="--tile:#ff9500"><svg aria-hidden="true"><use href="#i-globe"/></svg></span>
         <span class="row-label" data-i18n="website">Website</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </a>
       <button class="row" id="certificatesBtn" type="button">
-        <span class="row-icon icon-group"><i class="fas fa-certificate"></i></span>
+        <span class="row-icon" style="--tile:#5856d6"><svg aria-hidden="true"><use href="#i-cert"/></svg></span>
         <span class="row-label"><span data-i18n="certifications">Certifications</span> <small id="certCount"></small></span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </button>
       <button class="row" id="projectsBtn" type="button">
-        <span class="row-icon icon-projects"><i class="fas fa-diagram-project"></i></span>
+        <span class="row-icon" style="--tile:#30b0c7"><svg aria-hidden="true"><use href="#i-projects"/></svg></span>
         <span class="row-label" data-i18n="projects">Projects</span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </button>
       <button class="row" id="calcBtn" type="button">
-        <span class="row-icon icon-calc"><i class="fas fa-calculator"></i></span>
+        <span class="row-icon" style="--tile:#ff2d55"><svg aria-hidden="true"><use href="#i-calc"/></svg></span>
         <span class="row-label"><span data-i18n="calculations">Calculations</span> <small id="calcCount"></small></span>
-        <i class="fas fa-chevron-right row-chevron"></i>
+        <svg class="row-chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
       </button>
     </div>
 
+    <!-- ================= CV ================= -->
     <div class="group-title" data-i18n="cvTitle">Curriculum Vitae</div>
     <div class="cv-actions">
       <button class="btn outline" id="viewCvBtn" type="button">
-        <i class="fas fa-eye"></i> View CV
+        <svg aria-hidden="true"><use href="#i-eye"/></svg> View CV
       </button>
       <a class="btn solid" href="cv.pdf" download>
-        <i class="fas fa-file-download"></i> <span data-i18n="downloadCv">Download CV</span>
+        <svg aria-hidden="true"><use href="#i-download"/></svg> <span data-i18n="downloadCv">Download CV</span>
       </a>
     </div>
 
@@ -1138,7 +1499,7 @@
   <div class="cert-overlay-backdrop" id="certificatesOverlay">
     <div class="cert-overlay-header">
       <button class="cert-overlay-back" id="certificatesOverlayBack" type="button">
-        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
+        <svg class="back-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg> <span data-i18n="back">Back</span>
       </button>
       <div class="cert-overlay-title" id="certOverlayTitle" data-i18n="certifications">Certifications</div>
     </div>
@@ -1147,9 +1508,7 @@
       <div class="cert-grid" id="certSkeletonGrid" style="display:none;"></div>
       <div class="cert-grid" id="certCategoryGrid" style="display:none;"></div>
       <div class="cert-grid" id="certGrid" style="display:none;"></div>
-      <div id="certEmpty" data-i18n="noCerts" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">
-        No certificates yet
-      </div>
+      <div id="certEmpty" data-i18n="noCerts" style="display:none; text-align:center; color:var(--secondary); font-size:13px; font-weight:600; margin-top:8px;">No certificates yet</div>
     </div>
   </div>
 
@@ -1160,7 +1519,7 @@
   <div class="cert-overlay-backdrop" id="projectsOverlay">
     <div class="cert-overlay-header">
       <button class="cert-overlay-back" id="projectsOverlayBack" type="button">
-        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
+        <svg class="back-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg> <span data-i18n="back">Back</span>
       </button>
       <div class="cert-overlay-title" id="projectsOverlayTitle" data-i18n="projects">Projects</div>
     </div>
@@ -1178,19 +1537,19 @@
   <div class="cert-overlay-backdrop" id="calcOverlay">
     <div class="cert-overlay-header">
       <button class="cert-overlay-back" id="calcOverlayBack" type="button">
-        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
+        <svg class="back-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg> <span data-i18n="back">Back</span>
       </button>
       <div class="cert-overlay-title" data-i18n="calculations">Calculations</div>
     </div>
     <div class="cert-overlay-body">
       <div class="cert-grid" id="calcGrid"></div>
-      <div id="calcEmpty" data-i18n="noCalcs" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">No tools yet</div>
+      <div id="calcEmpty" data-i18n="noCalcs" style="display:none; text-align:center; color:var(--secondary); font-size:13px; font-weight:600; margin-top:8px;">No tools yet</div>
     </div>
   </div>
 
   <!-- Profile picture lightbox (مع زر رجوع للصفحة الرئيسية) -->
   <button class="lightbox-back" id="profileLightboxBack" type="button">
-    <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="backHome">Back to main page</span>
+    <svg class="back-arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg> <span data-i18n="backHome">Back to main page</span>
   </button>
   <div class="lightbox-backdrop" id="profileLightbox">
     <div class="lightbox-inner">
@@ -1200,21 +1559,21 @@
 
   <!-- Certificate lightbox -->
   <button class="lightbox-close" id="certLightboxClose" type="button" style="display:none;" data-i18n-aria="ariaClose" aria-label="Close">
-    <i class="fas fa-xmark"></i>
+    <svg aria-hidden="true"><use href="#i-close"/></svg>
   </button>
   <div class="lightbox-backdrop" id="certLightbox">
     <div class="lightbox-inner">
       <img class="lightbox-content" id="certLightboxImg" src="" alt="Certificate">
       <div class="lightbox-caption" id="certLightboxCaption"></div>
       <button class="lightbox-share" id="certLightboxShare" type="button">
-        <i class="fas fa-share-nodes"></i> <span data-i18n="shareCert">Share certificate</span>
+        <svg aria-hidden="true"><use href="#i-share"/></svg> <span data-i18n="shareCert">Share certificate</span>
       </button>
     </div>
   </div>
 
   <!-- Video lightbox (YouTube أو ملف فيديو) -->
   <button class="lightbox-close" id="videoLightboxClose" type="button" style="display:none;" data-i18n-aria="ariaClose" aria-label="Close">
-    <i class="fas fa-xmark"></i>
+    <svg aria-hidden="true"><use href="#i-close"/></svg>
   </button>
   <div class="lightbox-backdrop" id="videoLightbox">
     <div class="lightbox-inner">
@@ -1252,7 +1611,7 @@
 
   <div class="toast" id="toast"></div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ===================== i18n (English default / Arabic) =====================
     const I18N = {
       en: {
@@ -1450,8 +1809,29 @@
     }
     tick();
 
+    // ===================== Icons (inline SVG sprite) =====================
+    // كل الأيقونات بتيجي من سبرايت SVG واحد في أول الصفحة — مفيش خطوط أيقونات خارجية.
+    const ICON_MAP = {
+      'globe': 'globe', 'moon': 'moon', 'sun': 'sun', 'copy': 'copy', 'address-card': 'contact',
+      'share-nodes': 'share', 'qrcode': 'qr', 'whatsapp': 'whatsapp', 'phone': 'phone',
+      'envelope': 'mail', 'linkedin-in': 'linkedin', 'facebook-f': 'facebook', 'youtube': 'youtube',
+      'telegram-plane': 'telegram', 'certificate': 'cert', 'diagram-project': 'projects',
+      'calculator': 'calc', 'eye': 'eye', 'eye-slash': 'eye-off', 'file-download': 'download',
+      'arrow-right': 'arrow-right', 'xmark': 'close', 'chevron-right': 'chevron', 'cube': 'cube',
+      'fan': 'fan', 'briefcase': 'briefcase', 'folder': 'folder', 'play': 'play', 'gear': 'gear',
+      'drafting-compass': 'compass', 'droplet': 'droplet', 'file-pdf': 'file', 'file': 'file'
+    };
+    function svgIcon(id, cls){
+      return '<svg' + (cls ? ' class="' + cls + '"' : '') + ' aria-hidden="true" focusable="false"><use href="#i-' + id + '"/></svg>';
+    }
+    // بياخد اسم أيقونة فونت أوسم (fa-cube مثلاً) ويرجّع نفس الأيقونة كـ SVG داخلي
+    function faIcon(name, cls){
+      const raw = String(name || '').trim().split(/\s+/).pop() || '';
+      return svgIcon(ICON_MAP[raw.replace(/^fa-/, '')] || 'folder', cls);
+    }
+
     function backBtnHtml(label){
-      return '<i class="fas fa-arrow-right back-arrow"></i> ' + escapeHtml(label);
+      return svgIcon('arrow-right', 'back-arrow') + ' ' + escapeHtml(label);
     }
 
     // View CV toggle (inline viewer على الديسكتوب، تاب جديد على الموبايل)
@@ -1466,7 +1846,7 @@
 
     function updateCvBtn(){
       const isOpen = cvViewer.classList.contains('open');
-      viewCvBtn.innerHTML = `<i class="fas ${isOpen ? 'fa-eye-slash' : 'fa-eye'}"></i> ${escapeHtml(t(isOpen ? 'hideCv' : 'viewCv'))}`;
+      viewCvBtn.innerHTML = `${svgIcon(isOpen ? 'eye-off' : 'eye')} ${escapeHtml(t(isOpen ? 'hideCv' : 'viewCv'))}`;
     }
 
     viewCvBtn.addEventListener('click', () => {
@@ -1549,10 +1929,12 @@
     }
     // أيقونة القسم: لوجو لو متحدد (وبيرجع للأيقونة لو الصورة فشلت)
     function categoryIconHtml(name, meta){
+      const glyph = faIcon(meta.icon);
+      const fallback = `<span class="cert-category-icon" style="--tile:${meta.color}">${glyph}</span>`;
       if (meta.logo) {
-        return `<span class="cert-category-icon has-logo"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(name)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.style.background='${meta.color}';this.outerHTML='<i class=&quot;fas ${meta.icon}&quot;></i>'"></span>`;
+        return `<span class="cert-category-icon has-logo" style="--tile:${meta.color}" data-fb="${escapeHtml(fallback)}"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(name)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.innerHTML=this.parentNode.getAttribute('data-fb')"></span>`;
       }
-      return `<span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>`;
+      return `<span class="cert-category-icon" style="--tile:${meta.color}">${glyph}</span>`;
     }
 
     let currentCategory = null; // null = شاشة الأقسام الرئيسية
@@ -1711,11 +2093,11 @@
         const title = itemTitle(f, pdf);
         return `
       <div class="row file-row">
-        <span class="row-icon"><i class="fas fa-file-pdf"></i></span>
+        <span class="row-icon">${svgIcon('file')}</span>
         <span class="file-title">${escapeHtml(title)}</span>
         <span class="file-actions">
-          <a class="file-btn view" href="${escapeHtml(viewHref(pdf))}" target="_blank" rel="noopener" aria-label="${escapeHtml(t('preview'))}"><i class="fas fa-eye"></i></a>
-          <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="${escapeHtml(t('download'))}"><i class="fas fa-file-download"></i></a>
+          <a class="file-btn view" href="${escapeHtml(viewHref(pdf))}" target="_blank" rel="noopener" aria-label="${escapeHtml(t('preview'))}">${svgIcon('eye')}</a>
+          <a class="file-btn download" href="${escapeHtml(pdf)}" download aria-label="${escapeHtml(t('download'))}">${svgIcon('download')}</a>
         </span>
       </div>`;
       }).join('') + '</div>';
@@ -1731,9 +2113,11 @@
         const meta = projectMetaFor(name);
         const label = displayName(name);
         const count = projectsState === 'ready' ? projectFiles(name).length : null;
+        const glyph = faIcon(meta.icon);
+        const fallback = `<span class="cert-category-icon" style="--tile:${meta.color}">${glyph}</span>`;
         const iconHtml = meta.logo
-          ? `<span class="cert-category-icon has-logo"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(label)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.style.background='${meta.color}';this.outerHTML='<i class=&quot;fas ${meta.icon}&quot;></i>'"></span>`
-          : `<span class="cert-category-icon" style="background:${meta.color}"><i class="fas ${meta.icon}"></i></span>`;
+          ? `<span class="cert-category-icon has-logo" style="--tile:${meta.color}" data-fb="${escapeHtml(fallback)}"><img src="${escapeHtml(meta.logo)}" alt="${escapeHtml(label)}" onerror="this.parentNode.classList.remove('has-logo');this.parentNode.innerHTML=this.parentNode.getAttribute('data-fb')"></span>`
+          : fallback;
         return `
         <button type="button" class="cert-category-item" data-project="${escapeHtml(name)}">
           ${iconHtml}
@@ -1781,7 +2165,7 @@
             const count = all.filter((f) => sectionOf(f) === s).length;
             return `
         <button type="button" class="cert-category-item" data-section="${escapeHtml(s)}">
-          <span class="cert-category-icon" style="background:${meta.color}"><i class="fas fa-folder"></i></span>
+          <span class="cert-category-icon" style="--tile:${meta.color}">${svgIcon('folder')}</span>
           <span class="cert-category-label">${escapeHtml(displayName(s))}</span>
           <span class="cert-category-count">${escapeHtml(t('fileCount', count))}</span>
         </button>`;
@@ -1941,7 +2325,7 @@
         const icon = c.icon || 'fa-calculator';
         return `
         <a class="cert-category-item" href="${escapeHtml(calcHref(c.url))}">
-          <span class="cert-category-icon" style="background:${escapeHtml(color)}"><i class="fas ${escapeHtml(icon)}"></i></span>
+          <span class="cert-category-icon" style="--tile:${escapeHtml(color)}">${faIcon(icon)}</span>
           <span class="cert-category-label">${escapeHtml(title)}</span>
           ${sub ? `<span class="cert-category-count">${escapeHtml(sub)}</span>` : ''}
         </a>`;
@@ -2233,7 +2617,7 @@
       btn.className = 'cert-category-item';
       btn.setAttribute('data-folder', 'videos');
       btn.innerHTML = `
-        <span class="cert-category-icon" style="background:#FF3B30"><i class="fas fa-play"></i></span>
+        <span class="cert-category-icon" style="--tile:#FF3B30">${svgIcon('play')}</span>
         <span class="cert-category-label">${escapeHtml(t('videosHeading'))}</span>
         <span class="cert-category-count">${escapeHtml(t('videoCount', n))}</span>
       `;
@@ -2302,7 +2686,7 @@
 
       const play = document.createElement('span');
       play.className = 'video-play';
-      play.innerHTML = '<i class="fas fa-play"></i>';
+      play.innerHTML = svgIcon('play');
       btn.appendChild(play);
 
       const label = document.createElement('div');
@@ -2378,13 +2762,13 @@
           viewBtn.type = 'button';
           viewBtn.setAttribute('data-full', full);
           viewBtn.setAttribute('data-title', title);
-          viewBtn.innerHTML = '<i class="fas fa-eye"></i> ' + escapeHtml(t('preview'));
+          viewBtn.innerHTML = svgIcon('eye') + ' ' + escapeHtml(t('preview'));
 
           const downloadBtn = document.createElement('a');
           downloadBtn.className = 'btn-mini solid cert-download-btn';
           downloadBtn.href = pdf;
           downloadBtn.setAttribute('download', '');
-          downloadBtn.innerHTML = '<i class="fas fa-file-download"></i> ' + escapeHtml(t('download'));
+          downloadBtn.innerHTML = svgIcon('download') + ' ' + escapeHtml(t('download'));
 
           actions.appendChild(viewBtn);
           actions.appendChild(downloadBtn);
@@ -2618,7 +3002,6 @@
       applyLang();
     });
 
-    applyLang();
-  </script>
+    applyLang();  </script>
 </body>
 </html>
