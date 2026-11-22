@@ -316,6 +316,7 @@
     .icon-group{ background:#5856D6; }
     .icon-blog{ background:#FF9500; }
     .icon-projects{ background:#30B0C7; }
+    .icon-calc{ background:#FF2D55; }
 
     .row-label{
       flex:1;
@@ -568,6 +569,7 @@
       transition: transform .1s ease, opacity .15s ease;
     }
     .cert-category-item:active{ transform: scale(0.97); opacity:0.9; }
+    a.cert-category-item{ text-decoration:none; color:inherit; }
     .cert-category-icon{
       width:58px;
       height:58px;
@@ -1104,6 +1106,11 @@
         <span class="row-label" data-i18n="projects">Projects</span>
         <i class="fas fa-chevron-right row-chevron"></i>
       </button>
+      <button class="row" id="calcBtn" type="button">
+        <span class="row-icon icon-calc"><i class="fas fa-calculator"></i></span>
+        <span class="row-label"><span data-i18n="calculations">Calculations</span> <small id="calcCount"></small></span>
+        <i class="fas fa-chevron-right row-chevron"></i>
+      </button>
     </div>
 
     <div class="group-title" data-i18n="cvTitle">Curriculum Vitae</div>
@@ -1160,6 +1167,24 @@
     <div class="cert-overlay-body">
       <div class="cert-grid" id="projectsGrid"></div>
       <div id="projectDetail" class="project-detail" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- ===== Calculations overlay =====
+       قسم الحسابات: بيعرض الأدوات/الحاسبات. عايز تضيف حاسبة جديدة؟
+       1) حط ملف الصفحة في مجلد calculators/
+       2) ضيف سطر لها في calculations.json (نفس مجلد الصفحة) — مش هتلمس الكود.
+       (اختياري) عنوان بلغتين: "title_en" و "title_ar"، ووصف قصير: "subtitle_en" و "subtitle_ar". -->
+  <div class="cert-overlay-backdrop" id="calcOverlay">
+    <div class="cert-overlay-header">
+      <button class="cert-overlay-back" id="calcOverlayBack" type="button">
+        <i class="fas fa-arrow-right back-arrow"></i> <span data-i18n="back">Back</span>
+      </button>
+      <div class="cert-overlay-title" data-i18n="calculations">Calculations</div>
+    </div>
+    <div class="cert-overlay-body">
+      <div class="cert-grid" id="calcGrid"></div>
+      <div id="calcEmpty" data-i18n="noCalcs" style="display:none; text-align:center; color:var(--secondary); font-size:13px; margin-top:8px;">No tools yet</div>
     </div>
   </div>
 
@@ -1253,6 +1278,8 @@
         email: 'Email',
         certifications: 'Certifications',
         projects: 'Projects',
+        calculations: 'Calculations',
+        noCalcs: 'No tools yet',
         cvTitle: 'Curriculum Vitae',
         viewCv: 'View CV',
         hideCv: 'Hide CV',
@@ -1318,6 +1345,8 @@
         email: 'البريد الإلكتروني',
         certifications: 'الشهادات',
         projects: 'المشاريع',
+        calculations: 'الحسابات',
+        noCalcs: 'لا توجد أدوات بعد',
         cvTitle: 'السيرة الذاتية',
         viewCv: 'عرض السيرة الذاتية',
         hideCv: 'إخفاء السيرة الذاتية',
@@ -1864,6 +1893,105 @@
       });
 
     if (window.location.hash.toLowerCase().startsWith('#projects')) syncProjectsFromHash();
+
+    // ===== Calculations =====
+    // قائمة الحاسبات بتتحمّل من calculations.json (نفس مجلد الصفحة).
+    // كل عنصر: { "title_en":"..", "title_ar":"..", "subtitle_en":"..", "subtitle_ar":"..",
+    //            "icon":"fa-droplet", "color":"#0A84FF", "url":"calculators/اسم-الملف.html" }
+    // لو الملف مش موجود، بتظهر القائمة الافتراضية دي.
+    const DEFAULT_CALCS = [
+      {
+        title_en: 'Sprinkler Pipe Size',
+        title_ar: 'أقطار مواسير الرشاشات',
+        subtitle_en: 'Fire Fighting',
+        subtitle_ar: 'مكافحة الحريق',
+        icon: 'fa-droplet',
+        color: '#0A84FF',
+        url: 'calculators/sprinkler-pipe-size.html'
+      }
+    ];
+    let calcData = DEFAULT_CALCS;
+
+    const calcBtn = document.getElementById('calcBtn');
+    const calcOverlay = document.getElementById('calcOverlay');
+    const calcOverlayBack = document.getElementById('calcOverlayBack');
+    const calcGrid = document.getElementById('calcGrid');
+    const calcEmpty = document.getElementById('calcEmpty');
+    const calcCountEl = document.getElementById('calcCount');
+
+    // الحاسبات المحلية بتاخد اللغة الحالية للموقع معاها
+    function calcHref(url){
+      if (/^https?:/i.test(url)) return url;
+      return url + (url.indexOf('?') === -1 ? '?' : '&') + 'lang=' + lang;
+    }
+
+    function renderCalcs(){
+      calcCountEl.textContent = calcData.length ? '(' + calcData.length + ')' : '';
+      if (!calcData.length) {
+        calcGrid.innerHTML = '';
+        calcGrid.style.display = 'none';
+        calcEmpty.style.display = 'block';
+        return;
+      }
+      calcEmpty.style.display = 'none';
+      calcGrid.innerHTML = calcData.map((c) => {
+        const title = itemTitle(c, c.url);
+        const sub = c['subtitle_' + lang] || c.subtitle || '';
+        const color = c.color || '#8E8E93';
+        const icon = c.icon || 'fa-calculator';
+        return `
+        <a class="cert-category-item" href="${escapeHtml(calcHref(c.url))}">
+          <span class="cert-category-icon" style="background:${escapeHtml(color)}"><i class="fas ${escapeHtml(icon)}"></i></span>
+          <span class="cert-category-label">${escapeHtml(title)}</span>
+          ${sub ? `<span class="cert-category-count">${escapeHtml(sub)}</span>` : ''}
+        </a>`;
+      }).join('');
+      calcGrid.style.display = 'grid';
+    }
+
+    function openCalcOverlay(){
+      calcOverlay.classList.add('open');
+      calcOverlay.scrollTop = 0;
+      renderCalcs();
+    }
+    function closeCalcOverlay(updateHash = true){
+      calcOverlay.classList.remove('open');
+      if (updateHash && window.location.hash.toLowerCase() === '#calculations') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+    // الرابط: #calculations (الرجوع من صفحة حاسبة بيفتح القسم تلقائيًا)
+    function syncCalcFromHash(){
+      if ((window.location.hash || '').toLowerCase() === '#calculations') {
+        openCalcOverlay();
+      } else if (calcOverlay.classList.contains('open')) {
+        closeCalcOverlay(false);
+      }
+    }
+
+    calcBtn.addEventListener('click', () => {
+      if (window.location.hash.toLowerCase() !== '#calculations') window.location.hash = '#calculations';
+      openCalcOverlay();
+    });
+    calcOverlayBack.addEventListener('click', () => closeCalcOverlay(true));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && calcOverlay.classList.contains('open')) closeCalcOverlay();
+    });
+    window.addEventListener('hashchange', syncCalcFromHash);
+
+    fetch('calculations.json', { cache: 'no-store' })
+      .then((res) => {
+        if (!res.ok) throw new Error('calculations.json not found');
+        return res.json();
+      })
+      .then((data) => {
+        // أي عنصر فيه "hidden": true بيتخفي من الصفحة
+        if (Array.isArray(data)) calcData = data.filter((c) => c && c.url && !c.hidden);
+        renderCalcs();
+      })
+      .catch(() => { renderCalcs(); });
+
+    syncCalcFromHash();
 
     // Certificates: loaded dynamically from certificates.json
     const certGrid = document.getElementById('certGrid');
@@ -2481,6 +2609,7 @@
         else renderCategories(certificatesData);
       }
       if (projectsOverlay.classList.contains('open')) refreshProjectsView();
+      if (calcOverlay.classList.contains('open')) renderCalcs();
     }
 
     langToggle.addEventListener('click', () => {
