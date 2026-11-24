@@ -16,5 +16,14 @@
     "icon": "fa-right-left",
     "color": "#34C759",
     "url": "calculators/unit-converter.html"
+  },
+  {
+    "title_en": "Most Popular Free AI Websites",
+    "title_ar": "أشهر مواقع الذكاء الاصطناعي المجانية",
+    "subtitle_en": "10 categories • 500 sites",
+    "subtitle_ar": "10 أقسام • 500 موقع",
+    "icon": "fa-robot",
+    "color": "#AF52DE",
+    "url": "calculators/Ai.html"
   }
 ]
