@@ -1269,7 +1269,7 @@ html[data-theme="dark"] .act-ghost { background: #2c2c2e; color: var(--text); }
 </head>
 <body>
 
-<a class="site-back" href="../index.html#calculations">Back</a>
+<a class="site-back" id="siteBack" href="../index.html#calculations">Back</a>
 
 <!-- ============ TOP BAR ============ -->
 <header class="topbar">
@@ -3130,9 +3130,15 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
   }
 
   /* ---------------- converter panel ---------------- */
-  function openCat(id) {
+  /* هل اللوحة الحالية اتفتحت بخطوة History جديدة؟ (عشان الرجوع يرجع خطوة واحدة) */
+  let panelPushed = false;
+  let backPending = false; // يمنع الضغطتين المتتاليتين على الرجوع من خرج خطوتين
+
+  function openCat(id, opts) {
+    opts = opts || {};
     const c = cat(id);
     if (!c) return;
+    const wasOpen = $('#panel').classList.contains('open');
     state.catId = id;
     if (!state.fromId || !c.units.find(u => u.id === state.fromId))
       state.fromId = c.type === 'number' ? 'dec' : c.units[0].id;
@@ -3160,7 +3166,17 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
     fillSelects();
     updateAll();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+    // ✅ History صح: أول فتح للوحة يضيف خطوة جديدة (push) عشان زر الرجوع
+    //    في المتصفح/الموبايل يرجع خطوة واحدة، والتنقّل بين الفئات جوّه
+    //    اللوحة يستبدل نفس الخطوة (replace) من غير ما يكدّس خطوات.
+    if (location.hash !== '#' + id) {
+      if (opts.replace || wasOpen) {
+        history.replaceState(wasOpen ? history.state : null, '', '#' + id);
+      } else {
+        history.pushState({ uc: 'panel' }, '', '#' + id);
+        panelPushed = true;
+      }
+    }
   }
 
   function fillSelects() {
@@ -3292,15 +3308,41 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
     return { ok: true, value: n };
   }
 
-  function backHome() {
+  /* يقفل اللوحة ويرجع للرئيسية (من غير ما يلمس الـ History) */
+  function closePanel() {
+    backPending = false;
     $('#panel').classList.remove('open');
     $('#home').classList.remove('hide');
     state.catId = null;
-    history.replaceState(null, '', location.pathname + location.search);
     renderHome($('#searchInput').value);
     syncTabs();
     $('#fabBack').classList.remove('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function panelHasHistoryEntry() {
+    return panelPushed || !!(history.state && history.state.uc === 'panel');
+  }
+
+  function backHome() {
+    if (backPending) return;
+    // ✅ لو اللوحة اتفتحت بخطوة History جديدة: ارجع خطوة واحدة حقيقية
+    //    والـ popstate هو اللي هيقفل اللوحة.
+    if (panelHasHistoryEntry()) {
+      panelPushed = false;
+      backPending = true;
+      const panel = $('#panel');
+      history.back();
+      // احتياط: لو الـ popstate اتأخّر لأي سبب، اقفل اللوحة عادي
+      setTimeout(() => {
+        backPending = false;
+        if (state.catId === null && panel.classList.contains('open')) closePanel();
+      }, 350);
+      return;
+    }
+    // اللوحة اتفتحت من رابط مباشر (#length) — مفيش خطوة قبلها، اقفلها وصفّي الرابط
+    closePanel();
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   }
 
   /* يوضّح التاب النشِط (الفئات / المفضلة) */
@@ -3449,11 +3491,13 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
       state.view = 'favs';
       $('#qa2').classList.add('on');
       $('#qa1').classList.remove('on');
-      if (state.catId) { $('#panel').classList.remove('open'); $('#home').classList.remove('hide'); state.catId = null; }
-      history.replaceState(null, '', location.pathname + location.search);
       $('#searchInput').value = '';
       $('.search-box').classList.remove('has-value');
-      renderHome('');
+      if (state.catId) backHome();
+      else {
+        if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+        renderHome('');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     $('#qa3').addEventListener('click', () => {
@@ -3468,6 +3512,30 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
 
     // back
     $('#backBtn').addEventListener('click', backHome);
+
+    // ✅ زر Back الثابت فوق: يرجع خطوة واحدة جوّه التطبيق الأول
+    //    (مودال → لوحة الفئة → الرئيسية → وبعدين صفحة الموقع)
+    const siteBack = $('#siteBack');
+    if (siteBack) siteBack.addEventListener('click', e => {
+      // سيب الكلك بالموديفاير (فتح في تاب جديد) يشتغل عادي
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      if ($('#modal').classList.contains('open')) {
+        e.preventDefault();
+        $('#modal').classList.remove('open');
+        return;
+      }
+      if ($('#qrModal').classList.contains('open')) {
+        e.preventDefault();
+        $('#qrModal').classList.remove('open');
+        return;
+      }
+      if (state.catId) {
+        e.preventDefault();
+        backHome();
+        return;
+      }
+      // مفيش خطوة جوّه التطبيق → سيّب الرابط يودّي لصفحة الموقع عادي
+    });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         if ($('#modal').classList.contains('open')) $('#modal').classList.remove('open');
@@ -3576,11 +3644,17 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
 
-    // deep link changes
-    window.addEventListener('hashchange', () => {
+    // ✅ زر الرجوع في المتصفح/الموبايل: يرجع خطوة واحدة جوّه التطبيق
+    //    (بدل ما كان بيخرج من الصفحة كلها عشان كنا بنستخدم replaceState)
+    window.addEventListener('popstate', () => {
       const h = location.hash.replace('#', '');
-      if (h && cat(h)) openCat(h);
-      else if (!h && state.catId) backHome();
+      if (h && cat(h)) {
+        openCat(h); // الـ hash اتغيّر بالفعل — مفيش push جديد
+      } else {
+        panelPushed = false;
+        if ($('#panel').classList.contains('open')) closePanel();
+        else { renderHome($('#searchInput').value); syncTabs(); }
+      }
     });
 
     // keyboard: ctrl/cmd+k → search
@@ -3607,12 +3681,12 @@ window.LOGO_DARK = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAApQAAADuCAMAAA
     // deep link #length
     syncTabsSoft();
     const h = location.hash.replace('#', '');
-    if (h && cat(h)) openCat(h);
+    if (h && cat(h)) openCat(h, { replace: true });
   }
 
   document.addEventListener('DOMContentLoaded', boot);
 })();
 
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5eb75baac1e7894',t:'MTc5NTM4NzQ3OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5eb75baac1e7894',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5eb75baac1e7894',t:'MTc5NTM4NzQ3OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5eb75baac1e7894',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5f9ea2aaab6e201',t:'MTc5NTUzOTA0OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5f9ea2aaab6e201',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
