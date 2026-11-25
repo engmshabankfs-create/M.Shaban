@@ -1,5 +1,14 @@
 [
   {
+    "title_en": "ESP Calculator",
+    "title_ar": "حاسبة الضغط الإستاتيكي",
+    "subtitle_en": "Duct Static Pressure",
+    "subtitle_ar": "فقد الضغط في مجاري الهواء",
+    "icon": "fa-fan",
+    "color": "#FF9F0A",
+    "url": "calculators/esp-pwa/esp.html"
+  },
+  {
     "title_en": "Sprinkler Pipe Size",
     "title_ar": "أقطار مواسير الرشاشات",
     "subtitle_en": "Fire Fighting",
