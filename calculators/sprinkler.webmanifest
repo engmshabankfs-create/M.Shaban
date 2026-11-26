@@ -1,0 +1,38 @@
+{
+  "name": "حاسبة مواسير الإطفاء Sprinkler",
+  "short_name": "Sprinkler Pipe",
+  "id": "./sprinkler-pipe-size.html",
+  "start_url": "./sprinkler-pipe-size.html",
+  "scope": "./sprinkler-pipe-size.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#007aff",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "esp-pwa/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "esp-pwa/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "esp-pwa/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "esp-pwa/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

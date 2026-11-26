@@ -985,7 +985,7 @@ body{top:0 !important}
 .goog-text-highlight{background:transparent !important;box-shadow:none !important}
 
 </style>
-</head>
+<link rel="manifest" href="ai.webmanifest"><link rel="icon" href="esp-pwa/icons/icon-192.png"><link rel="apple-touch-icon" href="esp-pwa/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="AI Sites"><meta name="theme-color" content="#000000"></head>
 <body>
 <button class="back-link" id="backBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg><span id="backLabel" data-i18n="back">رجوع</span></button>
 <button class="lang-btn notranslate" id="langBtn" type="button" aria-label="English" translate="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.9 5.8 3.9 9s-1.3 6.2-3.9 9c-2.6-2.8-3.9-5.8-3.9-9s1.3-6.2 3.9-9z"/></svg><span id="langLabel">EN</span></button>
@@ -1977,5 +1977,25 @@ document.addEventListener('keydown',function(e){
  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&['i','j','c'].indexOf(k)>-1)e.preventDefault();
 });
 </script>
-</body>
+<style id="swu-css">#swu{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:2147483000;display:flex;align-items:center;gap:10px;padding:7px 8px 7px 14px;border-radius:999px;background:rgba(28,28,30,.96);color:#fff;font:600 13px/1.2 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Tahoma,Arial,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.35);direction:rtl;max-width:calc(100vw - 24px)}#swu button{border:0;border-radius:999px;background:#007aff;color:#fff;font:inherit;padding:6px 14px;cursor:pointer}#swu button:disabled{opacity:.6}@media print{#swu{display:none!important}}</style><style id="swi-css">#swi{position:fixed;left:50%;bottom:62px;transform:translateX(-50%);z-index:2147482999;display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:8px 10px;padding:9px 10px 9px 14px;border-radius:18px;background:rgba(28,28,30,.96);color:#fff;font:600 13px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Tahoma,Arial,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.35);direction:rtl;width:max-content;max-width:calc(100vw - 24px);text-align:center}#swi button{border:0;border-radius:999px;background:#007aff;color:#fff;font:inherit;padding:6px 14px;cursor:pointer}#swi button.x{background:rgba(255,255,255,.16)}@media print{#swi{display:none!important}}</style><script id="swu-js">(function(){if(!("serviceWorker" in navigator))return;var sw=navigator.serviceWorker,had=!!sw.controller,shown=false,tapped=false;
+function go(){if(go.d)return;go.d=1;location.reload()}
+function show(w){if(shown||!had)return;shown=true;var d=document.createElement("div");d.id="swu";d.setAttribute("role","status");d.innerHTML='<span>\u0641\u064a \u062a\u062d\u062f\u064a\u062b \u062c\u062f\u064a\u062f</span><button type="button">\u062a\u062d\u062f\u064a\u062b</button>';
+d.querySelector("button").onclick=function(){if(tapped)return;tapped=true;this.disabled=true;sw.addEventListener("controllerchange",go);if(w&&w.state==="installed"){try{w.postMessage("SKIP_WAITING")}catch(e){}setTimeout(go,2500)}else go()};document.body.appendChild(d)}
+function track(reg){if(reg.waiting)show(reg.waiting);reg.addEventListener("updatefound",function(){var n=reg.installing;if(!n)return;n.addEventListener("statechange",function(){if(n.state==="installed")show(n);else if(n.state==="activated")show(null)})});
+var chk=function(){try{reg.update().catch(function(){})}catch(e){}};document.addEventListener("visibilitychange",function(){if(!document.hidden)chk()});setInterval(chk,1800000)}
+window.addEventListener("load",function(){navigator.serviceWorker.register("ai-sw.js",{scope:"./Ai.html"}).then(track).catch(function(){});})})();</script><script id="swi-js">(function(){var K="swi-installed:ai",dp=null,el=null;
+function std(){return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true}
+function ls(f){try{return f()}catch(e){}}
+if(std()){ls(function(){localStorage.setItem(K,"1")});return}
+if(ls(function(){return localStorage.getItem(K)}))return;
+function gone(){if(el&&el.parentNode)el.parentNode.removeChild(el);el=null}
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e});
+window.addEventListener("appinstalled",function(){ls(function(){localStorage.setItem(K,"1")});gone()});
+function build(){if(el||document.getElementById("swi"))return;el=document.createElement("div");el.id="swi";el.setAttribute("role","region");
+el.innerHTML='<span>\u062b\u0628\u062a \u0627\u0644\u062a\u0637\u0628\u064a\u0642 \u0639\u0644\u0649 \u0645\u0648\u0628\u0627\u064a\u0644\u0643</span><button type="button" class="i">\u062b\u0628\u062a \u0627\u0644\u062a\u0637\u0628\u064a\u0642</button><button type="button" class="x">\u0644\u0627\u062d\u0642\u0627\u064b</button>';
+el.querySelector(".x").onclick=gone;
+el.querySelector(".i").onclick=function(){if(dp){var p=dp;dp=null;try{p.prompt();p.userChoice.then(function(c){if(c&&c.outcome==="accepted"){ls(function(){localStorage.setItem(K,"1")});gone()}}).catch(function(){})}catch(e){}return}
+var s=el.querySelector("span");s.textContent="\u0627\u0641\u062a\u062d \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u22ee \u062b\u0645 \u0627\u062e\u062a\u0631 \u062a\u062b\u0628\u064a\u062a \u0627\u0644\u062a\u0637\u0628\u064a\u0642 (Install app) \u0623\u0648 \u0625\u0636\u0627\u0641\u0629 \u0625\u0644\u0649 \u0627\u0644\u0634\u0627\u0634\u0629 \u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629";this.style.display="none"};
+document.body.appendChild(el)}
+window.addEventListener("load",function(){setTimeout(build,1200)})})();</script></body>
 </html>
