@@ -1,4 +1,4 @@
-const CACHE="esp-calc-v3";
+const CACHE="esp-calc-v4";
 const SHELL=["./esp.html","./manifest.webmanifest","./icons/icon-192.png","./icons/icon-512.png","./icons/maskable-192.png","./icons/maskable-512.png","./icons/apple-touch-icon.png"];
 const MEDIA=/\.(mp4|m4v|webm|mov|ogv|mp3|m4a|aac|wav|ogg)(\?.*)?$/i;
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
