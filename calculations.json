@@ -15,7 +15,7 @@
     "subtitle_ar": "مكافحة الحريق",
     "icon": "fa-droplet",
     "color": "#0A84FF",
-    "url": "calculators/sprinkler-pipe-size.html"
+    "url": "calculators/sprinkler/"
   },
   {
     "title_en": "Giant Unit Converter",
@@ -24,7 +24,7 @@
     "subtitle_ar": "50 فئة • +500 وحدة",
     "icon": "fa-right-left",
     "color": "#34C759",
-    "url": "calculators/unit-converter.html"
+    "url": "calculators/unit-converter/"
   },
   {
     "title_en": "Most Popular Free AI Websites",
@@ -33,6 +33,6 @@
     "subtitle_ar": "10 أقسام • 500 موقع",
     "icon": "fa-robot",
     "color": "#AF52DE",
-    "url": "calculators/Ai.html"
+    "url": "calculators/ai/"
   }
 ]
