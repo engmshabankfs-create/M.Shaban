@@ -1,4 +1,4 @@
-const CACHE="ai-0.1";
+const CACHE="ai-0.3";
 const SHELL=["./", "./index.html", "./manifest.webmanifest", "../esp-pwa/icons/icon-192.png", "../esp-pwa/icons/icon-512.png", "../esp-pwa/icons/maskable-192.png", "../esp-pwa/icons/maskable-512.png", "../esp-pwa/icons/apple-touch-icon.png"];
 const MEDIA=/\.(mp4|m4v|webm|mov|ogv|mp3|m4a|aac|wav|ogg)(\?.*)?$/i;
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)))});
