@@ -34,5 +34,11 @@
       "type": "image/png",
       "purpose": "maskable"
     }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://engmshabankfs-create.github.io/M.Shaban/calculators/unit-converter/manifest.webmanifest"
+    }
   ]
 }
